@@ -2,207 +2,450 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ADMIN DELT∆</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMIN - DELT∆</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+--bg:#060d1a;
+--surface:#0d1f35;
+--accent:#00ff88;
+--accent2:#3b82f6;
+--danger:#ef4444;
+--text:#e2e8f0;
+--muted:#64748b;
+}
+
 body{
-font-family:Arial;
-background:#0f172a;
-color:white;
-margin:0;
+font-family:'Inter',sans-serif;
+background:var(--bg);
+color:var(--text);
+min-height:100vh;
+}
+
+/* LOGIN */
+.login-wrap{
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+min-height:100vh;
+padding:20px;
 }
 
-.box{
-background:#1e293b;
-padding:20px;
-border-radius:10px;
-width:400px;
+.login-box{
+background:rgba(13,31,53,0.9);
+border:1px solid rgba(0,255,136,0.15);
+padding:48px 40px;
+border-radius:20px;
+width:100%;
+max-width:400px;
 text-align:center;
 }
 
-input,select{
-width:100%;
-padding:10px;
-margin:8px 0;
-border-radius:6px;
-border:none;
+.login-box .logo{
+font-family:'Rajdhani',sans-serif;
+font-size:12px;
+letter-spacing:4px;
+color:var(--muted);
+margin-bottom:6px;
 }
+
+.login-box h2{
+font-family:'Rajdhani',sans-serif;
+font-size:28px;
+font-weight:700;
+letter-spacing:2px;
+margin-bottom:28px;
+}
+
+/* PAINEL */
+#painel{
+display:none;
+padding:30px 20px;
+max-width:900px;
+margin:0 auto;
+}
+
+.painel-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+padding-bottom:16px;
+border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.painel-header h2{
+font-family:'Rajdhani',sans-serif;
+font-size:24px;
+font-weight:700;
+letter-spacing:2px;
+color:var(--accent);
+}
+
+.logout-btn{
+background:transparent;
+border:1px solid rgba(239,68,68,0.4);
+color:var(--danger);
+padding:7px 16px;
+border-radius:8px;
+cursor:pointer;
+font-size:12px;
+letter-spacing:1px;
+transition:0.3s;
+}
+.logout-btn:hover{background:rgba(239,68,68,0.1);}
+
+/* SECTIONS */
+.section{
+background:var(--surface);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:16px;
+padding:24px;
+margin-bottom:24px;
+}
+
+.section h3{
+font-family:'Rajdhani',sans-serif;
+font-size:16px;
+font-weight:600;
+letter-spacing:2px;
+color:var(--muted);
+text-transform:uppercase;
+margin-bottom:20px;
+}
+
+/* INPUTS */
+input, select, textarea{
+width:100%;
+padding:12px 14px;
+background:rgba(6,13,26,0.8);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:10px;
+color:var(--text);
+font-size:14px;
+font-family:'Inter',sans-serif;
+margin-bottom:12px;
+transition:0.3s;
+outline:none;
+}
+
+input:focus, select:focus, textarea:focus{
+border-color:rgba(0,255,136,0.4);
+}
+
+select option{background:#0d1f35;}
+textarea{resize:vertical;min-height:70px;}
 
 button{
-width:100%;
-padding:10px;
+padding:11px 20px;
 border:none;
-border-radius:6px;
+border-radius:9px;
+font-family:'Rajdhani',sans-serif;
+font-weight:600;
+font-size:14px;
+letter-spacing:1px;
 cursor:pointer;
+transition:0.3s;
 }
 
-.loginBtn{background:#3b82f6;color:white;}
-.uploadBtn{background:#22c55e;color:white;}
-.aprovar{background:green;color:white;margin-top:5px;}
+button:hover{transform:translateY(-1px);}
 
-.hidden{display:none;}
+.btn-green{background:var(--accent);color:#060d1a;width:100%;}
+.btn-blue{background:var(--accent2);color:white;padding:7px 16px;}
+.btn-approve{background:rgba(0,255,136,0.15);color:var(--accent);border:1px solid rgba(0,255,136,0.3);padding:6px 14px;font-size:12px;}
+.btn-approve:hover{background:rgba(0,255,136,0.25);}
+.btn-delete{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);padding:6px 14px;font-size:12px;}
+.btn-delete:hover{background:rgba(239,68,68,0.25);}
 
-.card{
-background:#111827;
-padding:10px;
-margin:10px 0;
+.btn-login{background:var(--accent);color:#060d1a;width:100%;margin-top:8px;}
+
+/* USER CARDS */
+.user-card{
+background:rgba(6,13,26,0.6);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:12px;
+padding:14px 16px;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.user-info p{
+font-size:13px;
+margin-bottom:3px;
+}
+
+.user-info .email{color:var(--text);font-weight:500;}
+.user-info .area{color:var(--muted);font-size:12px;}
+
+.badge{
+display:inline-block;
+padding:3px 10px;
+border-radius:20px;
+font-size:11px;
+letter-spacing:1px;
+font-weight:600;
+}
+
+.badge.approved{background:rgba(0,255,136,0.15);color:var(--accent);}
+.badge.pending{background:rgba(251,191,36,0.15);color:#fbbf24;}
+
+.user-actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* AULA CARDS */
+.aula-card{
+background:rgba(6,13,26,0.6);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:12px;
+padding:14px 16px;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.aula-info .titulo{font-weight:500;font-size:14px;}
+.aula-info .meta{font-size:12px;color:var(--muted);margin-top:3px;}
+
+/* MSG */
+.msg{
+padding:10px 14px;
 border-radius:8px;
+font-size:13px;
+margin-top:10px;
+display:none;
 }
+.msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
+.msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
+
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+
+/* LOGIN BOX INPUT */
+.login-box input{margin-bottom:12px;}
+.error-login{color:#f87171;font-size:13px;margin-top:8px;}
 </style>
 </head>
-
 <body>
 
-<!-- LOGIN ADMIN -->
-<div class="box" id="loginBox">
-
-<h2>Admin Login</h2>
-
-<input type="password" id="senha" placeholder="Senha admin">
-<button class="loginBtn" onclick="entrar()">Entrar</button>
-
-<p id="erro" style="color:red"></p>
-
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
+    <h2>ADMIN</h2>
+    <input type="password" id="senha" placeholder="Senha de administrador">
+    <button class="btn-login" onclick="entrar()">ENTRAR</button>
+    <p class="error-login" id="erroLogin"></p>
+  </div>
 </div>
 
 <!-- PAINEL -->
-<div id="painel" class="hidden" style="width:80%;">
+<div id="painel">
+  <div class="painel-header">
+    <h2>PAINEL ADMIN</h2>
+    <button class="logout-btn" onclick="sair()">SAIR</button>
+  </div>
 
-<h2>PAINEL ADMIN</h2>
+  <!-- UPLOAD AULA (por link) -->
+  <div class="section">
+    <h3>Adicionar Aula</h3>
+    <div class="grid2">
+      <input id="titulo" placeholder="Título da aula">
+      <select id="area">
+        <option value="">Seleciona a área</option>
+        <option value="medicina geral">Medicina Geral</option>
+        <option value="enfermagem">Enfermagem</option>
+        <option value="farmacia">Farmácia</option>
+        <option value="analises clinicas">Análises Clínicas</option>
+        <option value="fisioterapia">Fisioterapia</option>
+        <option value="nutrição e dietética">Nutrição e Dietética</option>
+        <option value="cardiopneumologia">Cardiopneumologia</option>
+        <option value="medicina dentária">Medicina Dentária</option>
+      </select>
+    </div>
+    <select id="tipo">
+      <option value="video">🎥 Vídeo (YouTube)</option>
+      <option value="pdf">📄 PDF (Google Drive)</option>
+      <option value="imagem">🖼 Imagem (link direto)</option>
+    </select>
+    <input id="url" placeholder="Cole o link aqui (YouTube, Google Drive, etc.)">
+    <div id="urlHelp" style="font-size:12px;color:var(--muted);margin-bottom:12px;"></div>
+    <button class="btn-green" onclick="adicionarAula()">ADICIONAR AULA</button>
+    <div class="msg" id="msgAula"></div>
+  </div>
 
-<!-- UPLOAD -->
-<div class="box">
-<h3>Upload Aulas</h3>
+  <!-- AULAS EXISTENTES -->
+  <div class="section">
+    <h3>Aulas Publicadas</h3>
+    <div id="listaAulas"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
+  </div>
 
-<input id="titulo" placeholder="Título">
-
-<select id="tipo">
-<option value="video">Vídeo</option>
-<option value="pdf">PDF</option>
-<option value="imagem">Imagem</option>
-</select>
-
-<input type="file" id="file">
-
-<select id="area">
-<option value="medicina geral">Medicina Geral</option>
-<option value="enfermagem">Enfermagem</option>
-<option value="farmacia">Farmácia</option>
-</select>
-
-<button class="uploadBtn" onclick="upload()">Enviar Aula</button>
-</div>
-
-<!-- USERS -->
-<div class="box">
-<h3>Usuários</h3>
-<div id="users"></div>
-</div>
-
+  <!-- USERS -->
+  <div class="section">
+    <h3>Utilizadores</h3>
+    <div id="users"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
+  </div>
 </div>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { getFirestore, collection, getDocs, doc, updateDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyBPx6l8JDNFfi70-DgRBvWk4mhuQz2kOWQ",
-authDomain: "preparatoriovirtualcomdelta.firebaseapp.com",
-projectId: "preparatoriovirtualcomdelta",
-storageBucket: "preparatoriovirtualcomdelta.appspot.com",
-messagingSenderId: "554101533814",
-appId: "1:554101533814:web:ed46583d92f4e14679c357"
+  apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
+  authDomain: "preparatoriovirtualcomde-38c0a.firebaseapp.com",
+  projectId: "preparatoriovirtualcomde-38c0a",
+  storageBucket: "preparatoriovirtualcomde-38c0a.firebasestorage.app",
+  messagingSenderId: "211289899773",
+  appId: "1:211289899773:web:dfc22d377c7172f936b494"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const storage = getStorage(app);
 
-// 🔐 SENHA ORIGINAL
-const senhaAdmin = "12345678910xxxDelt∆xxxLoginwwwPermissãoFormulas17$";
+// SENHA ADMIN
+const SENHA = "DeltaAdmin2025$#";
 
-// LOGIN ADMIN
+// LOGIN
 window.entrar = function(){
-
-const s = document.getElementById("senha").value;
-
-if(s !== senhaAdmin){
-document.getElementById("erro").innerText = "Senha incorreta!";
-return;
+  const s = document.getElementById("senha").value;
+  if(s !== SENHA){
+    document.getElementById("erroLogin").innerText = "Senha incorreta!";
+    return;
+  }
+  document.getElementById("loginWrap").style.display = "none";
+  document.getElementById("painel").style.display = "block";
+  carregarUsers();
+  carregarAulas();
 }
 
-document.getElementById("loginBox").style.display = "none";
-document.getElementById("painel").classList.remove("hidden");
-
-carregarUsers();
+window.sair = function(){
+  document.getElementById("loginWrap").style.display = "flex";
+  document.getElementById("painel").style.display = "none";
+  document.getElementById("senha").value = "";
 }
 
-// USERS
+// Dica de URL
+document.getElementById("tipo").addEventListener("change", function(){
+  const help = document.getElementById("urlHelp");
+  const tipo = this.value;
+  if(tipo === "video") help.innerText = "💡 YouTube: clica em Partilhar → Incorporar e copia o link do src do iframe (começa com https://www.youtube.com/embed/...)";
+  else if(tipo === "pdf") help.innerText = "💡 Google Drive: abre o PDF → Partilhar → Qualquer pessoa com o link → copia o link e substitui /view por /preview";
+  else help.innerText = "💡 Cola o link direto da imagem";
+});
+
+// ADICIONAR AULA
+window.adicionarAula = async function(){
+  const titulo = document.getElementById("titulo").value.trim();
+  const tipo = document.getElementById("tipo").value;
+  const url = document.getElementById("url").value.trim();
+  const area = document.getElementById("area").value;
+  const msg = document.getElementById("msgAula");
+
+  msg.className = "msg";
+
+  if(!titulo || !url || !area){
+    msg.className = "msg error";
+    msg.innerText = "Preenche todos os campos.";
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "aulas"), { titulo, tipo, url, area, createdAt: Date.now() });
+    msg.className = "msg success";
+    msg.innerText = "✅ Aula adicionada com sucesso!";
+    document.getElementById("titulo").value = "";
+    document.getElementById("url").value = "";
+    carregarAulas();
+  } catch(e){
+    msg.className = "msg error";
+    msg.innerText = "Erro: " + e.message;
+  }
+}
+
+// CARREGAR AULAS
+async function carregarAulas(){
+  const div = document.getElementById("listaAulas");
+  const snap = await getDocs(collection(db, "aulas"));
+
+  if(snap.empty){
+    div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhuma aula publicada ainda.</p>";
+    return;
+  }
+
+  div.innerHTML = "";
+  snap.forEach(d => {
+    const data = d.data();
+    const tipos = {video:"🎥",pdf:"📄",imagem:"🖼"};
+    div.innerHTML += `
+      <div class="aula-card">
+        <div class="aula-info">
+          <div class="titulo">${tipos[data.tipo] || "📁"} ${data.titulo}</div>
+          <div class="meta">${data.area} · ${data.tipo}</div>
+        </div>
+        <button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button>
+      </div>
+    `;
+  });
+}
+
+// ELIMINAR AULA
+window.eliminarAula = async function(id){
+  if(!confirm("Tens a certeza que queres eliminar esta aula?")) return;
+  await deleteDoc(doc(db, "aulas", id));
+  carregarAulas();
+}
+
+// CARREGAR USERS
 async function carregarUsers(){
+  const div = document.getElementById("users");
+  const snap = await getDocs(collection(db, "users"));
 
-const snap = await getDocs(collection(db,"users"));
+  if(snap.empty){
+    div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>";
+    return;
+  }
 
-const div = document.getElementById("users");
-div.innerHTML = "";
-
-snap.forEach(u=>{
-
-const d = u.data();
-
-div.innerHTML += `
-<div class="card">
-<p>${d.email}</p>
-<p>${d.area}</p>
-<p>${d.approved ? "APROVADO" : "PENDENTE"}</p>
-
-${!d.approved ? `<button class="aprovar" onclick="aprovar('${u.id}')">Aprovar</button>` : ""}
-</div>
-`;
-});
-
+  div.innerHTML = "";
+  snap.forEach(u => {
+    const d = u.data();
+    div.innerHTML += `
+      <div class="user-card">
+        <div class="user-info">
+          <p class="email">${d.email}</p>
+          <p class="area">${d.area || "—"}</p>
+          <span class="badge ${d.approved ? 'approved' : 'pending'}">${d.approved ? "APROVADO" : "PENDENTE"}</span>
+        </div>
+        <div class="user-actions">
+          ${!d.approved ? `<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>` : ""}
+          ${d.approved ? `<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>` : ""}
+        </div>
+      </div>
+    `;
+  });
 }
 
+// APROVAR
 window.aprovar = async function(id){
-await updateDoc(doc(db,"users",id),{approved:true});
-alert("Usuário aprovado!");
-carregarUsers();
+  await updateDoc(doc(db, "users", id), { approved: true });
+  carregarUsers();
 }
 
-// UPLOAD
-window.upload = async function(){
-
-const titulo = document.getElementById("titulo").value;
-const tipo = document.getElementById("tipo").value;
-const file = document.getElementById("file").files[0];
-const area = document.getElementById("area").value;
-
-if(!titulo || !file){
-alert("Preenche tudo");
-return;
+// REVOGAR
+window.revogar = async function(id){
+  if(!confirm("Revogar acesso deste utilizador?")) return;
+  await updateDoc(doc(db, "users", id), { approved: false });
+  carregarUsers();
 }
-
-const fileRef = ref(storage, tipo + "/" + Date.now() + "_" + file.name);
-
-await uploadBytes(fileRef, file);
-
-const url = await getDownloadURL(fileRef);
-
-await addDoc(collection(db,"aulas"),{
-titulo,
-tipo,
-url,
-area
-});
-
-alert("Aula enviada!");
-}
-
 </script>
 
 </body>
