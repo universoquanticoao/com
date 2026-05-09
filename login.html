@@ -2,85 +2,212 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LOGIN - DELT∆</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+--bg:#060d1a;
+--surface:#0d1f35;
+--accent:#00ff88;
+--accent2:#3b82f6;
+--text:#e2e8f0;
+--muted:#64748b;
+}
+
 body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+font-family:'Inter',sans-serif;
+background:var(--bg);
+color:var(--text);
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-color:white;
+min-height:100vh;
+padding:20px;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+  radial-gradient(ellipse 60% 50% at 30% 30%, rgba(0,255,136,0.07) 0%, transparent 60%),
+  radial-gradient(ellipse 50% 40% at 70% 70%, rgba(59,130,246,0.07) 0%, transparent 60%);
+pointer-events:none;
 }
 
 .box{
-background:rgba(255,255,255,0.08);
-padding:60px;
-border-radius:25px;
-width:420px;
-text-align:center;
-}
-
-input,select{
-width:100%;
-padding:15px;
-margin:10px 0;
-border-radius:10px;
-border:none;
-font-size:16px;
-}
-
-.passwordBox{
 position:relative;
+z-index:1;
+background:rgba(13,31,53,0.9);
+border:1px solid rgba(0,255,136,0.15);
+padding:48px 40px;
+border-radius:20px;
+width:100%;
+max-width:440px;
+backdrop-filter:blur(20px);
 }
+
+.logo{
+font-family:'Rajdhani',sans-serif;
+font-size:13px;
+letter-spacing:4px;
+color:var(--muted);
+text-transform:uppercase;
+margin-bottom:8px;
+}
+
+h2{
+font-family:'Rajdhani',sans-serif;
+font-size:32px;
+font-weight:700;
+letter-spacing:2px;
+margin-bottom:32px;
+color:var(--text);
+}
+
+.area-badge{
+display:inline-block;
+background:rgba(0,255,136,0.1);
+border:1px solid rgba(0,255,136,0.3);
+color:var(--accent);
+font-size:12px;
+letter-spacing:2px;
+padding:4px 12px;
+border-radius:20px;
+margin-bottom:24px;
+text-transform:uppercase;
+}
+
+.field{
+margin-bottom:16px;
+}
+
+label{
+display:block;
+font-size:11px;
+letter-spacing:2px;
+color:var(--muted);
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+input, select{
+width:100%;
+padding:13px 16px;
+background:rgba(6,13,26,0.8);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:10px;
+color:var(--text);
+font-size:15px;
+font-family:'Inter',sans-serif;
+transition:0.3s;
+outline:none;
+}
+
+input:focus, select:focus{
+border-color:rgba(0,255,136,0.4);
+background:rgba(6,13,26,0.95);
+}
+
+select option{background:#0d1f35;}
+
+.password-wrap{position:relative;}
 
 .eye{
 position:absolute;
-right:15px;
+right:14px;
 top:50%;
 transform:translateY(-50%);
 cursor:pointer;
+font-size:18px;
+opacity:0.5;
+transition:0.2s;
+}
+.eye:hover{opacity:1;}
+
+.btns{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:24px;
 }
 
 button{
 width:100%;
-padding:15px;
+padding:14px;
 border:none;
 border-radius:10px;
-color:white;
-font-size:18px;
+font-size:15px;
+font-family:'Rajdhani',sans-serif;
+font-weight:600;
+letter-spacing:2px;
 cursor:pointer;
-margin-top:10px;
+transition:0.3s;
 }
 
-.loginBtn{background:#22c55e;}
-.registerBtn{background:#3b82f6;}
+button:hover:not(:disabled){transform:translateY(-2px);}
+button:disabled{opacity:0.5;cursor:not-allowed;}
 
-button:disabled{
-opacity:0.6;
-cursor:not-allowed;
+.loginBtn{
+background:var(--accent);
+color:#060d1a;
 }
 
-.error{
-color:red;
-margin-top:10px;
+.registerBtn{
+background:transparent;
+color:var(--accent2);
+border:1px solid var(--accent2);
 }
 
-#loading{
+.registerBtn:hover:not(:disabled){
+background:rgba(59,130,246,0.1);
+}
+
+.msg{
+margin-top:16px;
+padding:12px 16px;
+border-radius:8px;
+font-size:13px;
 display:none;
-margin-top:15px;
+}
+
+.msg.error{
+background:rgba(239,68,68,0.1);
+border:1px solid rgba(239,68,68,0.3);
+color:#f87171;
+display:block;
+}
+
+.msg.success{
+background:rgba(0,255,136,0.1);
+border:1px solid rgba(0,255,136,0.3);
+color:var(--accent);
+display:block;
+}
+
+.msg.info{
+background:rgba(59,130,246,0.1);
+border:1px solid rgba(59,130,246,0.3);
+color:#60a5fa;
+display:block;
+}
+
+.spinner-wrap{
+display:none;
+text-align:center;
+margin-top:16px;
 }
 
 .spinner{
-width:30px;
-height:30px;
-border:4px solid #ccc;
-border-top:4px solid #22c55e;
+width:28px;
+height:28px;
+border:3px solid rgba(0,255,136,0.2);
+border-top:3px solid var(--accent);
 border-radius:50%;
-animation:spin 1s linear infinite;
+animation:spin 0.8s linear infinite;
 margin:auto;
 }
 
@@ -88,210 +215,208 @@ margin:auto;
 0%{transform:rotate(0deg);}
 100%{transform:rotate(360deg);}
 }
+
+@media(max-width:480px){
+.box{padding:36px 24px;}
+}
 </style>
 </head>
-
 <body>
 
 <div class="box">
+  <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
+  <h2>ACESSO</h2>
+  <div id="areaBadge" class="area-badge" style="display:none"></div>
 
-<h2>Login</h2>
+  <div class="field">
+    <label>Email</label>
+    <input type="email" id="email" placeholder="o-seu@email.com">
+  </div>
 
-<input id="email" placeholder="Email">
+  <div class="field">
+    <label>Senha</label>
+    <div class="password-wrap">
+      <input type="password" id="senha" placeholder="••••••••">
+      <span class="eye" onclick="toggleSenha()">👁</span>
+    </div>
+  </div>
 
-<div class="passwordBox">
-<input id="senha" type="password" placeholder="Senha">
-<span class="eye" onclick="toggleSenha()">👁</span>
-</div>
+  <div class="field">
+    <label>Área</label>
+    <select id="area">
+      <option value="">Seleciona a tua área</option>
+      <option value="medicina geral">Medicina Geral</option>
+      <option value="enfermagem">Enfermagem</option>
+      <option value="farmacia">Farmácia</option>
+      <option value="analises clinicas">Análises Clínicas</option>
+      <option value="fisioterapia">Fisioterapia</option>
+      <option value="nutrição e dietética">Nutrição e Dietética</option>
+      <option value="cardiopneumologia">Cardiopneumologia</option>
+      <option value="medicina dentária">Medicina Dentária</option>
+    </select>
+  </div>
 
-<select id="area">
-<option value="">Seleciona área</option>
-<option value="medicina geral">Medicina Geral</option>
-<option value="enfermagem">Enfermagem</option>
-<option value="farmacia">Farmácia</option>
-<option value="analises clinicas">Análises Clínicas</option>
-<option value="fisioterapia">Fisioterapia</option>
-<option value="nutrição e dietética">Nutrição e Dietética</option>
-<option value="cardiopneumologia">Cardiopneumologia</option>
-<option value="medicina dentária">Medicina Dentária</option>
-</select>
+  <div class="btns">
+    <button class="loginBtn" id="btnLogin" onclick="login()">ENTRAR</button>
+    <button class="registerBtn" id="btnRegister" onclick="register()">CRIAR CONTA</button>
+  </div>
 
-<button id="btnLogin" class="loginBtn" onclick="login()">Entrar</button>
-<button id="btnRegister" class="registerBtn" onclick="register()">Criar conta</button>
+  <div class="spinner-wrap" id="loading">
+    <div class="spinner"></div>
+  </div>
 
-<div id="loading">
-<div class="spinner"></div>
-<p>A carregar...</p>
-</div>
-
-<div class="error" id="erro"></div>
-
+  <div class="msg" id="msg"></div>
 </div>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDoF_h5rVPvVFsHJNcXdWO1gkzwdm65pZQ",
-  authDomain: "preparatoriovirtualcomde-71e23.firebaseapp.com",
-  projectId: "preparatoriovirtualcomde-71e23",
-  storageBucket: "preparatoriovirtualcomde-71e23.firebasestorage.app",
-  messagingSenderId: "738659946479",
-  appId: "1:738659946479:web:882735f1e23b5d0764b01a"
+  apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
+  authDomain: "preparatoriovirtualcomde-38c0a.firebaseapp.com",
+  projectId: "preparatoriovirtualcomde-38c0a",
+  storageBucket: "preparatoriovirtualcomde-38c0a.firebasestorage.app",
+  messagingSenderId: "211289899773",
+  appId: "1:211289899773:web:dfc22d377c7172f936b494"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const erro = document.getElementById("erro");
+const msgEl = document.getElementById("msg");
 const loading = document.getElementById("loading");
 const btnLogin = document.getElementById("btnLogin");
 const btnRegister = document.getElementById("btnRegister");
 
-// 🔥 pegar área do index
+// Pegar área da URL
 const params = new URLSearchParams(window.location.search);
 const areaURL = params.get("area");
 if(areaURL){
-document.getElementById("area").value = areaURL;
+  document.getElementById("area").value = areaURL;
+  const badge = document.getElementById("areaBadge");
+  badge.innerText = areaURL;
+  badge.style.display = "inline-block";
+}
+
+function showMsg(texto, tipo){
+  msgEl.className = "msg " + tipo;
+  msgEl.innerText = texto;
 }
 
 function showLoading(){
-loading.style.display = "block";
-btnLogin.disabled = true;
-btnRegister.disabled = true;
+  loading.style.display = "block";
+  btnLogin.disabled = true;
+  btnRegister.disabled = true;
 }
 
 function hideLoading(){
-loading.style.display = "none";
-btnLogin.disabled = false;
-btnRegister.disabled = false;
+  loading.style.display = "none";
+  btnLogin.disabled = false;
+  btnRegister.disabled = false;
 }
 
 function validar(email, senha, area){
-if(!email || !senha || !area){
-erro.innerText = "Preenche todos os campos";
-return false;
-}
-return true;
+  if(!email || !senha || !area){
+    showMsg("Preenche todos os campos.", "error");
+    return false;
+  }
+  if(senha.length < 6){
+    showMsg("A senha deve ter pelo menos 6 caracteres.", "error");
+    return false;
+  }
+  return true;
 }
 
-// 🔐 LOGIN
+// LOGIN
 window.login = async function(){
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value;
+  const area = document.getElementById("area").value;
 
-const email = document.getElementById("email").value;
-const senha = document.getElementById("senha").value;
-const area = document.getElementById("area").value;
+  msgEl.className = "msg";
 
-erro.innerText = "";
+  if(!validar(email, senha, area)) return;
 
-if(!validar(email, senha, area)) return;
+  showLoading();
 
-showLoading();
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, senha);
+    const ref = doc(db, "users", cred.user.uid);
+    const snap = await getDoc(ref);
 
-try {
+    if(!snap.exists()){
+      showMsg("Conta não encontrada no sistema. Cria uma conta primeiro.", "error");
+      hideLoading();
+      return;
+    }
 
-const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+    const data = snap.data();
 
-// 🔥 GARANTE QUE EXISTE NO FIRESTORE
-await garantirFirestore(userCredential.user, email, area);
+    if(data.approved !== true){
+      showMsg("⏳ Conta pendente. Aguarda a aprovação do admin.", "info");
+      hideLoading();
+      return;
+    }
 
-await verificar(userCredential.user, email);
+    // Guardar sessão
+    localStorage.setItem("user", email);
+    localStorage.setItem("uid", cred.user.uid);
+    localStorage.setItem("area", data.area);
 
-} catch(error){
-erro.innerText = "Email ou senha inválidos";
-} finally {
-hideLoading();
+    window.location.href = "aulas.html";
+
+  } catch(e){
+    showMsg("Email ou senha inválidos.", "error");
+    hideLoading();
+  }
 }
 
-}
-
-// 🆕 REGISTO
+// REGISTO
 window.register = async function(){
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value;
+  const area = document.getElementById("area").value;
 
-const email = document.getElementById("email").value;
-const senha = document.getElementById("senha").value;
-const area = document.getElementById("area").value;
+  msgEl.className = "msg";
 
-erro.innerText = "";
+  if(!validar(email, senha, area)) return;
 
-if(!validar(email, senha, area)) return;
+  showLoading();
 
-showLoading();
+  try {
+    const newUser = await createUserWithEmailAndPassword(auth, email, senha);
 
-try {
+    await setDoc(doc(db, "users", newUser.user.uid), {
+      uid: newUser.user.uid,
+      email: email,
+      area: area,
+      approved: false,
+      createdAt: Date.now()
+    });
 
-const newUser = await createUserWithEmailAndPassword(auth, email, senha);
+    showMsg("✅ Conta criada com sucesso! Aguarda a aprovação do admin para fazer login.", "success");
 
-await setDoc(doc(db,"users",newUser.user.uid),{
-uid: newUser.user.uid,
-email: email,
-area: area,
-approved: false,
-createdAt: Date.now()
-});
-
-erro.style.color = "lightgreen";
-erro.innerText = "Conta criada! Aguarde aprovação do admin";
-
-} catch(error){
-erro.innerText = error.message;
-} finally {
-hideLoading();
+  } catch(e){
+    if(e.code === "auth/email-already-in-use"){
+      showMsg("Este email já está registado. Faz login.", "error");
+    } else {
+      showMsg("Erro ao criar conta: " + e.message, "error");
+    }
+  } finally {
+    hideLoading();
+  }
 }
 
-}
-
-// 🔥 GARANTE DOCUMENTO NO FIRESTORE
-async function garantirFirestore(user, email, area){
-
-const ref = doc(db,"users",user.uid);
-const snap = await getDoc(ref);
-
-if(!snap.exists()){
-await setDoc(ref,{
-uid: user.uid,
-email: email,
-area: area,
-approved: false,
-createdAt: Date.now()
-});
-}
-
-}
-
-// 🔎 VERIFICAÇÃO
-async function verificar(user, email){
-
-const ref = doc(db,"users",user.uid);
-const snap = await getDoc(ref);
-
-if(!snap.exists()){
-erro.innerText = "Erro no sistema";
-return;
-}
-
-if(snap.data().approved !== true){
-erro.innerText = "Aguardando aprovação do admin";
-return;
-}
-
-localStorage.setItem("user", email);
-localStorage.setItem("area", snap.data().area);
-
-window.location.href = "aulas.html";
-}
-
-// 👁 senha
+// Toggle senha
 window.toggleSenha = function(){
-const senha = document.getElementById("senha");
-senha.type = senha.type === "password" ? "text" : "password";
+  const s = document.getElementById("senha");
+  s.type = s.type === "password" ? "text" : "password";
 }
-
 </script>
 
 </body>
 </html>
+
