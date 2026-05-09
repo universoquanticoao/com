@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-
 :root{
 --bg:#060d1a;
 --surface:#0d1f35;
@@ -16,188 +15,93 @@
 --text:#e2e8f0;
 --muted:#64748b;
 }
-
-body{
-font-family:'Inter',sans-serif;
-background:var(--bg);
-color:var(--text);
-min-height:100vh;
-}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
 /* MENU */
 .menu{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:16px 24px;
-background:rgba(6,13,26,0.95);
-backdrop-filter:blur(20px);
-position:sticky;
-top:0;
-z-index:100;
+display:flex;justify-content:space-between;align-items:center;
+padding:16px 24px;background:rgba(6,13,26,0.95);
+backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;
 border-bottom:1px solid rgba(0,255,136,0.1);
 }
-
-.logo{
-font-family:'Rajdhani',sans-serif;
-font-weight:700;
-font-size:18px;
-letter-spacing:2px;
-color:var(--accent);
-}
-
-.user-info{
-font-size:12px;
-color:var(--muted);
-text-align:right;
-}
-
-.user-info span{
-display:block;
-color:var(--text);
-font-weight:500;
-}
-
-.logout{
-background:transparent;
-border:1px solid rgba(100,116,139,0.3);
-color:var(--muted);
-padding:7px 14px;
-border-radius:7px;
-cursor:pointer;
-font-size:12px;
-letter-spacing:1px;
-transition:0.3s;
-margin-left:16px;
-}
-
+.logo{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;letter-spacing:2px;color:var(--accent);}
+.menu-right{display:flex;align-items:center;gap:12px;}
+.user-info{font-size:12px;color:var(--muted);text-align:right;}
+.user-info span{display:block;color:var(--text);font-weight:500;}
+.logout{background:transparent;border:1px solid rgba(100,116,139,0.3);color:var(--muted);padding:7px 14px;border-radius:7px;cursor:pointer;font-size:12px;letter-spacing:1px;transition:0.3s;}
 .logout:hover{border-color:var(--accent);color:var(--accent);}
 
-.menu-right{
-display:flex;
-align-items:center;
-gap:8px;
-}
+/* MAIN */
+.main{max-width:960px;margin:0 auto;padding:30px 20px;}
 
-/* CONTAINER */
-.container{
-max-width:900px;
-margin:0 auto;
-padding:30px 20px;
+/* BREADCRUMB */
+.breadcrumb{
+display:flex;align-items:center;gap:8px;
+font-size:12px;color:var(--muted);margin-bottom:24px;flex-wrap:wrap;
 }
+.breadcrumb span{cursor:pointer;transition:0.2s;}
+.breadcrumb span:hover{color:var(--accent);}
+.breadcrumb .sep{color:rgba(100,116,139,0.4);cursor:default;}
+.breadcrumb .current{color:var(--text);cursor:default;}
 
-.page-title{
-font-family:'Rajdhani',sans-serif;
-font-size:28px;
-font-weight:700;
-letter-spacing:2px;
-margin-bottom:6px;
-}
+/* PAGE TITLE */
+.page-title{font-family:'Rajdhani',sans-serif;font-size:30px;font-weight:700;letter-spacing:2px;margin-bottom:28px;}
 
-.area-tag{
-display:inline-block;
-background:rgba(0,255,136,0.1);
-border:1px solid rgba(0,255,136,0.25);
-color:var(--accent);
-font-size:11px;
-letter-spacing:2px;
-padding:4px 12px;
-border-radius:20px;
-text-transform:uppercase;
-margin-bottom:28px;
+/* SECTION CARDS */
+.section-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.section-card{
+background:var(--surface);border:1px solid rgba(255,255,255,0.06);
+border-radius:16px;padding:28px 24px;cursor:pointer;transition:0.35s;
+position:relative;overflow:hidden;
 }
+.section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,136,0.07),transparent);opacity:0;transition:0.35s;}
+.section-card:hover{transform:translateY(-4px);border-color:rgba(0,255,136,0.35);box-shadow:0 16px 40px rgba(0,0,0,0.4);}
+.section-card:hover::before{opacity:1;}
+.section-card .icon{font-size:32px;margin-bottom:14px;display:block;}
+.section-card .title{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;margin-bottom:6px;}
+.section-card .desc{font-size:12px;color:var(--muted);}
 
-/* CARDS */
-.card{
-background:var(--surface);
-border:1px solid rgba(255,255,255,0.06);
-border-radius:16px;
-padding:20px;
-margin-bottom:16px;
-transition:0.3s;
+/* DISCIPLINA / UNIVERSIDADE CARDS */
+.disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
+.disc-card{
+background:var(--surface);border:1px solid rgba(255,255,255,0.06);
+border-radius:12px;padding:20px;cursor:pointer;transition:0.3s;text-align:center;
 }
+.disc-card:hover{border-color:rgba(0,255,136,0.35);color:var(--accent);transform:translateY(-3px);}
+.disc-card .disc-icon{font-size:26px;margin-bottom:10px;display:block;}
+.disc-card .disc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;}
 
-.card:hover{
-border-color:rgba(0,255,136,0.2);
-}
-
-.card-header{
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:14px;
-}
-
-.card-icon{
-font-size:22px;
-}
-
-.card-titulo{
-font-family:'Rajdhani',sans-serif;
-font-size:18px;
-font-weight:600;
-letter-spacing:1px;
-}
+/* CONTENT */
+.content-list{display:flex;flex-direction:column;gap:16px;}
+.content-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px;transition:0.3s;}
+.content-card:hover{border-color:rgba(0,255,136,0.2);}
+.c-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.c-icon{font-size:20px;}
+.c-title{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:600;letter-spacing:1px;}
 
 /* VIDEO */
-.video-wrap{
-position:relative;
-width:100%;
-padding-top:56.25%;
-border-radius:10px;
-overflow:hidden;
-background:#000;
-}
-
-.video-wrap iframe{
-position:absolute;
-top:0;left:0;
-width:100%;height:100%;
-border:none;
-}
+.video-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000;}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
 /* PDF */
-.pdf-wrap{
-width:100%;
-height:500px;
-border-radius:10px;
-overflow:hidden;
-border:1px solid rgba(255,255,255,0.06);
-}
-
-.pdf-wrap iframe{
-width:100%;
-height:100%;
-border:none;
-}
+.pdf-wrap{width:100%;height:500px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);}
+.pdf-wrap iframe{width:100%;height:100%;border:none;}
 
 /* IMAGEM */
-.img-wrap img{
-width:100%;
-border-radius:10px;
-display:block;
-}
+.img-wrap img{width:100%;border-radius:10px;display:block;}
 
-/* LOADING / EMPTY */
-.empty{
-text-align:center;
-padding:60px 20px;
-color:var(--muted);
-}
-
-.empty p{font-size:15px;}
-
-/* SPINNER */
+/* EMPTY / SPINNER */
+.empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.empty .e-icon{font-size:40px;margin-bottom:12px;}
+.empty p{font-size:14px;}
 .spinner-wrap{text-align:center;padding:60px;}
-.spinner{
-width:32px;height:32px;
-border:3px solid rgba(0,255,136,0.2);
-border-top:3px solid var(--accent);
-border-radius:50%;
-animation:spin 0.8s linear infinite;
-margin:auto;
-}
+.spinner{width:32px;height:32px;border:3px solid rgba(0,255,136,0.2);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:auto;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+@media(max-width:600px){
+.section-grid{grid-template-columns:1fr 1fr;}
+.disc-grid{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -213,10 +117,10 @@ margin:auto;
   </div>
 </div>
 
-<div class="container">
-  <div class="page-title">AULAS</div>
-  <div class="area-tag" id="areaTitulo"></div>
-  <div id="lista">
+<div class="main">
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div class="page-title" id="pageTitle">CONTEÚDOS</div>
+  <div id="conteudo">
     <div class="spinner-wrap"><div class="spinner"></div></div>
   </div>
 </div>
@@ -239,103 +143,150 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const lista = document.getElementById("lista");
+const SECCOES = [
+  { id:"video_aulas",  icon:"🎥", title:"VÍDEO AULAS",           desc:"Aulas em vídeo por disciplina" },
+  { id:"materiais",    icon:"📚", title:"MATERIAIS DE APOIO",     desc:"PDFs e imagens por disciplina" },
+  { id:"cronograma",   icon:"📅", title:"CRONOGRAMA DE ESTUDO",   desc:"Planificação das tuas aulas" },
+  { id:"provas",       icon:"📝", title:"PROVAS PASSADAS",        desc:"Provas anteriores por universidade" },
+  { id:"resolucao",    icon:"✅", title:"RESOLUÇÃO DE PROVAS",    desc:"Vídeos de resolução por universidade" }
+];
 
-// PROTEÇÃO: verificar login + aprovação
+const DISCIPLINAS_VIDEO    = ["Biologia","Química","Física","Língua Portuguesa","Matemática"];
+const DISCIPLINAS_MATERIAL = ["Biologia","Química","Física","Matemática","Língua Portuguesa","Cultura Geral"];
+const UNIVERSIDADES        = ["ISTM","UAN","UMN","UJES","UNIPIAGET","UPRA","URNM","UKB","UON"];
+
+let estado = { seccao: null, sub: null };
+
+// PROTEÇÃO
 onAuthStateChanged(auth, async (user) => {
-  if(!user){
-    window.location.href = "login.html";
-    return;
-  }
-
-  // Verificar aprovação no Firestore
-  const snap = await getDoc(doc(db, "users", user.uid));
-
+  if(!user){ window.location.href = "login.html"; return; }
+  const snap = await getDoc(doc(db,"users",user.uid));
   if(!snap.exists() || snap.data().approved !== true){
     await signOut(auth);
     window.location.href = "login.html";
     return;
   }
-
   const data = snap.data();
-  const area = data.area;
-
   document.getElementById("userEmail").innerText = data.email;
-  document.getElementById("userArea").innerText = area.toUpperCase();
-  document.getElementById("areaTitulo").innerText = area;
-  localStorage.setItem("area", area);
-
-  carregarAulas(area);
+  document.getElementById("userArea").innerText = (data.area||"").toUpperCase();
+  mostrarMenu();
 });
 
-async function carregarAulas(area){
-  const snap = await getDocs(collection(db, "aulas"));
+// MENU PRINCIPAL
+function mostrarMenu(){
+  estado = { seccao:null, sub:null };
+  atualizarBreadcrumb();
+  document.getElementById("pageTitle").innerText = "CONTEÚDOS";
+  const div = document.getElementById("conteudo");
+  div.innerHTML = `<div class="section-grid"></div>`;
+  const grid = div.querySelector(".section-grid");
+  SECCOES.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "section-card";
+    card.innerHTML = `<span class="icon">${s.icon}</span><div class="title">${s.title}</div><div class="desc">${s.desc}</div>`;
+    card.onclick = () => abrirSeccao(s);
+    grid.appendChild(card);
+  });
+}
 
-  const aulas = [];
+// ABRIR SECÇÃO
+function abrirSeccao(s){
+  estado.seccao = s;
+  estado.sub = null;
+  if(s.id === "video_aulas")   mostrarSubLista(s, DISCIPLINAS_VIDEO, "🎥");
+  else if(s.id === "materiais") mostrarSubLista(s, DISCIPLINAS_MATERIAL, "📚");
+  else if(s.id === "cronograma") mostrarConteudo(s, null);
+  else if(s.id === "provas")   mostrarSubLista(s, UNIVERSIDADES, "📝");
+  else if(s.id === "resolucao") mostrarSubLista(s, UNIVERSIDADES, "✅");
+}
+
+// SUB LISTA (disciplinas ou universidades)
+function mostrarSubLista(s, lista, icon){
+  atualizarBreadcrumb();
+  document.getElementById("pageTitle").innerText = s.title;
+  const div = document.getElementById("conteudo");
+  div.innerHTML = `<div class="disc-grid"></div>`;
+  const grid = div.querySelector(".disc-grid");
+  lista.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "disc-card";
+    card.innerHTML = `<span class="disc-icon">${icon}</span><div class="disc-name">${item.toUpperCase()}</div>`;
+    card.onclick = () => { estado.sub = item; mostrarConteudo(s, item); };
+    grid.appendChild(card);
+  });
+}
+
+// MOSTRAR CONTEÚDO
+async function mostrarConteudo(s, sub){
+  atualizarBreadcrumb();
+  document.getElementById("pageTitle").innerText = sub ? sub.toUpperCase() : s.title;
+  const div = document.getElementById("conteudo");
+  div.innerHTML = `<div class="spinner-wrap"><div class="spinner"></div></div>`;
+
+  const snap = await getDocs(collection(db,"aulas"));
+  const items = [];
   snap.forEach(d => {
     const data = d.data();
-    if(data.area === area) aulas.push(data);
+    if(data.seccao !== s.id) return;
+    if(sub && data.sub !== sub) return;
+    items.push(data);
   });
 
-  if(aulas.length === 0){
-    lista.innerHTML = `
-      <div class="empty">
-        <p>Ainda não há aulas disponíveis para a tua área.</p>
-        <p style="margin-top:8px;font-size:13px;">Volta mais tarde.</p>
-      </div>
-    `;
+  if(items.length === 0){
+    div.innerHTML = `<div class="empty"><div class="e-icon">📭</div><p>Ainda não há conteúdo aqui.</p><p style="margin-top:6px;font-size:12px;">Volta mais tarde.</p></div>`;
     return;
   }
 
-  lista.innerHTML = "";
+  div.innerHTML = `<div class="content-list"></div>`;
+  const lista = div.querySelector(".content-list");
+  const icones = {video:"🎥",pdf:"📄",imagem:"🖼"};
 
-  aulas.forEach(data => {
+  items.forEach(data => {
     const card = document.createElement("div");
-    card.className = "card";
-
+    card.className = "content-card";
     let conteudo = "";
-
     if(data.tipo === "video"){
-      conteudo = `
-        <div class="video-wrap">
-          <iframe src="${data.url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-        </div>
-      `;
+      conteudo = `<div class="video-wrap"><iframe src="${data.url}" allowfullscreen allow="autoplay; encrypted-media"></iframe></div>`;
     } else if(data.tipo === "pdf"){
-      conteudo = `
-        <div class="pdf-wrap">
-          <iframe src="${data.url}"></iframe>
-        </div>
-      `;
+      conteudo = `<div class="pdf-wrap"><iframe src="${data.url}"></iframe></div>`;
     } else if(data.tipo === "imagem"){
-      conteudo = `
-        <div class="img-wrap">
-          <img src="${data.url}" alt="${data.titulo}">
-        </div>
-      `;
+      conteudo = `<div class="img-wrap"><img src="${data.url}" alt="${data.titulo}"></div>`;
     }
-
-    const icones = {video:"🎥", pdf:"📄", imagem:"🖼"};
-
-    card.innerHTML = `
-      <div class="card-header">
-        <span class="card-icon">${icones[data.tipo] || "📁"}</span>
-        <span class="card-titulo">${data.titulo}</span>
-      </div>
-      ${conteudo}
-    `;
-
+    card.innerHTML = `<div class="c-header"><span class="c-icon">${icones[data.tipo]||"📁"}</span><span class="c-title">${data.titulo}</span></div>${conteudo}`;
     lista.appendChild(card);
   });
 }
 
-// LOGOUT
+// BREADCRUMB
+function atualizarBreadcrumb(){
+  const bc = document.getElementById("breadcrumb");
+  bc.innerHTML = "";
+  const inicio = document.createElement("span");
+  inicio.innerText = "Início";
+  inicio.onclick = mostrarMenu;
+  bc.appendChild(inicio);
+  if(estado.seccao){
+    bc.innerHTML += `<span class="sep">›</span>`;
+    const sec = document.createElement("span");
+    sec.innerText = estado.seccao.title;
+    if(estado.sub){ sec.onclick = () => abrirSeccao(estado.seccao); }
+    else { sec.className = "current"; }
+    bc.appendChild(sec);
+  }
+  if(estado.sub){
+    bc.innerHTML += `<span class="sep">›</span>`;
+    const sub = document.createElement("span");
+    sub.innerText = estado.sub;
+    sub.className = "current";
+    bc.appendChild(sub);
+  }
+}
+
 window.sair = async function(){
   await signOut(auth);
   localStorage.clear();
   window.location.href = "login.html";
 }
 </script>
-
 </body>
 </html>
