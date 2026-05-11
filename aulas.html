@@ -252,7 +252,14 @@ async function mostrarConteudo(s, sub){
     const data = d.data();
     if(data.seccao !== s.id) return;
     if(sub && data.sub !== sub) return;
-    items.push(data);
+    iitems.push(data);
+  });
+
+  items.sort((a, b) => {
+    const numA = parseInt((a.titulo.match(/\d+/) || [0])[0]);
+    const numB = parseInt((b.titulo.match(/\d+/) || [0])[0]);
+    if(numA !== numB) return numA - numB;
+    return a.titulo.localeCompare(b.titulo);
   });
 
   if(items.length === 0){
