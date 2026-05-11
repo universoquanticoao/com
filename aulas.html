@@ -252,7 +252,7 @@ async function mostrarConteudo(s, sub){
     const data = d.data();
     if(data.seccao !== s.id) return;
     if(sub && data.sub !== sub) return;
-    iitems.push(data);
+    items.push(data);
   });
 
   items.sort((a, b) => {
