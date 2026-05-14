@@ -64,26 +64,60 @@ font-family:'Rajdhani',sans-serif;
 font-size:32px;
 font-weight:700;
 letter-spacing:2px;
-margin-bottom:32px;
+margin-bottom:20px;
 color:var(--text);
 }
 
-.area-badge{
+/* BADGES */
+.badges{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-bottom:24px;
+}
+
+.badge{
 display:inline-block;
-background:rgba(0,255,136,0.1);
-border:1px solid rgba(0,255,136,0.3);
-color:var(--accent);
-font-size:12px;
+font-size:11px;
 letter-spacing:2px;
 padding:4px 12px;
 border-radius:20px;
-margin-bottom:24px;
 text-transform:uppercase;
+font-family:'Rajdhani',sans-serif;
+font-weight:600;
 }
 
-.field{
-margin-bottom:16px;
+.badge.uni{
+background:rgba(0,255,136,0.1);
+border:1px solid rgba(0,255,136,0.3);
+color:var(--accent);
 }
+
+.badge.curso{
+background:rgba(59,130,246,0.1);
+border:1px solid rgba(59,130,246,0.3);
+color:var(--accent2);
+}
+
+.badge.area{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+color:var(--muted);
+}
+
+.back-link{
+display:inline-block;
+font-size:12px;
+letter-spacing:2px;
+color:var(--muted);
+text-decoration:none;
+margin-bottom:20px;
+font-family:'Rajdhani',sans-serif;
+transition:0.2s;
+}
+.back-link:hover{color:var(--accent);}
+
+.field{margin-bottom:16px;}
 
 label{
 display:block;
@@ -115,24 +149,14 @@ background:rgba(6,13,26,0.95);
 select option{background:#0d1f35;}
 
 .password-wrap{position:relative;}
-
 .eye{
-position:absolute;
-right:14px;
-top:50%;
-transform:translateY(-50%);
-cursor:pointer;
-font-size:18px;
-opacity:0.5;
-transition:0.2s;
+position:absolute;right:14px;top:50%;transform:translateY(-50%);
+cursor:pointer;font-size:18px;opacity:0.5;transition:0.2s;
 }
 .eye:hover{opacity:1;}
 
 .btns{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-top:24px;
+display:flex;flex-direction:column;gap:10px;margin-top:24px;
 }
 
 button{
@@ -151,96 +175,45 @@ transition:0.3s;
 button:hover:not(:disabled){transform:translateY(-2px);}
 button:disabled{opacity:0.5;cursor:not-allowed;}
 
-.loginBtn{
-background:var(--accent);
-color:#060d1a;
-}
+.loginBtn{background:var(--accent);color:#060d1a;}
 
 .registerBtn{
 background:transparent;
 color:var(--accent2);
 border:1px solid var(--accent2);
 }
-
-.registerBtn:hover:not(:disabled){
-background:rgba(59,130,246,0.1);
-}
+.registerBtn:hover:not(:disabled){background:rgba(59,130,246,0.1);}
 
 .forgotBtn{
-background:transparent;
-color:var(--muted);
-border:none;
-font-size:13px;
-letter-spacing:1px;
-padding:8px;
+background:transparent;color:var(--muted);border:none;
+font-size:13px;letter-spacing:1px;padding:8px;
 }
-
-.forgotBtn:hover:not(:disabled){
-color:var(--text);
-transform:none;
-}
+.forgotBtn:hover:not(:disabled){color:var(--text);transform:none;}
 
 .msg{
-margin-top:16px;
-padding:12px 16px;
-border-radius:8px;
-font-size:13px;
-display:none;
+margin-top:16px;padding:12px 16px;border-radius:8px;
+font-size:13px;display:none;
 }
+.msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
+.msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
+.msg.info{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60a5fa;display:block;}
 
-.msg.error{
-background:rgba(239,68,68,0.1);
-border:1px solid rgba(239,68,68,0.3);
-color:#f87171;
-display:block;
-}
+.spinner-wrap{display:none;text-align:center;margin-top:16px;}
+.spinner{width:28px;height:28px;border:3px solid rgba(0,255,136,0.2);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:auto;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-.msg.success{
-background:rgba(0,255,136,0.1);
-border:1px solid rgba(0,255,136,0.3);
-color:var(--accent);
-display:block;
-}
-
-.msg.info{
-background:rgba(59,130,246,0.1);
-border:1px solid rgba(59,130,246,0.3);
-color:#60a5fa;
-display:block;
-}
-
-.spinner-wrap{
-display:none;
-text-align:center;
-margin-top:16px;
-}
-
-.spinner{
-width:28px;
-height:28px;
-border:3px solid rgba(0,255,136,0.2);
-border-top:3px solid var(--accent);
-border-radius:50%;
-animation:spin 0.8s linear infinite;
-margin:auto;
-}
-
-@keyframes spin{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
-}
-
-@media(max-width:480px){
-.box{padding:36px 24px;}
-}
+@media(max-width:480px){.box{padding:36px 24px;}}
 </style>
 </head>
 <body>
 
 <div class="box">
   <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
+  <a class="back-link" href="index.html">← VOLTAR AO INÍCIO</a>
   <h2>ACESSO</h2>
-  <div id="areaBadge" class="area-badge" style="display:none"></div>
+
+  <!-- Badges da universidade, curso e área -->
+  <div class="badges" id="badges"></div>
 
   <div class="field">
     <label>Email</label>
@@ -255,20 +228,8 @@ margin:auto;
     </div>
   </div>
 
-  <div class="field">
-    <label>Área</label>
-    <select id="area">
-      <option value="">Seleciona a tua área</option>
-      <option value="medicina geral">Medicina Geral</option>
-      <option value="enfermagem">Enfermagem</option>
-      <option value="farmacia">Farmácia</option>
-      <option value="analises clinicas">Análises Clínicas</option>
-      <option value="fisioterapia">Fisioterapia</option>
-      <option value="nutrição e dietética">Nutrição e Dietética</option>
-      <option value="cardiopneumologia">Cardiopneumologia</option>
-      <option value="medicina dentária">Medicina Dentária</option>
-    </select>
-  </div>
+  <!-- Campo área oculto (preenchido automaticamente) -->
+  <input type="hidden" id="area">
 
   <div class="btns">
     <button class="loginBtn" id="btnLogin" onclick="login()">ENTRAR</button>
@@ -276,10 +237,7 @@ margin:auto;
     <button class="forgotBtn" id="btnForgot" onclick="recuperar()">Esqueci a senha</button>
   </div>
 
-  <div class="spinner-wrap" id="loading">
-    <div class="spinner"></div>
-  </div>
-
+  <div class="spinner-wrap" id="loading"><div class="spinner"></div></div>
   <div class="msg" id="msg"></div>
 </div>
 
@@ -301,20 +259,32 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const msgEl = document.getElementById("msg");
-const loading = document.getElementById("loading");
+const msgEl    = document.getElementById("msg");
+const loading  = document.getElementById("loading");
 const btnLogin = document.getElementById("btnLogin");
 const btnRegister = document.getElementById("btnRegister");
-const btnForgot = document.getElementById("btnForgot");
+const btnForgot   = document.getElementById("btnForgot");
 
-// Pegar área da URL
+// Pegar parâmetros da URL
 const params = new URLSearchParams(window.location.search);
-const areaURL = params.get("area");
-if(areaURL){
-  document.getElementById("area").value = areaURL;
-  const badge = document.getElementById("areaBadge");
-  badge.innerText = areaURL;
-  badge.style.display = "inline-block";
+const uniParam    = params.get("uni")   || "";
+const cursoParam  = params.get("curso") || "";
+const areaParam   = params.get("area")  || "";
+
+// Preencher área oculta
+document.getElementById("area").value = areaParam;
+
+// Mostrar badges
+const badgesDiv = document.getElementById("badges");
+if(uniParam){
+  badgesDiv.innerHTML += `<span class="badge uni">${uniParam}</span>`;
+}
+if(cursoParam){
+  badgesDiv.innerHTML += `<span class="badge curso">${cursoParam}</span>`;
+}
+if(areaParam){
+  const areaLabel = areaParam.charAt(0).toUpperCase() + areaParam.slice(1);
+  badgesDiv.innerHTML += `<span class="badge area">${areaLabel}</span>`;
 }
 
 function showMsg(texto, tipo){
@@ -337,8 +307,12 @@ function hideLoading(){
 }
 
 function validar(email, senha, area){
-  if(!email || !senha || !area){
-    showMsg("Preenche todos os campos.", "error");
+  if(!email || !senha){
+    showMsg("Preenche o email e a senha.", "error");
+    return false;
+  }
+  if(!area){
+    showMsg("Volta atrás e escolhe a tua área.", "error");
     return false;
   }
   if(senha.length < 6){
@@ -352,17 +326,15 @@ function validar(email, senha, area){
 window.login = async function(){
   const email = document.getElementById("email").value.trim();
   const senha = document.getElementById("senha").value;
-  const area = document.getElementById("area").value;
+  const area  = document.getElementById("area").value;
 
   msgEl.className = "msg";
-
   if(!validar(email, senha, area)) return;
-
   showLoading();
 
   try {
     const cred = await signInWithEmailAndPassword(auth, email, senha);
-    const ref = doc(db, "users", cred.user.uid);
+    const ref  = doc(db, "users", cred.user.uid);
     const snap = await getDoc(ref);
 
     if(!snap.exists()){
@@ -379,9 +351,12 @@ window.login = async function(){
       return;
     }
 
+    // Guardar tudo no localStorage
     localStorage.setItem("user", email);
     localStorage.setItem("uid", cred.user.uid);
-    localStorage.setItem("area", data.area);
+    localStorage.setItem("area", data.area || area);
+    localStorage.setItem("uni", uniParam || data.uni || "");
+    localStorage.setItem("curso", cursoParam || data.curso || "");
 
     window.location.href = "aulas.html";
 
@@ -395,26 +370,26 @@ window.login = async function(){
 window.register = async function(){
   const email = document.getElementById("email").value.trim();
   const senha = document.getElementById("senha").value;
-  const area = document.getElementById("area").value;
+  const area  = document.getElementById("area").value;
 
   msgEl.className = "msg";
-
   if(!validar(email, senha, area)) return;
-
   showLoading();
 
   try {
     const newUser = await createUserWithEmailAndPassword(auth, email, senha);
 
     await setDoc(doc(db, "users", newUser.user.uid), {
-      uid: newUser.user.uid,
-      email: email,
-      area: area,
-      approved: false,
+      uid:       newUser.user.uid,
+      email:     email,
+      area:      area,
+      uni:       uniParam,
+      curso:     cursoParam,
+      approved:  false,
       createdAt: Date.now()
     });
 
-    showMsg("✅ Conta criada com sucesso! Aguarda a aprovação do admin para fazer login.", "success");
+    showMsg("✅ Conta criada! Aguarda a aprovação do admin para fazer login.", "success");
 
   } catch(e){
     if(e.code === "auth/email-already-in-use"){
@@ -431,14 +406,8 @@ window.register = async function(){
 window.recuperar = async function(){
   const email = document.getElementById("email").value.trim();
   msgEl.className = "msg";
-
-  if(!email){
-    showMsg("Escreve o teu email primeiro.", "error");
-    return;
-  }
-
+  if(!email){ showMsg("Escreve o teu email primeiro.", "error"); return; }
   showLoading();
-
   try {
     await sendPasswordResetEmail(auth, email);
     showMsg("✅ Email de recuperação enviado! Verifica a tua caixa de entrada.", "success");
@@ -449,7 +418,6 @@ window.recuperar = async function(){
   }
 }
 
-// Toggle senha
 window.toggleSenha = function(){
   const s = document.getElementById("senha");
   s.type = s.type === "password" ? "text" : "password";
