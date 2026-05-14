@@ -24,7 +24,6 @@ color:var(--text);
 overflow-x:hidden;
 }
 
-/* BACKGROUND */
 body::before{
 content:'';
 position:fixed;
@@ -70,11 +69,7 @@ border:1px solid rgba(100,116,139,0.3);
 border-radius:6px;
 transition:0.3s;
 }
-
-.menu a:hover{
-color:var(--accent);
-border-color:var(--accent);
-}
+.menu a:hover{color:var(--accent);border-color:var(--accent);}
 
 /* HEADER */
 .header{
@@ -92,10 +87,7 @@ letter-spacing:4px;
 line-height:1.1;
 margin-bottom:12px;
 }
-
-.header h1 span{
-color:var(--accent);
-}
+.header h1 span{color:var(--accent);}
 
 .subtitle{
 font-size:16px;
@@ -126,23 +118,10 @@ color:var(--accent);
 letter-spacing:2px;
 }
 
-.iban{
-font-size:13px;
-color:var(--muted);
-letter-spacing:1px;
-}
+.iban{font-size:13px;color:var(--muted);letter-spacing:1px;}
+.iban span{color:var(--text);font-weight:500;}
 
-.iban span{
-color:var(--text);
-font-weight:500;
-}
-
-.btns{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-justify-content:center;
-}
+.btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
 
 .btn{
 padding:10px 22px;
@@ -156,9 +135,7 @@ transition:0.3s;
 text-decoration:none;
 display:inline-block;
 }
-
 .btn:hover{transform:translateY(-2px);}
-
 .whatsapp{background:#25D366;color:white;}
 .email-btn{background:var(--accent2);color:white;}
 
@@ -173,17 +150,190 @@ text-align:center;
 margin-bottom:30px;
 }
 
-/* CARDS */
-.cards{
+/* STEP INDICATOR */
+.step-indicator{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:0;
+margin-bottom:36px;
 position:relative;
 z-index:1;
+}
+
+.step{
 display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:16px;
-padding:0 20px 80px;
-max-width:1000px;
+flex-direction:column;
+align-items:center;
+gap:6px;
+}
+
+.step-num{
+width:32px;height:32px;
+border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-family:'Rajdhani',sans-serif;
+font-weight:700;font-size:14px;
+border:2px solid rgba(100,116,139,0.3);
+color:var(--muted);
+background:transparent;
+transition:0.4s;
+}
+
+.step.active .step-num{
+border-color:var(--accent);
+color:var(--accent);
+background:rgba(0,255,136,0.1);
+}
+
+.step.done .step-num{
+border-color:var(--accent);
+background:var(--accent);
+color:#060d1a;
+}
+
+.step-label{
+font-size:10px;
+letter-spacing:2px;
+color:var(--muted);
+text-transform:uppercase;
+}
+.step.active .step-label{color:var(--accent);}
+.step.done .step-label{color:var(--accent);}
+
+.step-line{
+width:60px;height:1px;
+background:rgba(100,116,139,0.2);
+margin-bottom:16px;
+transition:0.4s;
+}
+.step-line.done{background:var(--accent);opacity:0.5;}
+
+/* VIEWS */
+.view{display:none;}
+.view.active{display:block;}
+
+/* BACK BUTTON */
+.back-btn{
+background:transparent;
+border:none;
+color:var(--muted);
+font-size:13px;
+letter-spacing:2px;
+cursor:pointer;
+padding:0 0 20px 0;
+display:flex;
+align-items:center;
+gap:8px;
+font-family:'Rajdhani',sans-serif;
+font-weight:600;
+transition:0.2s;
+}
+.back-btn:hover{color:var(--accent);}
+
+/* UNI CARDS */
+.uni-grid{
+position:relative;z-index:1;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:12px;
+padding:0 20px 60px;
+max-width:900px;
 margin:0 auto;
+}
+
+.uni-card{
+background:var(--surface);
+border:1px solid rgba(255,255,255,0.06);
+color:var(--text);
+padding:20px 16px;
+border-radius:12px;
+font-family:'Rajdhani',sans-serif;
+cursor:pointer;
+transition:0.3s;
+text-align:center;
+position:relative;
+overflow:hidden;
+}
+
+.uni-card::before{
+content:'';position:absolute;inset:0;
+background:linear-gradient(135deg,rgba(0,255,136,0.08),transparent);
+opacity:0;transition:0.3s;
+}
+
+.uni-card:hover{
+transform:translateY(-4px);
+border-color:rgba(0,255,136,0.4);
+color:var(--accent);
+box-shadow:0 16px 32px rgba(0,0,0,0.4),0 0 16px rgba(0,255,136,0.08);
+}
+.uni-card:hover::before{opacity:1;}
+
+.uni-num{
+font-size:10px;
+letter-spacing:2px;
+color:var(--muted);
+margin-bottom:6px;
+}
+
+.uni-code{
+font-size:22px;
+font-weight:700;
+letter-spacing:2px;
+}
+
+.uni-name{
+font-size:10px;
+color:var(--muted);
+margin-top:4px;
+line-height:1.4;
+font-family:'Inter',sans-serif;
+}
+
+/* COURSE CARDS */
+.course-list{
+position:relative;z-index:1;
+display:flex;
+flex-direction:column;
+gap:10px;
+max-width:560px;
+margin:0 auto;
+padding:0 20px 60px;
+}
+
+.course-card{
+background:var(--surface);
+border:1px solid rgba(255,255,255,0.06);
+color:var(--text);
+padding:16px 22px;
+border-radius:12px;
+cursor:pointer;
+transition:0.3s;
+display:flex;
+align-items:center;
+justify-content:space-between;
+font-family:'Rajdhani',sans-serif;
+font-size:16px;
+font-weight:600;
+letter-spacing:1px;
+}
+
+.course-card:hover{
+transform:translateX(6px);
+border-color:rgba(59,130,246,0.4);
+color:var(--accent2);
+box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+
+.course-arrow{font-size:18px;color:var(--muted);}
+
+/* AREA CARDS (unchanged from original) */
+.cards{
+position:relative;z-index:1;
+display:flex;flex-wrap:wrap;justify-content:center;
+gap:16px;padding:0 20px 80px;
+max-width:1000px;margin:0 auto;
 }
 
 .card{
@@ -207,27 +357,46 @@ overflow:hidden;
 }
 
 .card::before{
-content:'';
-position:absolute;
-inset:0;
+content:'';position:absolute;inset:0;
 background:linear-gradient(135deg,rgba(0,255,136,0.08),transparent);
-opacity:0;
-transition:0.35s;
+opacity:0;transition:0.35s;
 }
 
 .card:hover{
 transform:translateY(-6px);
 border-color:rgba(0,255,136,0.4);
 color:var(--accent);
-box-shadow:0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,255,136,0.1);
+box-shadow:0 20px 40px rgba(0,0,0,0.4),0 0 20px rgba(0,255,136,0.1);
 }
-
 .card:hover::before{opacity:1;}
+.card-icon{font-size:28px;margin-bottom:10px;display:block;}
 
-.card-icon{
-font-size:28px;
-margin-bottom:10px;
-display:block;
+/* SELECTED BADGE */
+.selected-info{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:20px;
+}
+.sel-badge{
+display:inline-block;
+padding:5px 14px;
+border-radius:20px;
+font-size:11px;
+letter-spacing:2px;
+font-family:'Rajdhani',sans-serif;
+font-weight:600;
+}
+.sel-badge.uni{
+background:rgba(0,255,136,0.1);
+border:1px solid rgba(0,255,136,0.3);
+color:var(--accent);
+}
+.sel-badge.course{
+background:rgba(59,130,246,0.1);
+border:1px solid rgba(59,130,246,0.3);
+color:var(--accent2);
 }
 
 @media(max-width:768px){
@@ -235,6 +404,7 @@ display:block;
 .header{padding:60px 20px 40px;}
 .card{width:calc(50% - 8px);}
 .payment{padding:20px 24px;}
+.step-line{width:32px;}
 }
 </style>
 </head>
@@ -262,36 +432,214 @@ display:block;
       </a>
     </div>
   </div>
-
-  <div class="section-title">Escolha a sua área</div>
 </div>
 
-<div class="cards">
-  <a href="login.html?area=medicina geral" class="card">
-    <span class="card-icon">🩺</span>Medicina Geral
-  </a>
-  <a href="login.html?area=enfermagem" class="card">
-    <span class="card-icon">💉</span>Enfermagem
-  </a>
-  <a href="login.html?area=farmacia" class="card">
-    <span class="card-icon">💊</span>Farmácia
-  </a>
-  <a href="login.html?area=fisioterapia" class="card">
-    <span class="card-icon">🦴</span>Fisioterapia
-  </a>
-  <a href="login.html?area=analises clinicas" class="card">
-    <span class="card-icon">🔬</span>Análises Clínicas
-  </a>
-  <a href="login.html?area=nutrição e dietética" class="card">
-    <span class="card-icon">🥗</span>Nutrição e Dietética
-  </a>
-  <a href="login.html?area=cardiopneumologia" class="card">
-    <span class="card-icon">🫀</span>Cardiopneumologia
-  </a>
-  <a href="login.html?area=medicina dentária" class="card">
-    <span class="card-icon">🦷</span>Medicina Dentária
-  </a>
+<!-- STEP INDICATOR -->
+<div class="step-indicator" id="stepIndicator">
+  <div class="step active" id="step1">
+    <div class="step-num">1</div>
+    <div class="step-label">Universidade</div>
+  </div>
+  <div class="step-line" id="line1"></div>
+  <div class="step" id="step2">
+    <div class="step-num">2</div>
+    <div class="step-label">Curso</div>
+  </div>
+  <div class="step-line" id="line2"></div>
+  <div class="step" id="step3">
+    <div class="step-num">3</div>
+    <div class="step-label">Área</div>
+  </div>
 </div>
 
+<!-- VIEW 1: UNIVERSIDADE -->
+<div class="view active" id="viewUni">
+  <div class="section-title">Escolha a sua Universidade</div>
+  <div class="uni-grid" id="uniGrid"></div>
+</div>
+
+<!-- VIEW 2: CURSO -->
+<div class="view" id="viewCurso">
+  <div style="max-width:560px;margin:0 auto;padding:0 20px;">
+    <button class="back-btn" onclick="goToUni()">← VOLTAR</button>
+  </div>
+  <div class="selected-info">
+    <span class="sel-badge uni" id="badgeUni"></span>
+  </div>
+  <div class="section-title" id="cursoTitle">Escolha o seu Curso</div>
+  <div class="course-list" id="courseList"></div>
+</div>
+
+<!-- VIEW 3: ÁREA -->
+<div class="view" id="viewArea">
+  <div style="max-width:1000px;margin:0 auto;padding:0 20px;">
+    <button class="back-btn" onclick="goToCurso()">← VOLTAR</button>
+  </div>
+  <div class="selected-info">
+    <span class="sel-badge uni" id="badgeUni2"></span>
+    <span class="sel-badge course" id="badgeCurso"></span>
+  </div>
+  <div class="section-title">Escolha a sua Área</div>
+  <div class="cards" id="areaCards"></div>
+</div>
+
+<script>
+const UNIVERSITIES = [
+  { id:"UAN",      name:"Universidade Agostinho Neto" },
+  { id:"UMN",      name:"Universidade Mandume Ya Ndemufayo" },
+  { id:"UON",      name:"Universidade 11 de Novembro" },
+  { id:"UKB",      name:"Universidade Katyavala Buila" },
+  { id:"URNM",     name:"Universidade Rainha Njinga Mbande" },
+  { id:"UJES",     name:"Universidade José Eduardo Dos Santos" },
+  { id:"ISTM",     name:"Instituto Superior Técnico Militar" },
+  { id:"UPRA",     name:"Universidade Privada de Angola" },
+  { id:"UNIPIAGET",name:"Universidade Jean Piaget" },
+  { id:"UNIKIV",   name:"Universidade Kimpa Vita" },
+  { id:"UCC",      name:"Universidade Cuito Cuanavale" },
+  { id:"OUTRA",    name:"Outra Universidade" }
+];
+
+const COURSES = {
+  UAN:    ["Medicina Geral","Ciências de Enfermagem","Ciências Farmacêuticas","Análises Clínicas e Saúde Pública"],
+  UMN:    ["Medicina Geral","Enfermagem","Análises Clínicas e Laboratório"],
+  UON:    ["Medicina Geral","Enfermagem","Análises Clínicas"],
+  UKB:    ["Medicina Geral"],
+  URNM:   ["Medicina Geral","Ciências Farmacêuticas","Ciências de Enfermagem","Análises Clínicas e Toxicológicas"],
+  UJES:   ["Medicina Geral","Electromedicina","Laboratório Clínico","Enfermagem"],
+  ISTM:   ["Medicina Geral","Enfermagem"],
+  UPRA:   ["Medicina Geral","Enfermagem","Fisioterapia","Odontologia"],
+  UNIPIAGET: ["Medicina Geral","Medicina Dentária","Enfermagem","Ciências Farmacêuticas","Fisioterapia","Análises Clínicas e Saúde Pública","Enfermagem e Obstetrícia","Radiologia e Imagiologia"],
+  UNIKIV: ["Enfermagem","Análises Clínicas","Agronomia"],
+  UCC:    ["Enfermagem"],
+  OUTRA:  ["Medicina Geral","Medicina Dentária","Enfermagem","Análises Clínicas","Farmácia","Nutrição","Cardiopneumologia","Fisioterapia"]
+};
+
+// Map curso → área login (para compatibilidade com o login existente)
+const COURSE_TO_AREA = {
+  "Medicina Geral":"medicina geral",
+  "Medicina Dentária":"medicina dentária",
+  "Ciências de Enfermagem":"enfermagem",
+  "Enfermagem":"enfermagem",
+  "Enfermagem e Obstetrícia":"enfermagem",
+  "Ciências Farmacêuticas":"farmacia",
+  "Farmácia":"farmacia",
+  "Análises Clínicas e Saúde Pública":"analises clinicas",
+  "Análises Clínicas e Laboratório":"analises clinicas",
+  "Análises Clínicas":"analises clinicas",
+  "Análises Clínicas e Toxicológicas":"analises clinicas",
+  "Fisioterapia":"fisioterapia",
+  "Odontologia":"medicina dentária",
+  "Electromedicina":"analises clinicas",
+  "Laboratório Clínico":"analises clinicas",
+  "Radiologia e Imagiologia":"analises clinicas",
+  "Nutrição":"nutrição e dietética",
+  "Cardiopneumologia":"cardiopneumologia",
+  "Agronomia":"analises clinicas"
+};
+
+let selectedUni = null;
+let selectedCourse = null;
+
+// BUILD UNIVERSITY GRID
+const uniGrid = document.getElementById("uniGrid");
+UNIVERSITIES.forEach((uni, i) => {
+  const card = document.createElement("div");
+  card.className = "uni-card";
+  card.innerHTML = `
+    <div class="uni-num">${String(i+1).padStart(2,"0")}</div>
+    <div class="uni-code">${uni.id}</div>
+    <div class="uni-name">${uni.name}</div>
+  `;
+  card.onclick = () => selectUni(uni);
+  uniGrid.appendChild(card);
+});
+
+function selectUni(uni){
+  selectedUni = uni;
+  document.getElementById("badgeUni").innerText = uni.id + " — " + uni.name;
+  document.getElementById("badgeUni2").innerText = uni.id;
+
+  // Build course list
+  const courseList = document.getElementById("courseList");
+  courseList.innerHTML = "";
+  COURSES[uni.id].forEach(course => {
+    const card = document.createElement("div");
+    card.className = "course-card";
+    card.innerHTML = `<span>${course}</span><span class="course-arrow">›</span>`;
+    card.onclick = () => selectCourse(course);
+    courseList.appendChild(card);
+  });
+
+  setStep(2);
+}
+
+function selectCourse(course){
+  selectedCourse = course;
+  document.getElementById("badgeCurso").innerText = course;
+
+  // Build area cards filtered by course
+  const area = COURSE_TO_AREA[course] || "medicina geral";
+  buildAreaCards(area);
+  setStep(3);
+}
+
+function buildAreaCards(defaultArea){
+  const container = document.getElementById("areaCards");
+  container.innerHTML = "";
+
+  const allAreas = [
+    { area:"medicina geral",    icon:"🩺", label:"Medicina Geral" },
+    { area:"enfermagem",        icon:"💉", label:"Enfermagem" },
+    { area:"farmacia",          icon:"💊", label:"Farmácia" },
+    { area:"fisioterapia",      icon:"🦴", label:"Fisioterapia" },
+    { area:"analises clinicas", icon:"🔬", label:"Análises Clínicas" },
+    { area:"nutrição e dietética",icon:"🥗",label:"Nutrição e Dietética" },
+    { area:"cardiopneumologia", icon:"🫀", label:"Cardiopneumologia" },
+    { area:"medicina dentária", icon:"🦷", label:"Medicina Dentária" }
+  ];
+
+  // Show only the relevant area for the selected course
+  const relevant = allAreas.filter(a => a.area === defaultArea);
+  const toShow = relevant.length > 0 ? relevant : allAreas;
+
+  toShow.forEach(a => {
+    const link = document.createElement("a");
+    link.className = "card";
+    link.href = `login.html?uni=${encodeURIComponent(selectedUni.id)}&curso=${encodeURIComponent(selectedCourse)}&area=${encodeURIComponent(a.area)}`;
+    link.innerHTML = `<span class="card-icon">${a.icon}</span>${a.label}`;
+    container.appendChild(link);
+  });
+}
+
+function goToUni(){
+  selectedUni = null;
+  selectedCourse = null;
+  setStep(1);
+}
+
+function goToCurso(){
+  selectedCourse = null;
+  setStep(2);
+}
+
+function setStep(n){
+  // Views
+  document.getElementById("viewUni").classList.toggle("active", n===1);
+  document.getElementById("viewCurso").classList.toggle("active", n===2);
+  document.getElementById("viewArea").classList.toggle("active", n===3);
+  // Steps
+  [1,2,3].forEach(i => {
+    const el = document.getElementById("step"+i);
+    el.classList.remove("active","done");
+    if(i < n) el.classList.add("done");
+    else if(i === n) el.classList.add("active");
+  });
+  // Lines
+  [1,2].forEach(i => {
+    document.getElementById("line"+i).classList.toggle("done", i < n);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
 </body>
 </html>
