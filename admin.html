@@ -7,10 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
---bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;
---accent2:#3b82f6;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;
-}
+:root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
 .login-wrap{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
@@ -69,7 +66,6 @@ button:hover{transform:translateY(-1px);}
 </head>
 <body>
 
-<!-- LOGIN -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
     <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
@@ -80,35 +76,27 @@ button:hover{transform:translateY(-1px);}
   </div>
 </div>
 
-<!-- PAINEL -->
 <div id="painel">
   <div class="painel-header">
     <h2>PAINEL ADMIN</h2>
     <button class="logout-btn" onclick="sair()">SAIR</button>
   </div>
 
-  <!-- ADICIONAR CONTEÚDO -->
   <div class="section">
     <h3>Adicionar Conteúdo</h3>
-
     <div class="grid2">
-      <div>
-        <select id="seccao" onchange="atualizarSub()">
-          <option value="">Seleciona a secção</option>
-          <option value="video_aulas">🎥 Vídeo Aulas</option>
-          <option value="materiais">📚 Materiais de Apoio</option>
-          <option value="cronograma">📅 Cronograma de Estudo</option>
-          <option value="provas">📝 Provas Passadas</option>
-          <option value="resolucao">✅ Resolução de Provas</option>
-        </select>
-      </div>
-      <div>
-        <select id="sub">
-          <option value="">— Seleciona secção primeiro —</option>
-        </select>
-      </div>
+      <select id="seccao" onchange="atualizarSub()">
+        <option value="">Seleciona a secção</option>
+        <option value="video_aulas">🎥 Vídeo Aulas</option>
+        <option value="materiais">📚 Materiais de Apoio</option>
+        <option value="cronograma">📅 Cronograma de Estudo</option>
+        <option value="provas">📝 Provas Passadas</option>
+        <option value="resolucao">✅ Resolução de Provas</option>
+      </select>
+      <select id="sub">
+        <option value="">— Seleciona secção primeiro —</option>
+      </select>
     </div>
-
     <div class="grid2">
       <input id="titulo" placeholder="Título do conteúdo">
       <select id="tipo" onchange="atualizarTipo()">
@@ -118,7 +106,6 @@ button:hover{transform:translateY(-1px);}
         <option value="imagem">🖼 Imagem (link direto)</option>
       </select>
     </div>
-
     <div class="bunny-info" id="bunnyInfo">
       <b>🐰 Como obter o link do Bunny Stream:</b><br>
       1. Acede ao teu painel em <b>bunny.net → Stream</b><br>
@@ -126,15 +113,12 @@ button:hover{transform:translateY(-1px);}
       3. Clica em <b>"Embed"</b> e copia o link do <b>src</b> do iframe<br>
       Exemplo: <b>https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID</b>
     </div>
-
     <input id="url" placeholder="Cole o link aqui">
     <div class="help-text" id="urlHelp"></div>
-
     <button class="btn-green" onclick="adicionarAula()">ADICIONAR CONTEÚDO</button>
     <div class="msg" id="msgAula"></div>
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab active" onclick="mostrarTab('aulas')">📁 Conteúdos Publicados</button>
     <button class="tab" onclick="mostrarTab('users')">👥 Utilizadores</button>
@@ -169,17 +153,12 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
+const db  = getFirestore(app);
 const SENHA = "DeltaAdmin2025$#";
 
-const SUBS = {
-  video_aulas: ["Biologia","Química","Física","Língua Portuguesa","Matemática"],
-  materiais:   ["Biologia","Química","Física","Matemática","Língua Portuguesa","Cultura Geral"],
-  cronograma:  [],
-  provas:      ["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC"],
-  resolucao:   ["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC"]
-};
+const DISCIPLINAS = ["Biologia","Química","Física","Língua Portuguesa","Matemática"];
+
+const UNIVERSIDADES = ["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC"];
 
 const NOMES_SECCAO = {
   video_aulas:"Vídeo Aulas", materiais:"Materiais de Apoio",
@@ -187,29 +166,21 @@ const NOMES_SECCAO = {
 };
 
 const NOMES_UNI = {
-  UAN:       "Universidade Agostinho Neto",
-  UMN:       "Universidade Mandume Ya Ndemufayo",
-  UON:       "Universidade 11 de Novembro",
-  UKB:       "Universidade Katyavala Buila",
-  URNM:      "Universidade Rainha Njinga Mbande",
-  UJES:      "Universidade José Eduardo Dos Santos",
-  ISTM:      "Instituto Superior Técnico Militar",
-  UPRA:      "Universidade Privada de Angola",
-  UNIPIAGET: "Universidade Jean Piaget",
-  UNIKIV:    "Universidade Kimpa Vita",
-  UCC:       "Universidade Cuito Cuanavale"
+  UAN:"Universidade Agostinho Neto", UMN:"Universidade Mandume Ya Ndemufayo",
+  UON:"Universidade 11 de Novembro", UKB:"Universidade Katyavala Buila",
+  URNM:"Universidade Rainha Njinga Mbande", UJES:"Universidade José Eduardo Dos Santos",
+  ISTM:"Instituto Superior Técnico Militar", UPRA:"Universidade Privada de Angola",
+  UNIPIAGET:"Universidade Jean Piaget", UNIKIV:"Universidade Kimpa Vita",
+  UCC:"Universidade Cuito Cuanavale"
 };
 
-// LOGIN
 window.entrar = function(){
   if(document.getElementById("senha").value !== SENHA){
-    document.getElementById("erroLogin").innerText = "Senha incorreta!";
-    return;
+    document.getElementById("erroLogin").innerText = "Senha incorreta!"; return;
   }
   document.getElementById("loginWrap").style.display = "none";
   document.getElementById("painel").style.display = "block";
-  carregarAulas();
-  carregarUsers();
+  carregarAulas(); carregarUsers();
   document.getElementById("bunnyInfo").style.display = "block";
 }
 
@@ -219,7 +190,6 @@ window.sair = function(){
   document.getElementById("senha").value = "";
 }
 
-// TABS
 window.mostrarTab = function(tab){
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
   event.target.classList.add("active");
@@ -227,13 +197,43 @@ window.mostrarTab = function(tab){
   document.getElementById("tabUsers").style.display  = tab === "users" ? "block" : "none";
 }
 
-// ATUALIZAR TIPO
-window.atualizarTipo = function(){
-  const tipo = document.getElementById("tipo").value;
-  const bunnyInfo = document.getElementById("bunnyInfo");
-  const urlHelp = document.getElementById("urlHelp");
-  const urlInput = document.getElementById("url");
+window.atualizarSub = function(){
+  const seccao = document.getElementById("seccao").value;
+  const sub    = document.getElementById("sub");
+  const tipo   = document.getElementById("tipo");
+  const help   = document.getElementById("urlHelp");
 
+  sub.innerHTML = "";
+
+  if(!seccao){ sub.innerHTML = `<option value="">— Seleciona secção primeiro —</option>`; return; }
+
+  if(seccao === "video_aulas" || seccao === "materiais"){
+    // Ambos usam as mesmas disciplinas
+    sub.innerHTML = `<option value="">Seleciona disciplina</option>`;
+    DISCIPLINAS.forEach(d => sub.innerHTML += `<option value="${d}">${d}</option>`);
+    tipo.value = seccao === "video_aulas" ? "bunny" : "pdf";
+    atualizarTipo();
+    if(seccao === "materiais") help.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
+
+  } else if(seccao === "provas" || seccao === "resolucao"){
+    sub.innerHTML = `<option value="">Seleciona universidade</option>`;
+    UNIVERSIDADES.forEach(u => sub.innerHTML += `<option value="${u}">${u} — ${NOMES_UNI[u]}</option>`);
+    tipo.value = seccao === "resolucao" ? "bunny" : "pdf";
+    atualizarTipo();
+    if(seccao === "provas") help.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
+
+  } else if(seccao === "cronograma"){
+    sub.innerHTML = `<option value="">— Sem subcategoria —</option>`;
+    tipo.value = "pdf"; atualizarTipo();
+    help.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
+  }
+}
+
+window.atualizarTipo = function(){
+  const tipo      = document.getElementById("tipo").value;
+  const bunnyInfo = document.getElementById("bunnyInfo");
+  const urlHelp   = document.getElementById("urlHelp");
+  const urlInput  = document.getElementById("url");
   if(tipo === "bunny"){
     bunnyInfo.style.display = "block";
     urlHelp.innerText = "🐰 Cola aqui o link embed do Bunny Stream (https://iframe.mediadelivery.net/embed/...)";
@@ -248,45 +248,10 @@ window.atualizarTipo = function(){
     urlInput.placeholder = "https://drive.google.com/file/d/.../preview";
   } else {
     bunnyInfo.style.display = "none";
-    urlHelp.innerText = "";
-    urlInput.placeholder = "Cole o link aqui";
+    urlHelp.innerText = ""; urlInput.placeholder = "Cole o link aqui";
   }
 }
 
-// ATUALIZAR SUB
-window.atualizarSub = function(){
-  const seccao = document.getElementById("seccao").value;
-  const sub = document.getElementById("sub");
-  const help = document.getElementById("urlHelp");
-  const tipo = document.getElementById("tipo");
-
-  sub.innerHTML = "";
-
-  if(!seccao){ sub.innerHTML = `<option value="">— Seleciona secção primeiro —</option>`; return; }
-
-  const lista = SUBS[seccao];
-
-  if(lista.length === 0){
-    sub.innerHTML = `<option value="">— Sem subcategoria —</option>`;
-  } else {
-    sub.innerHTML = `<option value="">Seleciona</option>`;
-    lista.forEach(s => {
-      const label = NOMES_UNI[s] ? `${s} — ${NOMES_UNI[s]}` : s;
-      sub.innerHTML += `<option value="${s}">${label}</option>`;
-    });
-  }
-
-  if(seccao === "video_aulas" || seccao === "resolucao"){
-    tipo.value = "bunny";
-    atualizarTipo();
-  } else if(seccao === "cronograma" || seccao === "provas" || seccao === "materiais"){
-    tipo.value = "pdf";
-    atualizarTipo();
-    help.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
-  }
-}
-
-// FORMATAR URL YOUTUBE
 function formatarURL(url, tipo){
   if(tipo === "bunny") return url;
   if(tipo !== "video") return url;
@@ -299,7 +264,6 @@ function formatarURL(url, tipo){
   return url;
 }
 
-// ADICIONAR
 window.adicionarAula = async function(){
   const seccao = document.getElementById("seccao").value;
   const sub    = document.getElementById("sub").value;
@@ -312,19 +276,14 @@ window.adicionarAula = async function(){
   if(!seccao || !titulo || !urlRaw){
     msg.className = "msg error"; msg.innerText = "Preenche todos os campos obrigatórios."; return;
   }
-
   if(tipo === "bunny" && !urlRaw.includes("mediadelivery.net")){
-    msg.className = "msg error";
-    msg.innerText = "⚠️ Link inválido para Bunny Stream. Deve conter 'mediadelivery.net'.";
-    return;
+    msg.className = "msg error"; msg.innerText = "⚠️ Link inválido para Bunny Stream. Deve conter 'mediadelivery.net'."; return;
   }
 
   const url = formatarURL(urlRaw, tipo);
-
   try {
     await addDoc(collection(db,"aulas"),{ seccao, sub: sub||null, titulo, tipo, url, createdAt: Date.now() });
-    msg.className = "msg success";
-    msg.innerText = "✅ Conteúdo adicionado com sucesso!";
+    msg.className = "msg success"; msg.innerText = "✅ Conteúdo adicionado com sucesso!";
     document.getElementById("titulo").value = "";
     document.getElementById("url").value = "";
     carregarAulas();
@@ -333,17 +292,16 @@ window.adicionarAula = async function(){
   }
 }
 
-// CARREGAR AULAS
 async function carregarAulas(){
-  const div = document.getElementById("listaAulas");
+  const div  = document.getElementById("listaAulas");
   const snap = await getDocs(collection(db,"aulas"));
   if(snap.empty){ div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhum conteúdo publicado ainda.</p>"; return; }
   div.innerHTML = "";
   const icones = {video:"🎥", bunny:"🐰", pdf:"📄", imagem:"🖼"};
   snap.forEach(d => {
     const data = d.data();
-    const sec = NOMES_SECCAO[data.seccao] || data.seccao || "—";
-    const sub = data.sub ? (NOMES_UNI[data.sub] ? `${data.sub} — ${NOMES_UNI[data.sub]}` : data.sub) : "—";
+    const sec  = NOMES_SECCAO[data.seccao] || data.seccao || "—";
+    const sub  = data.sub ? (NOMES_UNI[data.sub] ? `${data.sub} — ${NOMES_UNI[data.sub]}` : data.sub) : "—";
     const tipoLabel = data.tipo === "bunny" ? "Bunny Stream 🔒" : data.tipo;
     div.innerHTML += `
       <div class="aula-card">
@@ -352,20 +310,17 @@ async function carregarAulas(){
           <p class="meta">${sec} › ${sub} · ${tipoLabel}</p>
         </div>
         <button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button>
-      </div>
-    `;
+      </div>`;
   });
 }
 
 window.eliminarAula = async function(id){
   if(!confirm("Tens a certeza?")) return;
-  await deleteDoc(doc(db,"aulas",id));
-  carregarAulas();
+  await deleteDoc(doc(db,"aulas",id)); carregarAulas();
 }
 
-// CARREGAR USERS
 async function carregarUsers(){
-  const div = document.getElementById("users");
+  const div  = document.getElementById("users");
   const snap = await getDocs(collection(db,"users"));
   if(snap.empty){ div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>"; return; }
   div.innerHTML = "";
@@ -383,8 +338,7 @@ async function carregarUsers(){
           ${!d.approved ? `<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>` : ""}
           ${d.approved  ? `<button class="btn-delete"  onclick="revogar('${u.id}')">✗ Revogar</button>` : ""}
         </div>
-      </div>
-    `;
+      </div>`;
   });
 }
 
