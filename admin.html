@@ -3,145 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN - DELT∆</title>
+<title>AULAS - DELT∆</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;}
+:root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--text:#e2e8f0;--muted:#64748b;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-.login-wrap{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
-.login-box{background:rgba(13,31,53,0.9);border:1px solid rgba(0,255,136,0.15);padding:48px 40px;border-radius:20px;width:100%;max-width:400px;text-align:center;}
-.login-box .logo{font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:4px;color:var(--muted);margin-bottom:6px;}
-.login-box h2{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;letter-spacing:2px;margin-bottom:28px;}
+.menu{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(6,13,26,0.95);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,255,136,0.1);}
+.logo{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;letter-spacing:2px;color:var(--accent);}
+.menu-right{display:flex;align-items:center;gap:12px;}
+.user-info{font-size:12px;color:var(--muted);text-align:right;}
+.user-info .email{display:block;color:var(--text);font-weight:500;}
+.user-info .meta{display:flex;gap:6px;justify-content:flex-end;margin-top:2px;flex-wrap:wrap;}
+.user-badge{display:inline-block;font-size:10px;letter-spacing:1px;padding:2px 8px;border-radius:10px;font-family:'Rajdhani',sans-serif;font-weight:600;}
+.user-badge.uni{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.25);color:var(--accent);}
+.user-badge.curso{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:var(--accent2);}
+.logout{background:transparent;border:1px solid rgba(100,116,139,0.3);color:var(--muted);padding:7px 14px;border-radius:7px;cursor:pointer;font-size:12px;letter-spacing:1px;transition:0.3s;}
+.logout:hover{border-color:var(--accent);color:var(--accent);}
 
-#painel{display:none;padding:30px 20px;max-width:960px;margin:0 auto;}
-.painel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);}
-.painel-header h2{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;letter-spacing:2px;color:var(--accent);}
-.logout-btn{background:transparent;border:1px solid rgba(239,68,68,0.4);color:var(--danger);padding:7px 16px;border-radius:8px;cursor:pointer;font-size:12px;letter-spacing:1px;transition:0.3s;}
-.logout-btn:hover{background:rgba(239,68,68,0.1);}
+.main{max-width:960px;margin:0 auto;padding:30px 20px;}
 
-.section{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px;margin-bottom:24px;}
-.section h3{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:20px;}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:24px;flex-wrap:wrap;}
+.breadcrumb span{cursor:pointer;transition:0.2s;}
+.breadcrumb span:hover{color:var(--accent);}
+.breadcrumb .sep{color:rgba(100,116,139,0.4);cursor:default;}
+.breadcrumb .current{color:var(--text);cursor:default;}
 
-input,select{width:100%;padding:12px 14px;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;margin-bottom:12px;transition:0.3s;outline:none;}
-input:focus,select:focus{border-color:rgba(0,255,136,0.4);}
-select option{background:#0d1f35;}
+.page-title{font-family:'Rajdhani',sans-serif;font-size:30px;font-weight:700;letter-spacing:2px;margin-bottom:28px;}
 
-button{padding:11px 20px;border:none;border-radius:9px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;letter-spacing:1px;cursor:pointer;transition:0.3s;}
-button:hover{transform:translateY(-1px);}
-.btn-green{background:var(--accent);color:#060d1a;width:100%;}
-.btn-approve{background:rgba(0,255,136,0.15);color:var(--accent);border:1px solid rgba(0,255,136,0.3);padding:6px 14px;font-size:12px;}
-.btn-approve:hover{background:rgba(0,255,136,0.25);}
-.btn-delete{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);padding:6px 14px;font-size:12px;}
-.btn-delete:hover{background:rgba(239,68,68,0.25);}
-.btn-login{background:var(--accent);color:#060d1a;width:100%;margin-top:8px;}
+.section-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.section-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 24px;cursor:pointer;transition:0.35s;position:relative;overflow:hidden;}
+.section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,136,0.07),transparent);opacity:0;transition:0.35s;}
+.section-card:hover{transform:translateY(-4px);border-color:rgba(0,255,136,0.35);box-shadow:0 16px 40px rgba(0,0,0,0.4);}
+.section-card:hover::before{opacity:1;}
+.section-card .icon{font-size:32px;margin-bottom:14px;display:block;}
+.section-card .title{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;margin-bottom:6px;}
+.section-card .desc{font-size:12px;color:var(--muted);}
 
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+.disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
+.disc-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;cursor:pointer;transition:0.3s;text-align:center;}
+.disc-card:hover{border-color:rgba(0,255,136,0.35);color:var(--accent);transform:translateY(-3px);}
+.disc-card .disc-icon{font-size:26px;margin-bottom:10px;display:block;}
+.disc-card .disc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;}
 
-.user-card,.aula-card{background:rgba(6,13,26,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.user-info p,.aula-info p{font-size:13px;margin-bottom:3px;}
-.user-info .email,.aula-info .titulo{color:var(--text);font-weight:500;}
-.user-info .area,.aula-info .meta{color:var(--muted);font-size:12px;}
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;letter-spacing:1px;font-weight:600;}
-.badge.approved{background:rgba(0,255,136,0.15);color:var(--accent);}
-.badge.pending{background:rgba(251,191,36,0.15);color:#fbbf24;}
-.user-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.content-list{display:flex;flex-direction:column;gap:16px;}
+.content-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px;transition:0.3s;}
+.content-card:hover{border-color:rgba(0,255,136,0.2);}
+.c-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.c-icon{font-size:20px;}
+.c-title{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:600;letter-spacing:1px;}
 
-.msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none;}
-.msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
-.msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
+.video-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000;}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.bunny-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000;}
+.bunny-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.bunny-overlay{position:absolute;top:0;left:0;right:0;height:60px;z-index:2;pointer-events:none;}
+.pdf-wrap{width:100%;height:500px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);}
+.pdf-wrap iframe{width:100%;height:100%;border:none;}
+.img-wrap img{width:100%;border-radius:10px;display:block;}
 
-.help-text{font-size:12px;color:var(--muted);margin-bottom:12px;margin-top:-6px;line-height:1.5;}
-.error-login{color:#f87171;font-size:13px;margin-top:8px;}
+.uni-notice{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--muted);margin-bottom:20px;}
+.uni-notice b{color:var(--accent);}
 
-.bunny-info{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:var(--muted);line-height:1.6;display:none;}
-.bunny-info b{color:var(--accent);}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.empty .e-icon{font-size:40px;margin-bottom:12px;}
+.empty p{font-size:14px;}
+.spinner-wrap{text-align:center;padding:60px;}
+.spinner{width:32px;height:32px;border:3px solid rgba(0,255,136,0.2);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:auto;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
-.tab{padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:0.3s;}
-.tab.active{background:rgba(0,255,136,0.15);border-color:rgba(0,255,136,0.3);color:var(--accent);}
+@media(max-width:600px){.section-grid{grid-template-columns:1fr 1fr;}.disc-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
-<div class="login-wrap" id="loginWrap">
-  <div class="login-box">
-    <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
-    <h2>ADMIN</h2>
-    <input type="password" id="senha" placeholder="Senha de administrador">
-    <button class="btn-login" onclick="entrar()">ENTRAR</button>
-    <p class="error-login" id="erroLogin"></p>
+<div class="menu">
+  <div class="logo">DELT∆</div>
+  <div class="menu-right">
+    <div class="user-info">
+      <span class="email" id="userEmail"></span>
+      <div class="meta">
+        <span class="user-badge uni"   id="userUni"   style="display:none"></span>
+        <span class="user-badge curso" id="userCurso" style="display:none"></span>
+      </div>
+    </div>
+    <button class="logout" onclick="sair()">SAIR</button>
   </div>
 </div>
 
-<div id="painel">
-  <div class="painel-header">
-    <h2>PAINEL ADMIN</h2>
-    <button class="logout-btn" onclick="sair()">SAIR</button>
-  </div>
-
-  <div class="section">
-    <h3>Adicionar Conteúdo</h3>
-    <div class="grid2">
-      <select id="seccao" onchange="atualizarSub()">
-        <option value="">Seleciona a secção</option>
-        <option value="video_aulas">🎥 Vídeo Aulas</option>
-        <option value="materiais">📚 Materiais de Apoio</option>
-        <option value="cronograma">📅 Cronograma de Estudo</option>
-        <option value="provas">📝 Provas Passadas</option>
-        <option value="resolucao">✅ Resolução de Provas</option>
-      </select>
-      <select id="sub">
-        <option value="">— Seleciona secção primeiro —</option>
-      </select>
-    </div>
-    <div class="grid2">
-      <input id="titulo" placeholder="Título do conteúdo">
-      <select id="tipo" onchange="atualizarTipo()">
-        <option value="bunny">🐰 Vídeo (Bunny Stream) — Protegido</option>
-        <option value="video">🎥 Vídeo (YouTube)</option>
-        <option value="pdf">📄 PDF (Google Drive)</option>
-        <option value="imagem">🖼 Imagem (link direto)</option>
-      </select>
-    </div>
-    <div class="bunny-info" id="bunnyInfo">
-      <b>🐰 Como obter o link do Bunny Stream:</b><br>
-      1. Acede ao teu painel em <b>bunny.net → Stream</b><br>
-      2. Abre o vídeo que fizeste upload<br>
-      3. Clica em <b>"Embed"</b> e copia o link do <b>src</b> do iframe<br>
-      Exemplo: <b>https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID</b>
-    </div>
-    <input id="url" placeholder="Cole o link aqui">
-    <div class="help-text" id="urlHelp"></div>
-    <button class="btn-green" onclick="adicionarAula()">ADICIONAR CONTEÚDO</button>
-    <div class="msg" id="msgAula"></div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" onclick="mostrarTab('aulas')">📁 Conteúdos Publicados</button>
-    <button class="tab" onclick="mostrarTab('users')">👥 Utilizadores</button>
-  </div>
-
-  <div id="tabAulas">
-    <div class="section">
-      <h3>Conteúdos Publicados</h3>
-      <div id="listaAulas"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
-    </div>
-  </div>
-
-  <div id="tabUsers" style="display:none;">
-    <div class="section">
-      <h3>Utilizadores</h3>
-      <div id="users"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
-    </div>
-  </div>
+<div class="main">
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div class="page-title" id="pageTitle">CONTEÚDOS</div>
+  <div id="conteudo"><div class="spinner-wrap"><div class="spinner"></div></div></div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
@@ -152,198 +112,201 @@ const firebaseConfig = {
   appId: "1:211289899773:web:dfc22d377c7172f936b494"
 };
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-const SENHA = "DeltaAdmin2025$#";
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
 
+// Disciplinas iguais para toda a gente (vídeo aulas e materiais)
 const DISCIPLINAS = ["Biologia","Química","Física","Língua Portuguesa","Matemática"];
 
-const UNIVERSIDADES = ["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC"];
-
-const NOMES_SECCAO = {
-  video_aulas:"Vídeo Aulas", materiais:"Materiais de Apoio",
-  cronograma:"Cronograma", provas:"Provas Passadas", resolucao:"Resolução de Provas"
+// Disciplinas por universidade (só para vídeo aulas — filtradas pelo utilizador)
+const DISCIPLINAS_UNI = {
+  UAN:       ["Biologia","Química","Língua Portuguesa","Matemática"],
+  UMN:       ["Biologia","Química","Língua Portuguesa","Matemática"],
+  UON:       ["Biologia","Química","Língua Portuguesa","Física"],
+  UKB:       ["Biologia","Química","Língua Portuguesa","Física"],
+  URNM:      ["Biologia","Química","Língua Portuguesa","Matemática","Física"],
+  UJES:      ["Biologia","Química","Língua Portuguesa","Física"],
+  ISTM:      ["Biologia","Química","Matemática","Física"],
+  UPRA:      ["Biologia","Química","Língua Portuguesa"],
+  UNIPIAGET: ["Biologia","Química","Língua Portuguesa","Matemática","Física"],
+  UNIKIV:    ["Biologia","Química","Matemática","Língua Portuguesa"],
+  UCC:       ["Biologia","Química","Língua Portuguesa","Matemática"],
+  OUTRA:     ["Biologia","Química","Matemática","Língua Portuguesa","Física"]
 };
 
-const NOMES_UNI = {
-  UAN:"Universidade Agostinho Neto", UMN:"Universidade Mandume Ya Ndemufayo",
-  UON:"Universidade 11 de Novembro", UKB:"Universidade Katyavala Buila",
-  URNM:"Universidade Rainha Njinga Mbande", UJES:"Universidade José Eduardo Dos Santos",
-  ISTM:"Instituto Superior Técnico Militar", UPRA:"Universidade Privada de Angola",
-  UNIPIAGET:"Universidade Jean Piaget", UNIKIV:"Universidade Kimpa Vita",
-  UCC:"Universidade Cuito Cuanavale"
-};
+const SECCOES = [
+  { id:"video_aulas", icon:"🎥", title:"VÍDEO AULAS",         desc:"Aulas em vídeo por disciplina" },
+  { id:"materiais",   icon:"📚", title:"MATERIAIS DE APOIO",   desc:"PDFs e materiais por disciplina" },
+  { id:"cronograma",  icon:"📅", title:"CRONOGRAMA DE ESTUDO", desc:"Planificação das tuas aulas" },
+  { id:"provas",      icon:"📝", title:"PROVAS PASSADAS",      desc:"Provas anteriores da tua universidade" },
+  { id:"resolucao",   icon:"✅", title:"RESOLUÇÃO DE PROVAS",  desc:"Vídeos de resolução da tua universidade" }
+];
 
-window.entrar = function(){
-  if(document.getElementById("senha").value !== SENHA){
-    document.getElementById("erroLogin").innerText = "Senha incorreta!"; return;
+const ICONES_DISC = { "Biologia":"🧬","Química":"⚗️","Física":"⚡","Língua Portuguesa":"📖","Matemática":"📐" };
+
+let estado = { seccao:null, sub:null };
+let userUni = "", userCurso = "";
+
+onAuthStateChanged(auth, async (user) => {
+  if(!user){ window.location.href = "login.html"; return; }
+  const snap = await getDoc(doc(db,"users",user.uid));
+  if(!snap.exists() || snap.data().approved !== true){
+    await signOut(auth); window.location.href = "login.html"; return;
   }
-  document.getElementById("loginWrap").style.display = "none";
-  document.getElementById("painel").style.display = "block";
-  carregarAulas(); carregarUsers();
-  document.getElementById("bunnyInfo").style.display = "block";
+  const data = snap.data();
+  userUni   = data.uni   || localStorage.getItem("uni")  || "";
+  userCurso = data.curso || localStorage.getItem("curso")|| "";
+  document.getElementById("userEmail").innerText = data.email || user.email;
+  const uniEl   = document.getElementById("userUni");
+  const cursoEl = document.getElementById("userCurso");
+  if(userUni){   uniEl.innerText   = userUni;   uniEl.style.display   = "inline-block"; }
+  if(userCurso){ cursoEl.innerText = userCurso; cursoEl.style.display = "inline-block"; }
+  mostrarMenu();
+});
+
+function mostrarMenu(){
+  estado = { seccao:null, sub:null };
+  atualizarBreadcrumb();
+  document.getElementById("pageTitle").innerText = "CONTEÚDOS";
+  const div = document.getElementById("conteudo");
+  div.innerHTML = `<div class="section-grid"></div>`;
+  const grid = div.querySelector(".section-grid");
+  SECCOES.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "section-card";
+    card.innerHTML = `<span class="icon">${s.icon}</span><div class="title">${s.title}</div><div class="desc">${s.desc}</div>`;
+    card.onclick = () => abrirSeccao(s);
+    grid.appendChild(card);
+  });
 }
 
-window.sair = function(){
-  document.getElementById("loginWrap").style.display = "flex";
-  document.getElementById("painel").style.display = "none";
-  document.getElementById("senha").value = "";
-}
+function abrirSeccao(s){
+  estado.seccao = s;
+  estado.sub    = null;
 
-window.mostrarTab = function(tab){
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  event.target.classList.add("active");
-  document.getElementById("tabAulas").style.display = tab === "aulas" ? "block" : "none";
-  document.getElementById("tabUsers").style.display  = tab === "users" ? "block" : "none";
-}
+  if(s.id === "video_aulas"){
+    // Filtrado pela universidade do utilizador
+    const discs = (userUni && DISCIPLINAS_UNI[userUni]) ? DISCIPLINAS_UNI[userUni] : DISCIPLINAS;
+    mostrarSubLista(s, discs, "🎥");
 
-window.atualizarSub = function(){
-  const seccao = document.getElementById("seccao").value;
-  const sub    = document.getElementById("sub");
-  const tipo   = document.getElementById("tipo");
-  const help   = document.getElementById("urlHelp");
+  } else if(s.id === "materiais"){
+    // Igual para todos — mesmas disciplinas
+    mostrarSubLista(s, DISCIPLINAS, "📚");
 
-  sub.innerHTML = "";
+  } else if(s.id === "cronograma"){
+    mostrarConteudo(s, null, false);
 
-  if(!seccao){ sub.innerHTML = `<option value="">— Seleciona secção primeiro —</option>`; return; }
+  } else if(s.id === "provas"){
+    if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
+    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "📝"); }
 
-  if(seccao === "video_aulas" || seccao === "materiais"){
-    // Ambos usam as mesmas disciplinas
-    sub.innerHTML = `<option value="">Seleciona disciplina</option>`;
-    DISCIPLINAS.forEach(d => sub.innerHTML += `<option value="${d}">${d}</option>`);
-    tipo.value = seccao === "video_aulas" ? "bunny" : "pdf";
-    atualizarTipo();
-    if(seccao === "materiais") help.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
-
-  } else if(seccao === "provas" || seccao === "resolucao"){
-    sub.innerHTML = `<option value="">Seleciona universidade</option>`;
-    UNIVERSIDADES.forEach(u => sub.innerHTML += `<option value="${u}">${u} — ${NOMES_UNI[u]}</option>`);
-    tipo.value = seccao === "resolucao" ? "bunny" : "pdf";
-    atualizarTipo();
-    if(seccao === "provas") help.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
-
-  } else if(seccao === "cronograma"){
-    sub.innerHTML = `<option value="">— Sem subcategoria —</option>`;
-    tipo.value = "pdf"; atualizarTipo();
-    help.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
-  }
-}
-
-window.atualizarTipo = function(){
-  const tipo      = document.getElementById("tipo").value;
-  const bunnyInfo = document.getElementById("bunnyInfo");
-  const urlHelp   = document.getElementById("urlHelp");
-  const urlInput  = document.getElementById("url");
-  if(tipo === "bunny"){
-    bunnyInfo.style.display = "block";
-    urlHelp.innerText = "🐰 Cola aqui o link embed do Bunny Stream (https://iframe.mediadelivery.net/embed/...)";
-    urlInput.placeholder = "https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID";
-  } else if(tipo === "video"){
-    bunnyInfo.style.display = "none";
-    urlHelp.innerText = "💡 YouTube: copia o link do vídeo (https://youtu.be/...) ou da playlist";
-    urlInput.placeholder = "https://youtu.be/...";
-  } else if(tipo === "pdf"){
-    bunnyInfo.style.display = "none";
-    urlHelp.innerText = "💡 Google Drive: faz upload → Partilhar → Qualquer pessoa com o link → troca /view por /preview";
-    urlInput.placeholder = "https://drive.google.com/file/d/.../preview";
-  } else {
-    bunnyInfo.style.display = "none";
-    urlHelp.innerText = ""; urlInput.placeholder = "Cole o link aqui";
+  } else if(s.id === "resolucao"){
+    if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
+    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "✅"); }
   }
 }
 
-function formatarURL(url, tipo){
-  if(tipo === "bunny") return url;
-  if(tipo !== "video") return url;
-  if(url.includes("list=") && !url.includes("embed")){
-    const match = url.match(/list=([^&]+)/);
-    if(match) return `https://www.youtube-nocookie.com/embed/videoseries?list=${match[1]}`;
-  }
-  const match = url.match(/(?:youtu\.be\/|v=|embed\/)([a-zA-Z0-9_-]{11})/);
-  if(match) return `https://www.youtube-nocookie.com/embed/${match[1]}`;
-  return url;
+function mostrarSubLista(s, lista, icon){
+  atualizarBreadcrumb();
+  document.getElementById("pageTitle").innerText = s.title;
+  const div = document.getElementById("conteudo");
+  div.innerHTML = `<div class="disc-grid"></div>`;
+  const grid = div.querySelector(".disc-grid");
+  lista.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "disc-card";
+    const icone = ICONES_DISC[item] || icon;
+    card.innerHTML = `<span class="disc-icon">${icone}</span><div class="disc-name">${item.toUpperCase()}</div>`;
+    card.onclick = () => { estado.sub = item; mostrarConteudo(s, item, false); };
+    grid.appendChild(card);
+  });
 }
 
-window.adicionarAula = async function(){
-  const seccao = document.getElementById("seccao").value;
-  const sub    = document.getElementById("sub").value;
-  const titulo = document.getElementById("titulo").value.trim();
-  const tipo   = document.getElementById("tipo").value;
-  const urlRaw = document.getElementById("url").value.trim();
-  const msg    = document.getElementById("msgAula");
-  msg.className = "msg";
+async function mostrarConteudo(s, sub, fromUni){
+  atualizarBreadcrumb();
+  document.getElementById("pageTitle").innerText = sub ? sub.toUpperCase() : s.title;
+  const div = document.getElementById("conteudo");
+  div.innerHTML = `<div class="spinner-wrap"><div class="spinner"></div></div>`;
 
-  if(!seccao || !titulo || !urlRaw){
-    msg.className = "msg error"; msg.innerText = "Preenche todos os campos obrigatórios."; return;
-  }
-  if(tipo === "bunny" && !urlRaw.includes("mediadelivery.net")){
-    msg.className = "msg error"; msg.innerText = "⚠️ Link inválido para Bunny Stream. Deve conter 'mediadelivery.net'."; return;
-  }
-
-  const url = formatarURL(urlRaw, tipo);
-  try {
-    await addDoc(collection(db,"aulas"),{ seccao, sub: sub||null, titulo, tipo, url, createdAt: Date.now() });
-    msg.className = "msg success"; msg.innerText = "✅ Conteúdo adicionado com sucesso!";
-    document.getElementById("titulo").value = "";
-    document.getElementById("url").value = "";
-    carregarAulas();
-  } catch(e){
-    msg.className = "msg error"; msg.innerText = "Erro: " + e.message;
-  }
-}
-
-async function carregarAulas(){
-  const div  = document.getElementById("listaAulas");
   const snap = await getDocs(collection(db,"aulas"));
-  if(snap.empty){ div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhum conteúdo publicado ainda.</p>"; return; }
-  div.innerHTML = "";
-  const icones = {video:"🎥", bunny:"🐰", pdf:"📄", imagem:"🖼"};
+  const items = [];
   snap.forEach(d => {
     const data = d.data();
-    const sec  = NOMES_SECCAO[data.seccao] || data.seccao || "—";
-    const sub  = data.sub ? (NOMES_UNI[data.sub] ? `${data.sub} — ${NOMES_UNI[data.sub]}` : data.sub) : "—";
-    const tipoLabel = data.tipo === "bunny" ? "Bunny Stream 🔒" : data.tipo;
-    div.innerHTML += `
-      <div class="aula-card">
-        <div class="aula-info">
-          <p class="titulo">${icones[data.tipo]||"📁"} ${data.titulo}</p>
-          <p class="meta">${sec} › ${sub} · ${tipoLabel}</p>
-        </div>
-        <button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button>
+    if(data.seccao !== s.id) return;
+    if(sub && data.sub !== sub) return;
+    items.push(data);
+  });
+
+  items.sort((a,b) => {
+    const nA = parseInt((a.titulo.match(/\d+/)||[0])[0]);
+    const nB = parseInt((b.titulo.match(/\d+/)||[0])[0]);
+    if(nA !== nB) return nA - nB;
+    return a.titulo.localeCompare(b.titulo);
+  });
+
+  let noticeHTML = fromUni && userUni
+    ? `<div class="uni-notice">🎓 Conteúdo exclusivo da tua universidade: <b>${userUni}</b></div>`
+    : "";
+
+  if(items.length === 0){
+    div.innerHTML = `${noticeHTML}<div class="empty"><div class="e-icon">📭</div><p>Ainda não há conteúdo aqui.</p><p style="margin-top:6px;font-size:12px;">Volta mais tarde.</p></div>`;
+    return;
+  }
+
+  div.innerHTML = `${noticeHTML}<div class="content-list"></div>`;
+  const lista = div.querySelector(".content-list");
+  const icones = {video:"🎥", bunny:"🎥", pdf:"📄", imagem:"🖼"};
+
+  items.forEach(data => {
+    const card = document.createElement("div");
+    card.className = "content-card";
+    let conteudo = "";
+    if(data.tipo === "bunny"){
+      conteudo = `<div class="bunny-wrap">
+        <iframe src="${data.url.split('?')[0]}?autoplay=false&preload=false&muted=false"
+          loading="lazy" allowfullscreen
+          allow="accelerometer; gyroscope; encrypted-media; picture-in-picture"
+          style="border:0;position:absolute;top:0;height:100%;width:100%;"></iframe>
+        <div class="bunny-overlay"></div>
       </div>`;
+    } else if(data.tipo === "video"){
+      conteudo = `<div class="video-wrap"><iframe src="${data.url}" allowfullscreen allow="autoplay; encrypted-media"></iframe></div>`;
+    } else if(data.tipo === "pdf"){
+      conteudo = `<div class="pdf-wrap"><iframe src="${data.url}"></iframe></div>`;
+    } else if(data.tipo === "imagem"){
+      conteudo = `<div class="img-wrap"><img src="${data.url}" alt="${data.titulo}"></div>`;
+    }
+    card.innerHTML = `<div class="c-header"><span class="c-icon">${icones[data.tipo]||"📁"}</span><span class="c-title">${data.titulo}</span></div>${conteudo}`;
+    lista.appendChild(card);
   });
 }
 
-window.eliminarAula = async function(id){
-  if(!confirm("Tens a certeza?")) return;
-  await deleteDoc(doc(db,"aulas",id)); carregarAulas();
+function atualizarBreadcrumb(){
+  const bc = document.getElementById("breadcrumb");
+  bc.innerHTML = "";
+  const inicio = document.createElement("span");
+  inicio.innerText = "Início"; inicio.onclick = mostrarMenu;
+  bc.appendChild(inicio);
+  if(estado.seccao){
+    bc.innerHTML += `<span class="sep">›</span>`;
+    const sec = document.createElement("span");
+    sec.innerText = estado.seccao.title;
+    if(estado.sub){ sec.onclick = () => abrirSeccao(estado.seccao); }
+    else { sec.className = "current"; }
+    bc.appendChild(sec);
+  }
+  if(estado.sub){
+    bc.innerHTML += `<span class="sep">›</span>`;
+    const sub = document.createElement("span");
+    sub.innerText = estado.sub; sub.className = "current";
+    bc.appendChild(sub);
+  }
 }
 
-async function carregarUsers(){
-  const div  = document.getElementById("users");
-  const snap = await getDocs(collection(db,"users"));
-  if(snap.empty){ div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>"; return; }
-  div.innerHTML = "";
-  snap.forEach(u => {
-    const d = u.data();
-    const uniLabel = d.uni ? `${d.uni}${NOMES_UNI[d.uni] ? ' — '+NOMES_UNI[d.uni] : ''}` : "—";
-    div.innerHTML += `
-      <div class="user-card">
-        <div class="user-info">
-          <p class="email">${d.email}</p>
-          <p class="area">${d.curso||d.area||"—"} · ${uniLabel}</p>
-          <span class="badge ${d.approved?'approved':'pending'}">${d.approved?"APROVADO":"PENDENTE"}</span>
-        </div>
-        <div class="user-actions">
-          ${!d.approved ? `<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>` : ""}
-          ${d.approved  ? `<button class="btn-delete"  onclick="revogar('${u.id}')">✗ Revogar</button>` : ""}
-        </div>
-      </div>`;
-  });
+window.sair = async function(){
+  await signOut(auth); localStorage.clear(); window.location.href = "login.html";
 }
-
-window.aprovar = async function(id){ await updateDoc(doc(db,"users",id),{approved:true}); carregarUsers(); }
-window.revogar = async function(id){ if(!confirm("Revogar acesso?")) return; await updateDoc(doc(db,"users",id),{approved:false}); carregarUsers(); }
 </script>
 </body>
 </html>
