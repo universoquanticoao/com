@@ -74,6 +74,7 @@ button:hover{transform:translateY(-1px);}
   <div class="section">
     <h3>Adicionar Conteúdo</h3>
 
+    <!-- Secção -->
     <select id="seccao" onchange="atualizarCampos()">
       <option value="">Seleciona a secção</option>
       <option value="video_aulas">🎥 Vídeo Aulas</option>
@@ -83,10 +84,12 @@ button:hover{transform:translateY(-1px);}
       <option value="resolucao">✅ Resolução de Provas</option>
     </select>
 
+    <!-- Sub1: Universidade (video_aulas, materiais, provas, resolucao) -->
     <select id="sub1" onchange="atualizarSub2()">
       <option value="">— Seleciona secção primeiro —</option>
     </select>
 
+    <!-- Sub2: Disciplina (video_aulas e materiais) -->
     <select id="sub2" style="display:none;">
       <option value="">— Seleciona universidade primeiro —</option>
     </select>
@@ -116,8 +119,8 @@ button:hover{transform:translateY(-1px);}
   </div>
 
   <div class="tabs">
-    <button class="tab active" onclick="mostrarTab('aulas', event)">📁 Conteúdos Publicados</button>
-    <button class="tab" onclick="mostrarTab('users', event)">👥 Utilizadores</button>
+    <button class="tab active" onclick="mostrarTab('aulas')">📁 Conteúdos Publicados</button>
+    <button class="tab" onclick="mostrarTab('users')">👥 Utilizadores</button>
   </div>
 
   <div id="tabAulas">
@@ -183,17 +186,15 @@ const NOMES_UNI = {
   UCC:"Universidade Cuito Cuanavale"
 };
 
-// ✅ CORRIGIDO: async adicionado
-window.entrar = async function(){
+window.entrar = function(){
   if(document.getElementById("senha").value !== SENHA){
     document.getElementById("erroLogin").innerText = "Senha incorreta!"; return;
   }
   document.getElementById("loginWrap").style.display = "none";
   document.getElementById("painel").style.display = "block";
-  await verificarExpirados();
-  carregarAulas();
-  carregarUsers();
+  carregarAulas(); carregarUsers();
   document.getElementById("bunnyInfo").style.display = "block";
+  verificarExpirados().catch(e => console.log("Expirados:", e));
 }
 
 window.sair = function(){
@@ -202,10 +203,9 @@ window.sair = function(){
   document.getElementById("senha").value = "";
 }
 
-// ✅ CORRIGIDO: recebe event como parâmetro em vez de usar global event
-window.mostrarTab = function(tab, e){
+window.mostrarTab = function(tab){
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  e.target.classList.add("active");
+  event.target.classList.add("active");
   document.getElementById("tabAulas").style.display = tab === "aulas" ? "block" : "none";
   document.getElementById("tabUsers").style.display  = tab === "users" ? "block" : "none";
 }
@@ -226,6 +226,7 @@ window.atualizarCampos = function(){
   }
 
   if(seccao === "video_aulas" || seccao === "materiais"){
+    // Passo 1: Universidade; Passo 2: Disciplina
     sub1.innerHTML = `<option value="">Seleciona universidade</option>`;
     UNIVERSIDADES.forEach(u => sub1.innerHTML += `<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);
     sub2.style.display = "block";
@@ -310,6 +311,8 @@ window.adicionarAula = async function(){
     msg.className = "msg error"; msg.innerText = "⚠️ Link inválido para Bunny Stream."; return;
   }
 
+  // video_aulas e materiais: sub = "UAN|Biologia"
+  // provas e resolucao: sub = "UAN"
   let sub = null;
   if(seccao === "video_aulas" || seccao === "materiais"){
     if(!sub1 || !sub2){ msg.className = "msg error"; msg.innerText = "Seleciona a universidade e a disciplina."; return; }
@@ -365,6 +368,7 @@ window.eliminarAula = async function(id){
   await deleteDoc(doc(db,"aulas",id)); carregarAulas();
 }
 
+// Verificar e remover utilizadores com acesso expirado (365 dias)
 async function verificarExpirados(){
   const snap = await getDocs(collection(db,"users"));
   const DIAS_365 = 365 * 24 * 60 * 60 * 1000;
