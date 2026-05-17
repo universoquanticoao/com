@@ -9,7 +9,6 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--text:#e2e8f0;--muted:#64748b;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-
 .menu{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(6,13,26,0.95);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,255,136,0.1);}
 .logo{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;letter-spacing:2px;color:var(--accent);}
 .menu-right{display:flex;align-items:center;gap:12px;}
@@ -21,17 +20,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .user-badge.curso{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:var(--accent2);}
 .logout{background:transparent;border:1px solid rgba(100,116,139,0.3);color:var(--muted);padding:7px 14px;border-radius:7px;cursor:pointer;font-size:12px;letter-spacing:1px;transition:0.3s;}
 .logout:hover{border-color:var(--accent);color:var(--accent);}
-
 .main{max-width:960px;margin:0 auto;padding:30px 20px;}
-
 .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:24px;flex-wrap:wrap;}
 .breadcrumb span{cursor:pointer;transition:0.2s;}
 .breadcrumb span:hover{color:var(--accent);}
 .breadcrumb .sep{color:rgba(100,116,139,0.4);cursor:default;}
 .breadcrumb .current{color:var(--text);cursor:default;}
-
 .page-title{font-family:'Rajdhani',sans-serif;font-size:30px;font-weight:700;letter-spacing:2px;margin-bottom:28px;}
-
 .section-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
 .section-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 24px;cursor:pointer;transition:0.35s;position:relative;overflow:hidden;}
 .section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,136,0.07),transparent);opacity:0;transition:0.35s;}
@@ -40,20 +35,17 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .section-card .icon{font-size:32px;margin-bottom:14px;display:block;}
 .section-card .title{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;margin-bottom:6px;}
 .section-card .desc{font-size:12px;color:var(--muted);}
-
 .disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
 .disc-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;cursor:pointer;transition:0.3s;text-align:center;}
 .disc-card:hover{border-color:rgba(0,255,136,0.35);color:var(--accent);transform:translateY(-3px);}
 .disc-card .disc-icon{font-size:26px;margin-bottom:10px;display:block;}
 .disc-card .disc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;}
-
 .content-list{display:flex;flex-direction:column;gap:16px;}
 .content-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px;transition:0.3s;}
 .content-card:hover{border-color:rgba(0,255,136,0.2);}
 .c-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .c-icon{font-size:20px;}
 .c-title{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:600;letter-spacing:1px;}
-
 .video-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000;}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 .bunny-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000;}
@@ -62,17 +54,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .pdf-wrap{width:100%;height:500px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);}
 .pdf-wrap iframe{width:100%;height:100%;border:none;}
 .img-wrap img{width:100%;border-radius:10px;display:block;}
-
 .uni-notice{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--muted);margin-bottom:20px;}
 .uni-notice b{color:var(--accent);}
-
 .empty{text-align:center;padding:60px 20px;color:var(--muted);}
 .empty .e-icon{font-size:40px;margin-bottom:12px;}
 .empty p{font-size:14px;}
 .spinner-wrap{text-align:center;padding:60px;}
 .spinner{width:32px;height:32px;border:3px solid rgba(0,255,136,0.2);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:auto;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-
 @media(max-width:600px){.section-grid{grid-template-columns:1fr 1fr;}.disc-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
@@ -116,10 +105,7 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-// Disciplinas iguais para toda a gente (vídeo aulas e materiais)
-const DISCIPLINAS = ["Biologia","Química","Física","Língua Portuguesa","Matemática"];
-
-// Disciplinas por universidade (só para vídeo aulas — filtradas pelo utilizador)
+// Disciplinas por universidade — usadas em Vídeo Aulas E Materiais de Apoio
 const DISCIPLINAS_UNI = {
   UAN:       ["Biologia","Química","Língua Portuguesa","Matemática"],
   UMN:       ["Biologia","Química","Língua Portuguesa","Matemática"],
@@ -135,6 +121,13 @@ const DISCIPLINAS_UNI = {
   OUTRA:     ["Biologia","Química","Matemática","Língua Portuguesa","Física"]
 };
 
+const DISCIPLINAS_PADRAO = ["Biologia","Química","Física","Língua Portuguesa","Matemática"];
+
+const ICONES_DISC = {
+  "Biologia":"🧬","Química":"⚗️","Física":"⚡",
+  "Língua Portuguesa":"📖","Matemática":"📐"
+};
+
 const SECCOES = [
   { id:"video_aulas", icon:"🎥", title:"VÍDEO AULAS",         desc:"Aulas em vídeo por disciplina" },
   { id:"materiais",   icon:"📚", title:"MATERIAIS DE APOIO",   desc:"PDFs e materiais por disciplina" },
@@ -142,8 +135,6 @@ const SECCOES = [
   { id:"provas",      icon:"📝", title:"PROVAS PASSADAS",      desc:"Provas anteriores da tua universidade" },
   { id:"resolucao",   icon:"✅", title:"RESOLUÇÃO DE PROVAS",  desc:"Vídeos de resolução da tua universidade" }
 ];
-
-const ICONES_DISC = { "Biologia":"🧬","Química":"⚗️","Física":"⚡","Língua Portuguesa":"📖","Matemática":"📐" };
 
 let estado = { seccao:null, sub:null };
 let userUni = "", userCurso = "";
@@ -185,47 +176,63 @@ function abrirSeccao(s){
   estado.seccao = s;
   estado.sub    = null;
 
+  // Disciplinas da universidade do utilizador
+  const discUni = (userUni && DISCIPLINAS_UNI[userUni]) ? DISCIPLINAS_UNI[userUni] : DISCIPLINAS_PADRAO;
+
   if(s.id === "video_aulas"){
-    // Filtrado pela universidade do utilizador
-    const discs = (userUni && DISCIPLINAS_UNI[userUni]) ? DISCIPLINAS_UNI[userUni] : DISCIPLINAS;
-    mostrarSubLista(s, discs, "🎥");
+    // Mostra disciplinas da universidade; filtra por disciplina simples ex: "Biologia"
+    mostrarSubLista(s, discUni, "video_aulas");
 
   } else if(s.id === "materiais"){
-    // Igual para todos — mesmas disciplinas
-    mostrarSubLista(s, DISCIPLINAS, "📚");
+    // Mostra disciplinas da universidade; filtra por "UAN|Biologia"
+    mostrarSubLista(s, discUni, "materiais");
 
   } else if(s.id === "cronograma"){
     mostrarConteudo(s, null, false);
 
   } else if(s.id === "provas"){
     if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
-    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "📝"); }
+    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "provas"); }
 
   } else if(s.id === "resolucao"){
     if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
-    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "✅"); }
+    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "resolucao"); }
   }
 }
 
-function mostrarSubLista(s, lista, icon){
+function mostrarSubLista(s, lista, modo){
   atualizarBreadcrumb();
   document.getElementById("pageTitle").innerText = s.title;
   const div = document.getElementById("conteudo");
   div.innerHTML = `<div class="disc-grid"></div>`;
   const grid = div.querySelector(".disc-grid");
+
   lista.forEach(item => {
     const card = document.createElement("div");
     card.className = "disc-card";
-    const icone = ICONES_DISC[item] || icon;
+    const icone = ICONES_DISC[item] || s.icon;
     card.innerHTML = `<span class="disc-icon">${icone}</span><div class="disc-name">${item.toUpperCase()}</div>`;
-    card.onclick = () => { estado.sub = item; mostrarConteudo(s, item, false); };
+    card.onclick = () => {
+      let subKey;
+      if(modo === "materiais"){
+        // Guarda como "UAN|Biologia" para filtrar só materiais desta universidade
+        subKey = userUni ? `${userUni}|${item}` : item;
+      } else {
+        subKey = item;
+      }
+      estado.sub = subKey;
+      mostrarConteudo(s, subKey, false);
+    };
     grid.appendChild(card);
   });
 }
 
 async function mostrarConteudo(s, sub, fromUni){
   atualizarBreadcrumb();
-  document.getElementById("pageTitle").innerText = sub ? sub.toUpperCase() : s.title;
+  // Título: se sub tem "|" (materiais), mostra só a disciplina
+  const titulo = sub && sub.includes("|") ? sub.split("|")[1] : sub;
+  document.getElementById("pageTitle").innerText = titulo ? titulo.toUpperCase() : s.title;
+
   const div = document.getElementById("conteudo");
   div.innerHTML = `<div class="spinner-wrap"><div class="spinner"></div></div>`;
 
@@ -246,7 +253,7 @@ async function mostrarConteudo(s, sub, fromUni){
   });
 
   let noticeHTML = fromUni && userUni
-    ? `<div class="uni-notice">🎓 Conteúdo exclusivo da tua universidade: <b>${userUni}</b></div>`
+    ? `<div class="uni-notice">🎓 Conteúdo da tua universidade: <b>${userUni}</b></div>`
     : "";
 
   if(items.length === 0){
@@ -299,7 +306,8 @@ function atualizarBreadcrumb(){
   if(estado.sub){
     bc.innerHTML += `<span class="sep">›</span>`;
     const sub = document.createElement("span");
-    sub.innerText = estado.sub; sub.className = "current";
+    sub.innerText = estado.sub.includes("|") ? estado.sub.split("|")[1] : estado.sub;
+    sub.className = "current";
     bc.appendChild(sub);
   }
 }
