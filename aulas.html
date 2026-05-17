@@ -55,6 +55,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .pdf-wrap iframe{width:100%;height:100%;border:none;}
 .img-wrap img{width:100%;border-radius:10px;display:block;}
 .uni-notice{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--muted);margin-bottom:20px;}
+.countdown{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;}
+.countdown.ok{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.25);color:var(--accent);}
+.countdown.warn{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);color:#fbbf24;}
+.countdown.danger{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;}
 .uni-notice b{color:var(--accent);}
 .empty{text-align:center;padding:60px 20px;color:var(--muted);}
 .empty .e-icon{font-size:40px;margin-bottom:12px;}
@@ -75,6 +79,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
       <div class="meta">
         <span class="user-badge uni"   id="userUni"   style="display:none"></span>
         <span class="user-badge curso" id="userCurso" style="display:none"></span>
+        <span class="countdown" id="countdown" style="display:none"></span>
       </div>
     </div>
     <button class="logout" onclick="sair()">SAIR</button>
@@ -90,7 +95,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
@@ -146,6 +151,17 @@ onAuthStateChanged(auth, async (user) => {
     await signOut(auth); window.location.href = "login.html"; return;
   }
   const data = snap.data();
+
+  // Verificar se o acesso expirou (365 dias)
+  const DIAS_365 = 365 * 24 * 60 * 60 * 1000;
+  if(data.approved && data.approvedAt && (Date.now() - data.approvedAt) >= DIAS_365){
+    await deleteDoc(doc(db,"users",user.uid));
+    await signOut(auth);
+    localStorage.clear();
+    window.location.href = "login.html?expirado=1";
+    return;
+  }
+
   userUni   = data.uni   || localStorage.getItem("uni")  || "";
   userCurso = data.curso || localStorage.getItem("curso")|| "";
   document.getElementById("userEmail").innerText = data.email || user.email;
@@ -153,6 +169,25 @@ onAuthStateChanged(auth, async (user) => {
   const cursoEl = document.getElementById("userCurso");
   if(userUni){   uniEl.innerText   = userUni;   uniEl.style.display   = "inline-block"; }
   if(userCurso){ cursoEl.innerText = userCurso; cursoEl.style.display = "inline-block"; }
+
+  // Contagem regressiva
+  if(data.approvedAt){
+    const DIAS_365 = 365 * 24 * 60 * 60 * 1000;
+    const diasRestantes = Math.ceil((data.approvedAt + DIAS_365 - Date.now()) / (24 * 60 * 60 * 1000));
+    const countdownEl = document.getElementById("countdown");
+    countdownEl.style.display = "inline-flex";
+    if(diasRestantes > 30){
+      countdownEl.className = "countdown ok";
+      countdownEl.innerText = "Faltam " + diasRestantes + " dias";
+    } else if(diasRestantes > 7){
+      countdownEl.className = "countdown warn";
+      countdownEl.innerText = "Faltam " + diasRestantes + " dias";
+    } else {
+      countdownEl.className = "countdown danger";
+      countdownEl.innerText = "Faltam " + diasRestantes + " dias";
+    }
+  }
+
   mostrarMenu();
 });
 
