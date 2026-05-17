@@ -176,31 +176,26 @@ function abrirSeccao(s){
   estado.seccao = s;
   estado.sub    = null;
 
-  // Disciplinas da universidade do utilizador
   const discUni = (userUni && DISCIPLINAS_UNI[userUni]) ? DISCIPLINAS_UNI[userUni] : DISCIPLINAS_PADRAO;
 
-  if(s.id === "video_aulas"){
-    // Mostra disciplinas da universidade; filtra por disciplina simples ex: "Biologia"
-    mostrarSubLista(s, discUni, "video_aulas");
-
-  } else if(s.id === "materiais"){
-    // Mostra disciplinas da universidade; filtra por "UAN|Biologia"
-    mostrarSubLista(s, discUni, "materiais");
+  if(s.id === "video_aulas" || s.id === "materiais"){
+    // Ambos: mostrar disciplinas da universidade; filtrar por "UAN|Biologia"
+    mostrarSubLista(s, discUni);
 
   } else if(s.id === "cronograma"){
     mostrarConteudo(s, null, false);
 
   } else if(s.id === "provas"){
     if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
-    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "provas"); }
+    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI)); }
 
   } else if(s.id === "resolucao"){
     if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
-    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI), "resolucao"); }
+    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI)); }
   }
 }
 
-function mostrarSubLista(s, lista, modo){
+function mostrarSubLista(s, lista){
   atualizarBreadcrumb();
   document.getElementById("pageTitle").innerText = s.title;
   const div = document.getElementById("conteudo");
@@ -213,13 +208,8 @@ function mostrarSubLista(s, lista, modo){
     const icone = ICONES_DISC[item] || s.icon;
     card.innerHTML = `<span class="disc-icon">${icone}</span><div class="disc-name">${item.toUpperCase()}</div>`;
     card.onclick = () => {
-      let subKey;
-      if(modo === "materiais"){
-        // Guarda como "UAN|Biologia" para filtrar só materiais desta universidade
-        subKey = userUni ? `${userUni}|${item}` : item;
-      } else {
-        subKey = item;
-      }
+      // Sempre filtra por "UAN|Biologia" para video_aulas e materiais
+      const subKey = userUni ? `${userUni}|${item}` : item;
       estado.sub = subKey;
       mostrarConteudo(s, subKey, false);
     };
@@ -229,7 +219,6 @@ function mostrarSubLista(s, lista, modo){
 
 async function mostrarConteudo(s, sub, fromUni){
   atualizarBreadcrumb();
-  // Título: se sub tem "|" (materiais), mostra só a disciplina
   const titulo = sub && sub.includes("|") ? sub.split("|")[1] : sub;
   document.getElementById("pageTitle").innerText = titulo ? titulo.toUpperCase() : s.title;
 
