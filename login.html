@@ -68,7 +68,7 @@ margin-bottom:20px;
 color:var(--text);
 }
 
-/* BADGES */
+/* BADGES — só uni e curso */
 .badges{
 display:flex;
 flex-wrap:wrap;
@@ -99,12 +99,6 @@ border:1px solid rgba(59,130,246,0.3);
 color:var(--accent2);
 }
 
-.badge.area{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-color:var(--muted);
-}
-
 .back-link{
 display:inline-block;
 font-size:12px;
@@ -128,7 +122,7 @@ text-transform:uppercase;
 margin-bottom:6px;
 }
 
-input, select{
+input{
 width:100%;
 padding:13px 16px;
 background:rgba(6,13,26,0.8);
@@ -141,12 +135,10 @@ transition:0.3s;
 outline:none;
 }
 
-input:focus, select:focus{
+input:focus{
 border-color:rgba(0,255,136,0.4);
 background:rgba(6,13,26,0.95);
 }
-
-select option{background:#0d1f35;}
 
 .password-wrap{position:relative;}
 .eye{
@@ -212,7 +204,7 @@ font-size:13px;display:none;
   <a class="back-link" href="index.html">← VOLTAR AO INÍCIO</a>
   <h2>ACESSO</h2>
 
-  <!-- Badges da universidade, curso e área -->
+  <!-- Badges: só Universidade e Curso -->
   <div class="badges" id="badges"></div>
 
   <div class="field">
@@ -228,7 +220,7 @@ font-size:13px;display:none;
     </div>
   </div>
 
-  <!-- Campo área oculto (preenchido automaticamente) -->
+  <!-- Área derivada automaticamente do curso — nunca mostrada ao utilizador -->
   <input type="hidden" id="area">
 
   <div class="btns">
@@ -259,40 +251,31 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const msgEl    = document.getElementById("msg");
-const loading  = document.getElementById("loading");
-const btnLogin = document.getElementById("btnLogin");
+const msgEl       = document.getElementById("msg");
+const loading     = document.getElementById("loading");
+const btnLogin    = document.getElementById("btnLogin");
 const btnRegister = document.getElementById("btnRegister");
 const btnForgot   = document.getElementById("btnForgot");
 
-// Pegar parâmetros da URL
-const params = new URLSearchParams(window.location.search);
+// Parâmetros da URL
+const params     = new URLSearchParams(window.location.search);
+const uniParam   = params.get("uni")   || "";
+const cursoParam = params.get("curso") || "";
+const areaParam  = params.get("area")  || "";
 
 // Verificar se foi redirecionado por expiração
 if(params.get("expirado")){
-  const msgEl2 = document.getElementById("msg");
-  msgEl2.className = "msg error";
-  msgEl2.innerText = "⚠️ O teu acesso expirou após 365 dias. Contacta o administrador para renovar.";
+  msgEl.className = "msg error";
+  msgEl.innerText = "⚠️ O teu acesso expirou após 365 dias. Contacta o administrador para renovar.";
 }
-const uniParam    = params.get("uni")   || "";
-const cursoParam  = params.get("curso") || "";
-const areaParam   = params.get("area")  || "";
 
-// Preencher área oculta
+// Preencher campo oculto de área (usado internamente)
 document.getElementById("area").value = areaParam;
 
-// Mostrar badges
+// Mostrar apenas badges de Universidade e Curso
 const badgesDiv = document.getElementById("badges");
-if(uniParam){
-  badgesDiv.innerHTML += `<span class="badge uni">${uniParam}</span>`;
-}
-if(cursoParam){
-  badgesDiv.innerHTML += `<span class="badge curso">${cursoParam}</span>`;
-}
-if(areaParam){
-  const areaLabel = areaParam.charAt(0).toUpperCase() + areaParam.slice(1);
-  badgesDiv.innerHTML += `<span class="badge area">${areaLabel}</span>`;
-}
+if(uniParam)   badgesDiv.innerHTML += `<span class="badge uni">${uniParam}</span>`;
+if(cursoParam) badgesDiv.innerHTML += `<span class="badge curso">${cursoParam}</span>`;
 
 function showMsg(texto, tipo){
   msgEl.className = "msg " + tipo;
@@ -319,7 +302,7 @@ function validar(email, senha, area){
     return false;
   }
   if(!area){
-    showMsg("Volta atrás e escolhe a tua área.", "error");
+    showMsg("Volta atrás e escolhe o teu curso.", "error");
     return false;
   }
   if(senha.length < 6){
@@ -358,11 +341,10 @@ window.login = async function(){
       return;
     }
 
-    // Guardar tudo no localStorage
-    localStorage.setItem("user", email);
-    localStorage.setItem("uid", cred.user.uid);
-    localStorage.setItem("area", data.area || area);
-    localStorage.setItem("uni", uniParam || data.uni || "");
+    localStorage.setItem("user",  email);
+    localStorage.setItem("uid",   cred.user.uid);
+    localStorage.setItem("area",  data.area  || area);
+    localStorage.setItem("uni",   uniParam   || data.uni   || "");
     localStorage.setItem("curso", cursoParam || data.curso || "");
 
     window.location.href = "aulas.html";
