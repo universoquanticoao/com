@@ -94,7 +94,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, getDocs, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -110,7 +110,6 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-// Disciplinas por universidade — usadas em Vídeo Aulas E Materiais de Apoio
 const DISCIPLINAS_UNI = {
   UAN:       ["Biologia","Química","Língua Portuguesa","Matemática"],
   UMN:       ["Biologia","Química","Língua Portuguesa","Matemática"],
@@ -146,46 +145,66 @@ let userUni = "", userCurso = "";
 
 onAuthStateChanged(auth, async (user) => {
   if(!user){ window.location.href = "login.html"; return; }
-  const snap = await getDoc(doc(db,"users",user.uid));
-  if(!snap.exists() || snap.data().approved !== true){
-    await signOut(auth); window.location.href = "login.html"; return;
+
+  const ref  = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
+
+  // ── Documento não existe: conta foi removida pelo admin ──
+  if(!snap.exists()){
+    try { await deleteUser(user); } catch(e){}
+    await signOut(auth);
+    localStorage.clear();
+    window.location.href = "login.html";
+    return;
   }
+
   const data = snap.data();
 
-  // Verificar se o acesso expirou (365 dias)
-  const DIAS_365 = 365 * 24 * 60 * 60 * 1000;
-  if(data.approved && data.approvedAt && (Date.now() - data.approvedAt) >= DIAS_365){
-    await deleteDoc(doc(db,"users",user.uid));
+  // ── Conta não aprovada ──
+  if(data.approved !== true){
+    await signOut(auth);
+    window.location.href = "login.html";
+    return;
+  }
+
+  // ── Verificar expiração ──
+  // Usa expiryDate (definido pelo admin) ou fallback de 365 dias desde approvedAt
+  const expiryTs = data.expiryDate || (data.approvedAt ? data.approvedAt + 365*24*60*60*1000 : null);
+
+  if(expiryTs && Date.now() >= expiryTs){
+    // Apaga Firestore + Auth — utilizador pode criar nova conta com o mesmo email
+    try { await deleteDoc(ref); }    catch(e){}
+    try { await deleteUser(user); }  catch(e){}
     await signOut(auth);
     localStorage.clear();
     window.location.href = "login.html?expirado=1";
     return;
   }
 
-  userUni   = data.uni   || localStorage.getItem("uni")  || "";
-  userCurso = data.curso || localStorage.getItem("curso")|| "";
+  // ── Sessão válida ──
+  userUni   = data.uni   || localStorage.getItem("uni")   || "";
+  userCurso = data.curso || localStorage.getItem("curso") || "";
+
   document.getElementById("userEmail").innerText = data.email || user.email;
+
   const uniEl   = document.getElementById("userUni");
   const cursoEl = document.getElementById("userCurso");
   if(userUni){   uniEl.innerText   = userUni;   uniEl.style.display   = "inline-block"; }
   if(userCurso){ cursoEl.innerText = userCurso; cursoEl.style.display = "inline-block"; }
 
-  // Contagem regressiva
-  if(data.approvedAt){
-    const DIAS_365 = 365 * 24 * 60 * 60 * 1000;
-    const diasRestantes = Math.ceil((data.approvedAt + DIAS_365 - Date.now()) / (24 * 60 * 60 * 1000));
-    const countdownEl = document.getElementById("countdown");
+  // ── Contagem regressiva baseada em expiryTs ──
+  if(expiryTs){
+    const diasRestantes = Math.ceil((expiryTs - Date.now()) / (24*60*60*1000));
+    const countdownEl   = document.getElementById("countdown");
     countdownEl.style.display = "inline-flex";
     if(diasRestantes > 30){
       countdownEl.className = "countdown ok";
-      countdownEl.innerText = "Faltam " + diasRestantes + " dias";
     } else if(diasRestantes > 7){
       countdownEl.className = "countdown warn";
-      countdownEl.innerText = "Faltam " + diasRestantes + " dias";
     } else {
       countdownEl.className = "countdown danger";
-      countdownEl.innerText = "Faltam " + diasRestantes + " dias";
     }
+    countdownEl.innerText = `Faltam ${diasRestantes} dia${diasRestantes !== 1 ? 's' : ''}`;
   }
 
   mostrarMenu();
@@ -210,21 +229,12 @@ function mostrarMenu(){
 function abrirSeccao(s){
   estado.seccao = s;
   estado.sub    = null;
-
   const discUni = (userUni && DISCIPLINAS_UNI[userUni]) ? DISCIPLINAS_UNI[userUni] : DISCIPLINAS_PADRAO;
-
   if(s.id === "video_aulas" || s.id === "materiais"){
-    // Ambos: mostrar disciplinas da universidade; filtrar por "UAN|Biologia"
     mostrarSubLista(s, discUni);
-
   } else if(s.id === "cronograma"){
     mostrarConteudo(s, null, false);
-
-  } else if(s.id === "provas"){
-    if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
-    else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI)); }
-
-  } else if(s.id === "resolucao"){
+  } else if(s.id === "provas" || s.id === "resolucao"){
     if(userUni){ estado.sub = userUni; mostrarConteudo(s, userUni, true); }
     else { mostrarSubLista(s, Object.keys(DISCIPLINAS_UNI)); }
   }
@@ -236,14 +246,12 @@ function mostrarSubLista(s, lista){
   const div = document.getElementById("conteudo");
   div.innerHTML = `<div class="disc-grid"></div>`;
   const grid = div.querySelector(".disc-grid");
-
   lista.forEach(item => {
     const card = document.createElement("div");
     card.className = "disc-card";
     const icone = ICONES_DISC[item] || s.icon;
     card.innerHTML = `<span class="disc-icon">${icone}</span><div class="disc-name">${item.toUpperCase()}</div>`;
     card.onclick = () => {
-      // Sempre filtra por "UAN|Biologia" para video_aulas e materiais
       const subKey = userUni ? `${userUni}|${item}` : item;
       estado.sub = subKey;
       mostrarConteudo(s, subKey, false);
@@ -256,10 +264,8 @@ async function mostrarConteudo(s, sub, fromUni){
   atualizarBreadcrumb();
   const titulo = sub && sub.includes("|") ? sub.split("|")[1] : sub;
   document.getElementById("pageTitle").innerText = titulo ? titulo.toUpperCase() : s.title;
-
   const div = document.getElementById("conteudo");
   div.innerHTML = `<div class="spinner-wrap"><div class="spinner"></div></div>`;
-
   const snap = await getDocs(collection(db,"aulas"));
   const items = [];
   snap.forEach(d => {
@@ -268,27 +274,22 @@ async function mostrarConteudo(s, sub, fromUni){
     if(sub && data.sub !== sub) return;
     items.push(data);
   });
-
   items.sort((a,b) => {
     const nA = parseInt((a.titulo.match(/\d+/)||[0])[0]);
     const nB = parseInt((b.titulo.match(/\d+/)||[0])[0]);
     if(nA !== nB) return nA - nB;
     return a.titulo.localeCompare(b.titulo);
   });
-
   let noticeHTML = fromUni && userUni
     ? `<div class="uni-notice">🎓 Conteúdo da tua universidade: <b>${userUni}</b></div>`
     : "";
-
   if(items.length === 0){
     div.innerHTML = `${noticeHTML}<div class="empty"><div class="e-icon">📭</div><p>Ainda não há conteúdo aqui.</p><p style="margin-top:6px;font-size:12px;">Volta mais tarde.</p></div>`;
     return;
   }
-
   div.innerHTML = `${noticeHTML}<div class="content-list"></div>`;
   const lista = div.querySelector(".content-list");
   const icones = {video:"🎥", bunny:"🎥", pdf:"📄", imagem:"🖼"};
-
   items.forEach(data => {
     const card = document.createElement("div");
     card.className = "content-card";
