@@ -97,7 +97,7 @@ text-transform:uppercase;
 margin-bottom:40px;
 }
 
-/* PAYMENT BOX */
+/* PAYMENT BOX — só aparece para quem ainda não tem conta aprovada */
 .payment{
 display:inline-flex;
 flex-direction:column;
@@ -108,14 +108,6 @@ border:1px solid rgba(0,255,136,0.2);
 border-radius:16px;
 padding:24px 40px;
 margin-bottom:40px;
-}
-
-.price{
-font-family:'Rajdhani',sans-serif;
-font-size:36px;
-font-weight:700;
-color:var(--accent);
-letter-spacing:2px;
 }
 
 .iban{font-size:13px;color:var(--muted);letter-spacing:1px;}
@@ -150,7 +142,7 @@ text-align:center;
 margin-bottom:30px;
 }
 
-/* STEP INDICATOR — agora só 2 passos */
+/* STEP INDICATOR — 3 passos */
 .step-indicator{
 display:flex;
 justify-content:center;
@@ -329,6 +321,181 @@ box-shadow:0 8px 24px rgba(0,0,0,0.3);
 
 .course-arrow{font-size:18px;color:var(--muted);}
 
+/* ── DURATION CARDS ── */
+.duration-grid{
+position:relative;z-index:1;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:16px;
+max-width:760px;
+margin:0 auto;
+padding:0 20px 60px;
+}
+
+.duration-card{
+background:var(--surface);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:16px;
+padding:28px 24px;
+cursor:pointer;
+transition:0.35s;
+text-align:center;
+position:relative;
+overflow:hidden;
+}
+
+.duration-card::before{
+content:'';position:absolute;inset:0;
+background:linear-gradient(135deg,rgba(0,255,136,0.08),transparent);
+opacity:0;transition:0.35s;
+}
+
+.duration-card:hover,
+.duration-card.selected{
+border-color:rgba(0,255,136,0.5);
+transform:translateY(-4px);
+box-shadow:0 16px 40px rgba(0,0,0,0.4),0 0 24px rgba(0,255,136,0.1);
+}
+.duration-card:hover::before,
+.duration-card.selected::before{opacity:1;}
+
+.duration-card.selected{
+border-color:var(--accent);
+background:rgba(0,255,136,0.06);
+}
+
+.dur-icon{font-size:28px;margin-bottom:12px;display:block;}
+
+.dur-label{
+font-family:'Rajdhani',sans-serif;
+font-size:20px;
+font-weight:700;
+letter-spacing:2px;
+color:var(--text);
+margin-bottom:4px;
+}
+
+.dur-days{
+font-size:12px;
+color:var(--muted);
+letter-spacing:2px;
+margin-bottom:16px;
+}
+
+.dur-price{
+font-family:'Rajdhani',sans-serif;
+font-size:28px;
+font-weight:700;
+color:var(--accent);
+letter-spacing:1px;
+}
+
+.dur-pricetag{
+font-size:11px;
+color:var(--muted);
+letter-spacing:1px;
+margin-top:4px;
+}
+
+.dur-badge-popular{
+position:absolute;
+top:12px;right:12px;
+background:rgba(251,191,36,0.15);
+border:1px solid rgba(251,191,36,0.4);
+color:#fbbf24;
+font-size:9px;
+letter-spacing:2px;
+font-family:'Rajdhani',sans-serif;
+font-weight:700;
+padding:3px 8px;
+border-radius:20px;
+}
+
+/* IBAN + ENVIO COMPROVATIVO */
+.iban-box{
+position:relative;z-index:1;
+max-width:560px;
+margin:0 auto;
+padding:0 20px 60px;
+}
+
+.iban-card{
+background:rgba(13,31,53,0.9);
+border:1px solid rgba(0,255,136,0.2);
+border-radius:16px;
+padding:28px 32px;
+text-align:center;
+}
+
+.iban-price-display{
+font-family:'Rajdhani',sans-serif;
+font-size:42px;
+font-weight:700;
+color:var(--accent);
+letter-spacing:2px;
+margin-bottom:6px;
+}
+
+.iban-dur-display{
+font-size:12px;
+color:var(--muted);
+letter-spacing:3px;
+text-transform:uppercase;
+margin-bottom:24px;
+}
+
+.iban-divider{
+width:100%;height:1px;
+background:rgba(255,255,255,0.06);
+margin:20px 0;
+}
+
+.iban-row{
+font-size:13px;
+color:var(--muted);
+letter-spacing:1px;
+margin-bottom:8px;
+}
+.iban-row span{color:var(--text);font-weight:500;}
+
+.proceed-btn{
+display:inline-flex;
+align-items:center;
+gap:10px;
+background:var(--accent);
+color:#060d1a;
+padding:14px 32px;
+border-radius:10px;
+font-family:'Rajdhani',sans-serif;
+font-weight:700;
+font-size:16px;
+letter-spacing:2px;
+text-decoration:none;
+transition:0.3s;
+border:none;
+cursor:pointer;
+margin-top:20px;
+width:100%;
+justify-content:center;
+}
+.proceed-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,136,0.25);}
+
+.comprov-title{
+font-family:'Rajdhani',sans-serif;
+font-size:12px;
+letter-spacing:3px;
+color:var(--muted);
+text-transform:uppercase;
+margin:24px 0 12px;
+}
+
+.comprov-btns{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
 /* SELECTED BADGE */
 .selected-info{
 display:flex;
@@ -351,12 +518,20 @@ background:rgba(0,255,136,0.1);
 border:1px solid rgba(0,255,136,0.3);
 color:var(--accent);
 }
+.sel-badge.curso{
+background:rgba(59,130,246,0.1);
+border:1px solid rgba(59,130,246,0.3);
+color:var(--accent2);
+}
 
 @media(max-width:768px){
 .menu{padding:16px 20px;}
 .header{padding:60px 20px 40px;}
-.payment{padding:20px 24px;}
 .step-line{width:32px;}
+.duration-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:480px){
+.duration-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -370,23 +545,9 @@ color:var(--accent);
 <div class="header">
   <h1>PREPARATÓRIO VIRTUAL<br><span>COM DELT∆</span></h1>
   <div class="subtitle">Medicina &amp; Ciências da Saúde</div>
-
-  <div class="payment">
-    <div class="price">5.000 KZ</div>
-    <div class="iban">IBAN: <span>AO06 0040 0000 5071 2010 1017 8</span></div>
-    <div class="iban">Proprietário: <span>MPEKO CRUZ</span></div>
-    <div class="btns">
-      <a href="https://wa.me/244950509560?text=Olá%2C%20quero%20enviar%20o%20meu%20comprovativo%20de%20pagamento%20do%20Preparatório%20Virtual." target="_blank">
-        <button class="btn whatsapp">📱 WhatsApp</button>
-      </a>
-      <a href="mailto:deltaigualb.bmenos4.a.c@gmail.com?subject=Comprovativo%20de%20Pagamento&body=Olá,%0D%0A%0D%0AEstou a enviar o meu comprovativo de pagamento.%0D%0A%0D%0ANome:%0D%0AÁrea escolhida:%0D%0A%0D%0AObrigado.">
-        <button class="btn email-btn">✉️ Email</button>
-      </a>
-    </div>
-  </div>
 </div>
 
-<!-- STEP INDICATOR — 2 passos apenas -->
+<!-- STEP INDICATOR — 3 passos -->
 <div class="step-indicator" id="stepIndicator">
   <div class="step active" id="step1">
     <div class="step-num">1</div>
@@ -396,6 +557,11 @@ color:var(--accent);
   <div class="step" id="step2">
     <div class="step-num">2</div>
     <div class="step-label">Curso</div>
+  </div>
+  <div class="step-line" id="line2"></div>
+  <div class="step" id="step3">
+    <div class="step-num">3</div>
+    <div class="step-label">Duração</div>
   </div>
 </div>
 
@@ -415,6 +581,48 @@ color:var(--accent);
   </div>
   <div class="section-title">Escolha o seu Curso</div>
   <div class="course-list" id="courseList"></div>
+</div>
+
+<!-- VIEW 3: DURAÇÃO -->
+<div class="view" id="viewDuracao">
+  <div style="max-width:760px;margin:0 auto;padding:0 20px;">
+    <button class="back-btn" onclick="goToCurso()">← VOLTAR</button>
+  </div>
+  <div class="selected-info">
+    <span class="sel-badge uni" id="badgeUni2"></span>
+    <span class="sel-badge curso" id="badgeCurso2"></span>
+  </div>
+  <div class="section-title">Escolha a Duração do Preparatório</div>
+  <div class="duration-grid" id="durationGrid"></div>
+
+  <!-- IBAN + Comprovativo — aparece após escolher duração -->
+  <div class="iban-box" id="ibanBox" style="display:none;">
+    <div class="iban-card">
+      <div class="iban-price-display" id="ibanPrice"></div>
+      <div class="iban-dur-display" id="ibanDur"></div>
+
+      <div class="iban-divider"></div>
+
+      <div class="iban-row">IBAN: <span>AO06 0040 0000 5071 2010 1017 8</span></div>
+      <div class="iban-row">Proprietário: <span>MPEKO CRUZ</span></div>
+
+      <div class="iban-divider"></div>
+
+      <a id="proceedBtn" href="#" class="proceed-btn">
+        CRIAR CONTA &amp; CONTINUAR →
+      </a>
+
+      <div class="comprov-title">Após o pagamento, envie o comprovativo:</div>
+      <div class="comprov-btns">
+        <a id="whatsappLink" href="#" target="_blank">
+          <button class="btn whatsapp">📱 WhatsApp</button>
+        </a>
+        <a id="emailLink" href="#">
+          <button class="btn email-btn">✉️ Email</button>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -448,7 +656,6 @@ const COURSES = {
   OUTRA:     ["Medicina Geral","Medicina Dentária","Enfermagem","Análises Clínicas","Farmácia","Nutrição","Cardiopneumologia","Fisioterapia"]
 };
 
-// Map curso → área (mantido para passar ao login via URL)
 const COURSE_TO_AREA = {
   "Medicina Geral":"medicina geral",
   "Medicina Dentária":"medicina dentária",
@@ -471,9 +678,19 @@ const COURSE_TO_AREA = {
   "Agronomia":"analises clinicas"
 };
 
-let selectedUni = null;
+// Durações disponíveis
+const DURATIONS = [
+  { id:"30",  label:"1 MÊS",   days:"30 dias",   price:"10.000 KZ",  priceNum:10000, icon:"📅" },
+  { id:"90",  label:"3 MESES", days:"90 dias",   price:"20.000 KZ",  priceNum:20000, icon:"📆", popular:true },
+  { id:"180", label:"6 MESES", days:"180 dias",  price:"30.000 KZ",  priceNum:30000, icon:"🗓" },
+  { id:"365", label:"1 ANO",   days:"365 dias",  price:"60.000 KZ",  priceNum:60000, icon:"🏆" }
+];
 
-// BUILD UNIVERSITY GRID
+let selectedUni   = null;
+let selectedCurso = null;
+let selectedDur   = null;
+
+// ── BUILD UNIVERSITY GRID ──
 const uniGrid = document.getElementById("uniGrid");
 UNIVERSITIES.forEach((uni, i) => {
   const card = document.createElement("div");
@@ -487,42 +704,123 @@ UNIVERSITIES.forEach((uni, i) => {
   uniGrid.appendChild(card);
 });
 
+// ── BUILD DURATION GRID ──
+const durationGrid = document.getElementById("durationGrid");
+DURATIONS.forEach(dur => {
+  const card = document.createElement("div");
+  card.className = "duration-card";
+  card.id = "dur-" + dur.id;
+  card.innerHTML = `
+    ${dur.popular ? '<div class="dur-badge-popular">MAIS POPULAR</div>' : ''}
+    <span class="dur-icon">${dur.icon}</span>
+    <div class="dur-label">${dur.label}</div>
+    <div class="dur-days">${dur.days}</div>
+    <div class="dur-price">${dur.price}</div>
+    <div class="dur-pricetag">pagamento único</div>
+  `;
+  card.onclick = () => selectDuration(dur);
+  durationGrid.appendChild(card);
+});
+
 function selectUni(uni){
   selectedUni = uni;
   document.getElementById("badgeUni").innerText = uni.id + " — " + uni.name;
 
-  // Build course list — cada curso leva directo ao login
   const courseList = document.getElementById("courseList");
   courseList.innerHTML = "";
   COURSES[uni.id].forEach(course => {
-    const area = COURSE_TO_AREA[course] || "medicina geral";
-    const link = document.createElement("a");
-    link.className = "course-card";
-    link.href = `login.html?uni=${encodeURIComponent(uni.id)}&curso=${encodeURIComponent(course)}&area=${encodeURIComponent(area)}`;
-    link.innerHTML = `<span>${course}</span><span class="course-arrow">›</span>`;
-    courseList.appendChild(link);
+    const card = document.createElement("div");
+    card.className = "course-card";
+    card.innerHTML = `<span>${course}</span><span class="course-arrow">›</span>`;
+    card.onclick = () => selectCurso(course);
+    courseList.appendChild(card);
   });
 
   setStep(2);
 }
 
+function selectCurso(course){
+  selectedCurso = course;
+  selectedDur   = null;
+
+  // Reset duration selection
+  document.querySelectorAll(".duration-card").forEach(c => c.classList.remove("selected"));
+  document.getElementById("ibanBox").style.display = "none";
+
+  document.getElementById("badgeUni2").innerText   = selectedUni.id + " — " + selectedUni.name;
+  document.getElementById("badgeCurso2").innerText = course;
+
+  setStep(3);
+}
+
+function selectDuration(dur){
+  selectedDur = dur;
+
+  // Highlight selected card
+  document.querySelectorAll(".duration-card").forEach(c => c.classList.remove("selected"));
+  document.getElementById("dur-" + dur.id).classList.add("selected");
+
+  // Update IBAN box
+  document.getElementById("ibanPrice").innerText = dur.price;
+  document.getElementById("ibanDur").innerText   = dur.label + " · " + dur.days;
+
+  // Build proceed link to login with all params
+  const area = COURSE_TO_AREA[selectedCurso] || "medicina geral";
+  const params = new URLSearchParams({
+    uni:      selectedUni.id,
+    curso:    selectedCurso,
+    area:     area,
+    duracao:  dur.id,
+    preco:    dur.priceNum
+  });
+  document.getElementById("proceedBtn").href = `login.html?${params.toString()}`;
+
+  // WhatsApp message
+  const wa = `Olá, quero enviar o meu comprovativo de pagamento do Preparatório Virtual.\n\n` +
+    `Universidade: ${selectedUni.id} — ${selectedUni.name}\n` +
+    `Curso: ${selectedCurso}\n` +
+    `Duração: ${dur.label} (${dur.days})\n` +
+    `Valor: ${dur.price}`;
+  document.getElementById("whatsappLink").href = `https://wa.me/244950509560?text=${encodeURIComponent(wa)}`;
+
+  // Email
+  const emailBody = `Olá,\n\nEstou a enviar o meu comprovativo de pagamento.\n\nUniversidade: ${selectedUni.id} — ${selectedUni.name}\nCurso: ${selectedCurso}\nDuração: ${dur.label} (${dur.days})\nValor: ${dur.price}\n\nObrigado.`;
+  document.getElementById("emailLink").href = `mailto:deltaigualb.bmenos4.a.c@gmail.com?subject=Comprovativo%20de%20Pagamento%20-%20${encodeURIComponent(dur.label)}&body=${encodeURIComponent(emailBody)}`;
+
+  // Show IBAN box
+  document.getElementById("ibanBox").style.display = "block";
+  setTimeout(() => {
+    document.getElementById("ibanBox").scrollIntoView({behavior:"smooth", block:"nearest"});
+  }, 100);
+}
+
 function goToUni(){
-  selectedUni = null;
+  selectedUni   = null;
+  selectedCurso = null;
+  selectedDur   = null;
   setStep(1);
 }
 
-function setStep(n){
-  document.getElementById("viewUni").classList.toggle("active", n===1);
-  document.getElementById("viewCurso").classList.toggle("active", n===2);
+function goToCurso(){
+  selectedCurso = null;
+  selectedDur   = null;
+  setStep(2);
+}
 
-  [1,2].forEach(i => {
+function setStep(n){
+  document.getElementById("viewUni").classList.toggle("active",    n===1);
+  document.getElementById("viewCurso").classList.toggle("active",  n===2);
+  document.getElementById("viewDuracao").classList.toggle("active", n===3);
+
+  [1,2,3].forEach(i => {
     const el = document.getElementById("step"+i);
     el.classList.remove("active","done");
-    if(i < n) el.classList.add("done");
+    if(i < n)       el.classList.add("done");
     else if(i === n) el.classList.add("active");
   });
 
   document.getElementById("line1").classList.toggle("done", n > 1);
+  document.getElementById("line2").classList.toggle("done", n > 2);
   window.scrollTo({top:0,behavior:"smooth"});
 }
 </script>
