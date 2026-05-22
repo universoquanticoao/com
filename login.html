@@ -22,10 +22,12 @@ font-family:'Inter',sans-serif;
 background:var(--bg);
 color:var(--text);
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
 min-height:100vh;
 padding:20px;
+gap:20px;
 }
 
 body::before{
@@ -38,6 +40,84 @@ background:
 pointer-events:none;
 }
 
+/* RESUMO DA COMPRA — só aparece para novos candidatos */
+.purchase-summary{
+position:relative;
+z-index:1;
+background:rgba(13,31,53,0.7);
+border:1px solid rgba(0,255,136,0.15);
+border-radius:16px;
+padding:20px 32px;
+width:100%;
+max-width:440px;
+backdrop-filter:blur(20px);
+display:none; /* controlado por JS */
+}
+
+.ps-title{
+font-family:'Rajdhani',sans-serif;
+font-size:11px;
+letter-spacing:3px;
+color:var(--muted);
+text-transform:uppercase;
+margin-bottom:12px;
+}
+
+.ps-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:13px;
+margin-bottom:8px;
+}
+
+.ps-label{color:var(--muted);}
+.ps-value{color:var(--text);font-weight:500;}
+.ps-price{
+font-family:'Rajdhani',sans-serif;
+font-size:24px;
+font-weight:700;
+color:var(--accent);
+}
+
+.ps-divider{
+width:100%;height:1px;
+background:rgba(255,255,255,0.06);
+margin:12px 0;
+}
+
+.ps-comprov-title{
+font-size:11px;
+letter-spacing:2px;
+color:var(--muted);
+text-transform:uppercase;
+font-family:'Rajdhani',sans-serif;
+margin-bottom:10px;
+}
+
+.ps-btns{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:9px 18px;
+border:none;
+border-radius:8px;
+font-size:12px;
+font-weight:500;
+cursor:pointer;
+letter-spacing:1px;
+transition:0.3s;
+text-decoration:none;
+display:inline-block;
+}
+.btn:hover{transform:translateY(-2px);}
+.whatsapp{background:#25D366;color:white;}
+.email-btn{background:var(--accent2);color:white;}
+
+/* CAIXA DE LOGIN */
 .box{
 position:relative;
 z-index:1;
@@ -193,17 +273,56 @@ font-size:13px;display:none;
 .spinner{width:28px;height:28px;border:3px solid rgba(0,255,136,0.2);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:auto;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-@media(max-width:480px){.box{padding:36px 24px;}}
+@media(max-width:480px){.box{padding:36px 24px;}.purchase-summary{padding:16px 20px;}}
 </style>
 </head>
 <body>
+
+<!-- RESUMO DA COMPRA (só para novos candidatos) -->
+<div class="purchase-summary" id="purchaseSummary">
+  <div class="ps-title">Resumo da Inscrição</div>
+  <div class="ps-row">
+    <span class="ps-label">Universidade</span>
+    <span class="ps-value" id="psUni">—</span>
+  </div>
+  <div class="ps-row">
+    <span class="ps-label">Curso</span>
+    <span class="ps-value" id="psCurso">—</span>
+  </div>
+  <div class="ps-row">
+    <span class="ps-label">Duração</span>
+    <span class="ps-value" id="psDur">—</span>
+  </div>
+  <div class="ps-row">
+    <span class="ps-label">Valor</span>
+    <span class="ps-price" id="psPreco">—</span>
+  </div>
+  <div class="ps-divider"></div>
+  <div class="ps-row">
+    <span class="ps-label">IBAN</span>
+    <span class="ps-value" style="font-size:12px;">AO06 0040 0000 5071 2010 1017 8</span>
+  </div>
+  <div class="ps-row">
+    <span class="ps-label">Proprietário</span>
+    <span class="ps-value">MPEKO CRUZ</span>
+  </div>
+  <div class="ps-divider"></div>
+  <div class="ps-comprov-title">Enviar comprovativo após pagamento:</div>
+  <div class="ps-btns">
+    <a id="waLink" href="#" target="_blank">
+      <button class="btn whatsapp">📱 WhatsApp</button>
+    </a>
+    <a id="emailLink" href="#">
+      <button class="btn email-btn">✉️ Email</button>
+    </a>
+  </div>
+</div>
 
 <div class="box">
   <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
   <a class="back-link" href="index.html">← VOLTAR AO INÍCIO</a>
   <h2>ACESSO</h2>
 
-  <!-- Badges: só Universidade e Curso -->
   <div class="badges" id="badges"></div>
 
   <div class="field">
@@ -219,8 +338,10 @@ font-size:13px;display:none;
     </div>
   </div>
 
-  <!-- Área derivada automaticamente do curso — nunca mostrada ao utilizador -->
+  <!-- Campos ocultos -->
   <input type="hidden" id="area">
+  <input type="hidden" id="duracao">
+  <input type="hidden" id="preco">
 
   <div class="btns">
     <button class="loginBtn" id="btnLogin" onclick="login()">ENTRAR</button>
@@ -239,11 +360,11 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  deleteUser                          // ← NOVO: para apagar a conta Auth
+  deleteUser
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
   getFirestore,
-  doc, getDoc, setDoc, deleteDoc     // ← NOVO: deleteDoc para apagar Firestore se expirado
+  doc, getDoc, setDoc, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -267,9 +388,11 @@ const btnForgot   = document.getElementById("btnForgot");
 
 // Parâmetros da URL
 const params     = new URLSearchParams(window.location.search);
-const uniParam   = params.get("uni")   || "";
-const cursoParam = params.get("curso") || "";
-const areaParam  = params.get("area")  || "";
+const uniParam   = params.get("uni")    || "";
+const cursoParam = params.get("curso")  || "";
+const areaParam  = params.get("area")   || "";
+const duracaoParam = params.get("duracao") || ""; // dias: 30,90,180,365
+const precoParam   = params.get("preco")   || ""; // valor numérico em KZ
 
 // Verificar se foi redirecionado por expiração
 if(params.get("expirado")){
@@ -277,14 +400,58 @@ if(params.get("expirado")){
   msgEl.innerText = "⚠️ O teu acesso expirou. Podes criar uma nova conta com o mesmo email.";
 }
 
-// Preencher campo oculto de área (usado internamente)
-document.getElementById("area").value = areaParam;
+// Preencher campos ocultos
+document.getElementById("area").value    = areaParam;
+document.getElementById("duracao").value = duracaoParam;
+document.getElementById("preco").value   = precoParam;
 
-// Mostrar apenas badges de Universidade e Curso
+// ── Mostrar badges de Universidade e Curso ──
 const badgesDiv = document.getElementById("badges");
 if(uniParam)   badgesDiv.innerHTML += `<span class="badge uni">${uniParam}</span>`;
 if(cursoParam) badgesDiv.innerHTML += `<span class="badge curso">${cursoParam}</span>`;
 
+// ── Mapa de duração para label legível ──
+const DUR_LABELS = {
+  "30":  "1 Mês (30 dias)",
+  "90":  "3 Meses (90 dias)",
+  "180": "6 Meses (180 dias)",
+  "365": "1 Ano (365 dias)"
+};
+
+// ── Mostrar resumo da compra APENAS se vem do fluxo de inscrição
+//    (tem duração e preço nos params) e ainda não tem conta aprovada ──
+async function iniciar(){
+  const temFluxoCompra = duracaoParam && precoParam && uniParam && cursoParam;
+
+  if(temFluxoCompra){
+    // Verificar se o utilizador já está logado e aprovado
+    // Se sim, esconder resumo. Se não, mostrar.
+    const summary = document.getElementById("purchaseSummary");
+
+    // Preencher resumo
+    document.getElementById("psUni").innerText   = uniParam;
+    document.getElementById("psCurso").innerText = cursoParam;
+    document.getElementById("psDur").innerText   = DUR_LABELS[duracaoParam] || duracaoParam + " dias";
+
+    const precoFormatado = parseInt(precoParam).toLocaleString("pt-AO") + " KZ";
+    document.getElementById("psPreco").innerText = precoFormatado;
+
+    // WhatsApp
+    const wa = `Olá, envio o meu comprovativo de pagamento do Preparatório Virtual.\n\nUniversidade: ${uniParam}\nCurso: ${cursoParam}\nDuração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}`;
+    document.getElementById("waLink").href = `https://wa.me/244950509560?text=${encodeURIComponent(wa)}`;
+
+    // Email
+    const emailBody = `Olá,\n\nComprovativo de pagamento:\n\nUniversidade: ${uniParam}\nCurso: ${cursoParam}\nDuração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}\n\nObrigado.`;
+    document.getElementById("emailLink").href = `mailto:deltaigualb.bmenos4.a.c@gmail.com?subject=Comprovativo%20de%20Pagamento&body=${encodeURIComponent(emailBody)}`;
+
+    // Mostrar bloco
+    summary.style.display = "block";
+  }
+}
+
+iniciar();
+
+// ── HELPERS ──
 function showMsg(texto, tipo){
   msgEl.className = "msg " + tipo;
   msgEl.innerText = texto;
@@ -292,28 +459,18 @@ function showMsg(texto, tipo){
 
 function showLoading(){
   loading.style.display = "block";
-  btnLogin.disabled    = true;
-  btnRegister.disabled = true;
-  btnForgot.disabled   = true;
+  btnLogin.disabled = btnRegister.disabled = btnForgot.disabled = true;
 }
 
 function hideLoading(){
   loading.style.display = "none";
-  btnLogin.disabled    = false;
-  btnRegister.disabled = false;
-  btnForgot.disabled   = false;
+  btnLogin.disabled = btnRegister.disabled = btnForgot.disabled = false;
 }
 
 function validar(email, senha, area){
-  if(!email || !senha){
-    showMsg("Preenche o email e a senha.", "error"); return false;
-  }
-  if(!area){
-    showMsg("Volta atrás e escolhe o teu curso.", "error"); return false;
-  }
-  if(senha.length < 6){
-    showMsg("A senha deve ter pelo menos 6 caracteres.", "error"); return false;
-  }
+  if(!email || !senha){ showMsg("Preenche o email e a senha.", "error"); return false; }
+  if(!area){            showMsg("Volta atrás e escolhe o teu curso.", "error"); return false; }
+  if(senha.length < 6){ showMsg("A senha deve ter pelo menos 6 caracteres.", "error"); return false; }
   return true;
 }
 
@@ -332,43 +489,36 @@ window.login = async function(){
     const ref  = doc(db, "users", cred.user.uid);
     const snap = await getDoc(ref);
 
-    // ── Documento não existe: admin removeu o utilizador ──
-    // O utilizador está autenticado neste momento, por isso
-    // podemos apagar a conta Auth directamente (deleteUser).
     if(!snap.exists()){
-      try { await deleteUser(cred.user); } catch(e){ /* silencioso */ }
-      showMsg(
-        "✅ A tua conta foi removida pelo administrador. Podes criar uma nova conta com este email.",
-        "success"
-      );
+      try { await deleteUser(cred.user); } catch(e){}
+      showMsg("✅ A tua conta foi removida pelo administrador. Podes criar uma nova conta com este email.", "success");
       hideLoading();
       return;
     }
 
     const data = snap.data();
 
-    // ── Conta pendente ──
     if(data.approved !== true){
+      // Utilizador pendente — esconder resumo de compra (já registou, aguarda aprovação)
+      document.getElementById("purchaseSummary").style.display = "none";
       showMsg("⏳ Conta pendente. Aguarda a aprovação do admin.", "info");
       hideLoading();
       return;
     }
 
-    // ── Verificar expiração ──
+    // Verificar expiração
     const expiryTs = data.expiryDate || (data.approvedAt ? data.approvedAt + 365*24*60*60*1000 : null);
     if(expiryTs && Date.now() >= expiryTs){
-      // Apaga Firestore + Auth — utilizador pode criar nova conta
-      try { await deleteDoc(ref); } catch(e){}
+      try { await deleteDoc(ref); }   catch(e){}
       try { await deleteUser(cred.user); } catch(e){}
-      showMsg(
-        "✅ O teu acesso expirou. A conta foi removida — podes criar uma nova conta com este email.",
-        "success"
-      );
+      showMsg("✅ O teu acesso expirou. A conta foi removida — podes criar uma nova conta com este email.", "success");
       hideLoading();
       return;
     }
 
-    // ── Login bem sucedido ──
+    // ✅ Utilizador aprovado — esconder resumo de compra
+    document.getElementById("purchaseSummary").style.display = "none";
+
     localStorage.setItem("user",  email);
     localStorage.setItem("uid",   cred.user.uid);
     localStorage.setItem("area",  data.area  || area);
@@ -385,9 +535,11 @@ window.login = async function(){
 
 // ─── REGISTO ─────────────────────────────────────────────
 window.register = async function(){
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-  const area  = document.getElementById("area").value;
+  const email    = document.getElementById("email").value.trim();
+  const senha    = document.getElementById("senha").value;
+  const area     = document.getElementById("area").value;
+  const duracao  = document.getElementById("duracao").value;
+  const preco    = document.getElementById("preco").value;
 
   msgEl.className = "msg";
   if(!validar(email, senha, area)) return;
@@ -402,11 +554,13 @@ window.register = async function(){
       area:      area,
       uni:       uniParam,
       curso:     cursoParam,
+      duracao:   duracao,   // dias escolhidos (30,90,180,365)
+      preco:     preco,     // valor em KZ
       approved:  false,
       createdAt: Date.now()
     });
 
-    showMsg("✅ Conta criada! Aguarda a aprovação do admin para fazer login.", "success");
+    showMsg("✅ Conta criada! Envia o comprovativo de pagamento e aguarda a aprovação do admin.", "success");
 
   } catch(e){
     if(e.code === "auth/email-already-in-use"){
