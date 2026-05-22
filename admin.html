@@ -10,7 +10,6 @@
 :root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* ── ECRÃS DE LOGIN ── */
 .login-wrap{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
 .login-box{background:rgba(13,31,53,0.9);border:1px solid rgba(0,255,136,0.15);padding:48px 40px;border-radius:20px;width:100%;max-width:400px;text-align:center;}
 .login-box .logo{font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:4px;color:var(--muted);margin-bottom:6px;}
@@ -21,12 +20,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .step-dot.active{background:var(--accent);}
 .step-dot.done{background:rgba(0,255,136,0.4);}
 
-/* ── BLOQUEIO ── */
 .lockout-banner{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#f87171;display:none;line-height:1.5;}
 .lockout-banner b{color:#ef4444;}
 .attempts-info{font-size:11px;color:var(--muted);margin-top:6px;}
 
-/* ── INPUTS / BOTÕES ── */
 input,select{width:100%;padding:12px 14px;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;margin-bottom:12px;transition:0.3s;outline:none;}
 input:focus,select:focus{border-color:rgba(0,255,136,0.4);}
 select option{background:#0d1f35;}
@@ -48,11 +45,9 @@ button:hover{transform:translateY(-1px);}
 .error-login{color:#f87171;font-size:13px;margin-top:10px;min-height:20px;}
 .success-step{color:var(--accent);font-size:13px;margin-top:8px;}
 
-/* ── BADGE SEGURANÇA ── */
 .security-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:20px;}
 .security-badge span{color:var(--accent);}
 
-/* ── PAINEL ── */
 #painel{display:none;padding:30px 20px;max-width:960px;margin:0 auto;}
 .painel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);}
 .painel-header h2{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;letter-spacing:2px;color:var(--accent);}
@@ -70,11 +65,41 @@ button:hover{transform:translateY(-1px);}
 .user-info p,.aula-info p{font-size:13px;margin-bottom:3px;}
 .user-info .email,.aula-info .titulo{color:var(--text);font-weight:500;}
 .user-info .meta,.aula-info .meta{color:var(--muted);font-size:12px;}
+
+/* ── DURAÇÃO / PREÇO do candidato ── */
+.dur-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:rgba(0,255,136,0.08);
+  border:1px solid rgba(0,255,136,0.2);
+  border-radius:20px;
+  padding:3px 10px;
+  font-size:10px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--accent);
+}
+.preco-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:rgba(251,191,36,0.08);
+  border:1px solid rgba(251,191,36,0.2);
+  border-radius:20px;
+  padding:3px 10px;
+  font-size:10px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  letter-spacing:1px;
+  color:#fbbf24;
+}
+
 .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;letter-spacing:1px;font-weight:600;}
 .badge.approved{background:rgba(0,255,136,0.15);color:var(--accent);}
 .badge.pending{background:rgba(251,191,36,0.15);color:#fbbf24;}
 .badge.expired{background:rgba(239,68,68,0.15);color:#f87171;}
-.user-actions{display:flex;gap:8px;flex-wrap:wrap;}
 .msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none;}
 .msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
 .msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
@@ -87,7 +112,6 @@ button:hover{transform:translateY(-1px);}
 .expiry-warning{color:#fbbf24;font-size:11px;}
 .expiry-expired{color:#f87171;font-size:11px;}
 
-/* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:1000;display:none;justify-content:center;align-items:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:#0d1f35;border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:36px 32px;width:100%;max-width:460px;position:relative;}
@@ -106,9 +130,7 @@ button:hover{transform:translateY(-1px);}
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════
-     CAMADA 1 — Senha secreta (hash)
-════════════════════════════════════════════ -->
+<!-- CAMADA 1 -->
 <div class="login-wrap" id="step1Wrap">
   <div class="login-box">
     <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
@@ -119,12 +141,10 @@ button:hover{transform:translateY(-1px);}
       <div class="step-dot" id="dot2"></div>
     </div>
     <div class="security-badge">🔐 <span>Camada 1</span> — Senha secreta</div>
-
     <div class="lockout-banner" id="lockoutBanner">
       <b>🔒 Acesso bloqueado temporariamente</b><br>
       Demasiadas tentativas falhadas. Aguarda <span id="lockoutTimer"></span>.
     </div>
-
     <input type="password" id="senhaAdmin" placeholder="Senha de administrador" onkeydown="if(event.key==='Enter')verificarCamada1()">
     <button class="btn-login" id="btnStep1" onclick="verificarCamada1()">CONTINUAR →</button>
     <p class="error-login" id="erroStep1"></p>
@@ -132,9 +152,7 @@ button:hover{transform:translateY(-1px);}
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════
-     CAMADA 2 — Firebase Authentication
-════════════════════════════════════════════ -->
+<!-- CAMADA 2 -->
 <div class="login-wrap" id="step2Wrap" style="display:none;">
   <div class="login-box">
     <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
@@ -145,7 +163,6 @@ button:hover{transform:translateY(-1px);}
       <div class="step-dot active" id="dot2b"></div>
     </div>
     <div class="security-badge">🔑 <span>Camada 2</span> — Firebase Auth</div>
-
     <input type="email" id="firebaseEmail" placeholder="Email de administrador" value="preparatoriovirtualcomdelta1@gmail.com" onkeydown="if(event.key==='Enter')verificarCamada2()">
     <input type="password" id="firebaseSenha" placeholder="Senha do Firebase" onkeydown="if(event.key==='Enter')verificarCamada2()">
     <button class="btn-login" id="btnStep2" onclick="verificarCamada2()">ENTRAR NO PAINEL →</button>
@@ -154,9 +171,7 @@ button:hover{transform:translateY(-1px);}
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════
-     PAINEL ADMIN
-════════════════════════════════════════════ -->
+<!-- PAINEL -->
 <div id="painel">
   <div class="painel-header">
     <div>
@@ -182,9 +197,7 @@ button:hover{transform:translateY(-1px);}
     <select id="sub1" onchange="atualizarSub2()">
       <option value="">— Seleciona secção primeiro —</option>
     </select>
-    <select id="sub2" style="display:none;">
-      <option value="">— Seleciona universidade primeiro —</option>
-    </select>
+    <select id="sub2" style="display:none;"><option value="">— Seleciona universidade primeiro —</option></select>
     <div class="grid2">
       <input id="titulo" placeholder="Título do conteúdo">
       <select id="tipo" onchange="atualizarTipo()">
@@ -225,7 +238,7 @@ button:hover{transform:translateY(-1px);}
   </div>
 </div>
 
-<!-- MODAL EDITAR UTILIZADOR -->
+<!-- MODAL EDITAR -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="fecharModal()">✕</button>
@@ -268,246 +281,31 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-// ═══════════════════════════════════════════════════════════
-// 🔐 CAMADA 1 — Senha secreta (SHA-256)
-// SHA-256 de "DeltaAdmin2025$#"
-// Para mudar: https://emn178.github.io/online-tools/sha256.html
-// ═══════════════════════════════════════════════════════════
+// ─── CONSTANTES ───────────────────────────────────────────
 const SENHA_HASH   = "e12afa1c4ac73ca1954164f1e40498336c4cd8b2d761af0158bb8d239c1049f6";
 const MAX_TENT     = 5;
 const LOCKOUT_MS   = 5 * 60 * 1000;
 const DELAY_BASE   = 1000;
-const SESSION_DUR  = 60 * 60 * 1000; // 1h
+const SESSION_DUR  = 60 * 60 * 1000;
 const SESSION_KEY  = "delta_admin_session";
 const LOCKOUT_KEY  = "delta_admin_lockout";
 const ATTEMPTS_KEY = "delta_admin_attempts";
-// Email autorizado — só este email pode entrar na camada 2
 const ADMIN_EMAIL  = "preparatoriovirtualcomdelta1@gmail.com";
 
-// ── Cripto ────────────────────────────────────────────────
-async function sha256(text) {
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
-}
-function gerarToken() {
-  const a = new Uint8Array(32); crypto.getRandomValues(a);
-  return Array.from(a).map(b => b.toString(16).padStart(2,"0")).join("");
-}
+// Duração em dias → milissegundos
+const DUR_MS = {
+  "30":  30  * 24*60*60*1000,
+  "90":  90  * 24*60*60*1000,
+  "180": 180 * 24*60*60*1000,
+  "365": 365 * 24*60*60*1000
+};
+const DUR_LABELS = {
+  "30":"1 Mês (30 dias)","90":"3 Meses (90 dias)",
+  "180":"6 Meses (180 dias)","365":"1 Ano (365 dias)"
+};
+// Fallback se não tiver duração guardada
+const DIAS_DEFAULT = 30*24*60*60*1000;
 
-// ── Sessão ────────────────────────────────────────────────
-function sessaoValida() {
-  try {
-    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
-    if (!s?.token || !s?.expiry) return false;
-    if (Date.now() > s.expiry) { sessionStorage.removeItem(SESSION_KEY); return false; }
-    return true;
-  } catch { return false; }
-}
-function criarSessao() {
-  const expiry = Date.now() + SESSION_DUR;
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify({ token: gerarToken(), expiry }));
-  return expiry;
-}
-
-// ── Rate limit ────────────────────────────────────────────
-const getLockout  = () => { try { return JSON.parse(sessionStorage.getItem(LOCKOUT_KEY)||"null"); } catch { return null; } };
-const getAttempts = () => parseInt(sessionStorage.getItem(ATTEMPTS_KEY)||"0",10);
-const setAttempts = n  => sessionStorage.setItem(ATTEMPTS_KEY, String(n));
-const setLockout  = () => sessionStorage.setItem(LOCKOUT_KEY, JSON.stringify({ until: Date.now()+LOCKOUT_MS }));
-const clearLockout= () => { sessionStorage.removeItem(LOCKOUT_KEY); sessionStorage.removeItem(ATTEMPTS_KEY); };
-
-// ── Timer sessão ──────────────────────────────────────────
-let sessionInterval = null;
-function iniciarTimerSessao() {
-  const el = document.getElementById("sessionTimer");
-  function tick() {
-    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY)||"null");
-    if (!s) { sair(); return; }
-    const r = s.expiry - Date.now();
-    if (r <= 0) { sair(); return; }
-    el.innerText = `${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;
-  }
-  tick();
-  sessionInterval = setInterval(tick, 1000);
-}
-
-// ── Timer bloqueio ────────────────────────────────────────
-let lockoutInterval = null;
-function mostrarBloqueio() {
-  const banner = document.getElementById("lockoutBanner");
-  const timerEl = document.getElementById("lockoutTimer");
-  const btn = document.getElementById("btnStep1");
-  const inp = document.getElementById("senhaAdmin");
-  banner.style.display = "block"; btn.disabled = true; inp.disabled = true;
-
-  function tick() {
-    const lk = getLockout();
-    if (!lk) { reset(); return; }
-    const r = lk.until - Date.now();
-    if (r <= 0) { clearLockout(); reset(); return; }
-    timerEl.innerText = `${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;
-  }
-  function reset() {
-    clearInterval(lockoutInterval);
-    banner.style.display = "none"; btn.disabled = false; inp.disabled = false;
-    document.getElementById("erroStep1").innerText = "";
-    document.getElementById("attemptsInfo").innerText = "";
-  }
-  tick(); lockoutInterval = setInterval(tick, 1000);
-}
-
-// ═══════════════════════════════════════════════════════════
-// 🚪 CAMADA 1 — verificação
-// ═══════════════════════════════════════════════════════════
-let emProgresso = false;
-
-window.verificarCamada1 = async function() {
-  if (emProgresso) return;
-  const lk = getLockout();
-  if (lk && Date.now() < lk.until) { mostrarBloqueio(); return; }
-  if (lk) clearLockout();
-
-  const senha  = document.getElementById("senhaAdmin").value;
-  const erroEl = document.getElementById("erroStep1");
-  const infoEl = document.getElementById("attemptsInfo");
-  const btn    = document.getElementById("btnStep1");
-
-  if (!senha) { erroEl.innerText = "Introduz a senha."; return; }
-
-  emProgresso = true; btn.disabled = true; btn.innerText = "A verificar..."; erroEl.innerText = "";
-
-  const tent = getAttempts();
-  if (tent > 0) await new Promise(r => setTimeout(r, Math.min(DELAY_BASE * Math.pow(2, tent-1), 10000)));
-
-  try {
-    const hash = await sha256(senha);
-    if (hash === SENHA_HASH) {
-      clearLockout();
-      // Guardar flag de camada 1 na sessão (temporário até camada 2 completar)
-      sessionStorage.setItem("delta_layer1_ok", "1");
-      document.getElementById("senhaAdmin").value = "";
-      // Avançar para camada 2
-      document.getElementById("step1Wrap").style.display = "none";
-      document.getElementById("step2Wrap").style.display = "flex";
-      document.getElementById("firebaseSenha").focus();
-    } else {
-      const novas = tent + 1;
-      setAttempts(novas);
-      const rest = MAX_TENT - novas;
-      if (novas >= MAX_TENT) {
-        setLockout();
-        erroEl.innerText = "Demasiadas tentativas. Bloqueado por 5 minutos.";
-        infoEl.innerText = "";
-        mostrarBloqueio();
-      } else {
-        erroEl.innerText = "Senha incorreta.";
-        infoEl.innerText = `${rest} tentativa${rest!==1?"s":""} restante${rest!==1?"s":""}  antes do bloqueio.`;
-      }
-      document.getElementById("senhaAdmin").value = "";
-    }
-  } catch(e) { erroEl.innerText = "Erro ao verificar. Tenta novamente."; }
-
-  btn.disabled = false; btn.innerText = "CONTINUAR →"; emProgresso = false;
-}
-
-// ═══════════════════════════════════════════════════════════
-// 🔑 CAMADA 2 — Firebase Authentication
-// ═══════════════════════════════════════════════════════════
-window.verificarCamada2 = async function() {
-  // Verificar que camada 1 foi concluída nesta sessão
-  if (!sessionStorage.getItem("delta_layer1_ok")) {
-    voltarStep1(); return;
-  }
-
-  const email  = document.getElementById("firebaseEmail").value.trim();
-  const senha  = document.getElementById("firebaseSenha").value;
-  const erroEl = document.getElementById("erroStep2");
-  const btn    = document.getElementById("btnStep2");
-
-  if (!email || !senha) { erroEl.innerText = "Preenche email e senha."; return; }
-
-  // Garantir que só o email admin pode entrar
-  if (email !== ADMIN_EMAIL) {
-    erroEl.innerText = "Email não autorizado."; return;
-  }
-
-  btn.disabled = true; btn.innerText = "A autenticar..."; erroEl.innerText = "";
-
-  try {
-    await signInWithEmailAndPassword(auth, email, senha);
-    // ✅ Ambas as camadas passaram
-    sessionStorage.removeItem("delta_layer1_ok");
-    criarSessao();
-    document.getElementById("firebaseSenha").value = "";
-    document.getElementById("step2Wrap").style.display = "none";
-    document.getElementById("painel").style.display = "block";
-    document.getElementById("bunnyInfo").style.display = "block";
-    iniciarTimerSessao();
-    carregarAulas();
-    carregarUsers();
-    verificarExpirados();
-  } catch(e) {
-    let msg = "Email ou senha incorretos.";
-    if (e.code === "auth/too-many-requests") msg = "Conta bloqueada temporariamente pelo Firebase. Tenta mais tarde.";
-    if (e.code === "auth/invalid-credential") msg = "Credenciais inválidas. Verifica email e senha.";
-    erroEl.innerText = msg;
-  }
-
-  btn.disabled = false; btn.innerText = "ENTRAR NO PAINEL →";
-}
-
-window.voltarStep1 = function() {
-  sessionStorage.removeItem("delta_layer1_ok");
-  document.getElementById("step2Wrap").style.display = "none";
-  document.getElementById("step1Wrap").style.display = "flex";
-  document.getElementById("erroStep2").innerText = "";
-  document.getElementById("firebaseSenha").value = "";
-}
-
-// ═══════════════════════════════════════════════════════════
-// 🚪 SAIR — limpa sessão Firebase + sessionStorage
-// ═══════════════════════════════════════════════════════════
-window.sair = async function() {
-  sessionStorage.removeItem(SESSION_KEY);
-  sessionStorage.removeItem("delta_layer1_ok");
-  if (sessionInterval) clearInterval(sessionInterval);
-  try { await signOut(auth); } catch(e) {}
-  document.getElementById("step1Wrap").style.display = "flex";
-  document.getElementById("step2Wrap").style.display = "none";
-  document.getElementById("painel").style.display = "none";
-  document.getElementById("senhaAdmin").value = "";
-  document.getElementById("erroStep1").innerText = "";
-  document.getElementById("attemptsInfo").innerText = "";
-}
-
-// ── Ao carregar: verificar sessão activa ──────────────────
-window.addEventListener("load", () => {
-  const lk = getLockout();
-  if (lk && Date.now() < lk.until) mostrarBloqueio();
-
-  // Só restaura sessão se Firebase também estiver autenticado
-  onAuthStateChanged(auth, user => {
-    if (user && user.email === ADMIN_EMAIL && sessaoValida()) {
-      document.getElementById("step1Wrap").style.display = "none";
-      document.getElementById("painel").style.display = "block";
-      document.getElementById("bunnyInfo").style.display = "block";
-      iniciarTimerSessao();
-      carregarAulas(); carregarUsers(); verificarExpirados();
-    }
-  });
-});
-
-// Sessão expira enquanto painel está aberto
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden && document.getElementById("painel").style.display !== "none") {
-    if (!sessaoValida()) sair();
-  }
-});
-
-// ═══════════════════════════════════════════════════════════
-// DADOS E CONSTANTES
-// ═══════════════════════════════════════════════════════════
-const DIAS_30 = 30*24*60*60*1000;
 const UNIVERSIDADES = ["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC","OUTRA"];
 const NOMES_UNI = {
   UAN:"Universidade Agostinho Neto", UMN:"Universidade Mandume Ya Ndemufayo",
@@ -561,7 +359,176 @@ const NOMES_SECCAO = {
   cronograma:"Cronograma", provas:"Provas Passadas", resolucao:"Resolução de Provas"
 };
 
-// ── PAINEL ────────────────────────────────────────────────
+// ─── CRIPTO / SESSÃO / RATE LIMIT ────────────────────────
+async function sha256(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
+}
+function gerarToken() {
+  const a = new Uint8Array(32); crypto.getRandomValues(a);
+  return Array.from(a).map(b => b.toString(16).padStart(2,"0")).join("");
+}
+function sessaoValida() {
+  try {
+    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
+    if (!s?.token || !s?.expiry) return false;
+    if (Date.now() > s.expiry) { sessionStorage.removeItem(SESSION_KEY); return false; }
+    return true;
+  } catch { return false; }
+}
+function criarSessao() {
+  const expiry = Date.now() + SESSION_DUR;
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify({ token: gerarToken(), expiry }));
+  return expiry;
+}
+const getLockout  = () => { try { return JSON.parse(sessionStorage.getItem(LOCKOUT_KEY)||"null"); } catch { return null; } };
+const getAttempts = () => parseInt(sessionStorage.getItem(ATTEMPTS_KEY)||"0",10);
+const setAttempts = n  => sessionStorage.setItem(ATTEMPTS_KEY, String(n));
+const setLockout  = () => sessionStorage.setItem(LOCKOUT_KEY, JSON.stringify({ until: Date.now()+LOCKOUT_MS }));
+const clearLockout= () => { sessionStorage.removeItem(LOCKOUT_KEY); sessionStorage.removeItem(ATTEMPTS_KEY); };
+
+let sessionInterval = null;
+function iniciarTimerSessao() {
+  const el = document.getElementById("sessionTimer");
+  function tick() {
+    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY)||"null");
+    if (!s) { sair(); return; }
+    const r = s.expiry - Date.now();
+    if (r <= 0) { sair(); return; }
+    el.innerText = `${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;
+  }
+  tick(); sessionInterval = setInterval(tick, 1000);
+}
+
+let lockoutInterval = null;
+function mostrarBloqueio() {
+  const banner = document.getElementById("lockoutBanner");
+  const timerEl = document.getElementById("lockoutTimer");
+  const btn = document.getElementById("btnStep1");
+  const inp = document.getElementById("senhaAdmin");
+  banner.style.display = "block"; btn.disabled = true; inp.disabled = true;
+  function tick() {
+    const lk = getLockout();
+    if (!lk) { reset(); return; }
+    const r = lk.until - Date.now();
+    if (r <= 0) { clearLockout(); reset(); return; }
+    timerEl.innerText = `${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;
+  }
+  function reset() {
+    clearInterval(lockoutInterval);
+    banner.style.display = "none"; btn.disabled = false; inp.disabled = false;
+    document.getElementById("erroStep1").innerText = "";
+    document.getElementById("attemptsInfo").innerText = "";
+  }
+  tick(); lockoutInterval = setInterval(tick, 1000);
+}
+
+// ─── CAMADA 1 ─────────────────────────────────────────────
+let emProgresso = false;
+window.verificarCamada1 = async function() {
+  if (emProgresso) return;
+  const lk = getLockout();
+  if (lk && Date.now() < lk.until) { mostrarBloqueio(); return; }
+  if (lk) clearLockout();
+  const senha  = document.getElementById("senhaAdmin").value;
+  const erroEl = document.getElementById("erroStep1");
+  const infoEl = document.getElementById("attemptsInfo");
+  const btn    = document.getElementById("btnStep1");
+  if (!senha) { erroEl.innerText = "Introduz a senha."; return; }
+  emProgresso = true; btn.disabled = true; btn.innerText = "A verificar..."; erroEl.innerText = "";
+  const tent = getAttempts();
+  if (tent > 0) await new Promise(r => setTimeout(r, Math.min(DELAY_BASE * Math.pow(2, tent-1), 10000)));
+  try {
+    const hash = await sha256(senha);
+    if (hash === SENHA_HASH) {
+      clearLockout();
+      sessionStorage.setItem("delta_layer1_ok", "1");
+      document.getElementById("senhaAdmin").value = "";
+      document.getElementById("step1Wrap").style.display = "none";
+      document.getElementById("step2Wrap").style.display = "flex";
+      document.getElementById("firebaseSenha").focus();
+    } else {
+      const novas = tent + 1; setAttempts(novas);
+      const rest = MAX_TENT - novas;
+      if (novas >= MAX_TENT) { setLockout(); erroEl.innerText = "Demasiadas tentativas. Bloqueado por 5 minutos."; infoEl.innerText = ""; mostrarBloqueio(); }
+      else { erroEl.innerText = "Senha incorreta."; infoEl.innerText = `${rest} tentativa${rest!==1?"s":""} restante${rest!==1?"s":""} antes do bloqueio.`; }
+      document.getElementById("senhaAdmin").value = "";
+    }
+  } catch(e) { erroEl.innerText = "Erro ao verificar. Tenta novamente."; }
+  btn.disabled = false; btn.innerText = "CONTINUAR →"; emProgresso = false;
+}
+
+// ─── CAMADA 2 ─────────────────────────────────────────────
+window.verificarCamada2 = async function() {
+  if (!sessionStorage.getItem("delta_layer1_ok")) { voltarStep1(); return; }
+  const email  = document.getElementById("firebaseEmail").value.trim();
+  const senha  = document.getElementById("firebaseSenha").value;
+  const erroEl = document.getElementById("erroStep2");
+  const btn    = document.getElementById("btnStep2");
+  if (!email || !senha) { erroEl.innerText = "Preenche email e senha."; return; }
+  if (email !== ADMIN_EMAIL) { erroEl.innerText = "Email não autorizado."; return; }
+  btn.disabled = true; btn.innerText = "A autenticar..."; erroEl.innerText = "";
+  try {
+    await signInWithEmailAndPassword(auth, email, senha);
+    sessionStorage.removeItem("delta_layer1_ok");
+    criarSessao();
+    document.getElementById("firebaseSenha").value = "";
+    document.getElementById("step2Wrap").style.display = "none";
+    document.getElementById("painel").style.display = "block";
+    document.getElementById("bunnyInfo").style.display = "block";
+    iniciarTimerSessao();
+    carregarAulas(); carregarUsers(); verificarExpirados();
+  } catch(e) {
+    let msg = "Email ou senha incorretos.";
+    if (e.code === "auth/too-many-requests") msg = "Conta bloqueada temporariamente pelo Firebase. Tenta mais tarde.";
+    if (e.code === "auth/invalid-credential") msg = "Credenciais inválidas. Verifica email e senha.";
+    erroEl.innerText = msg;
+  }
+  btn.disabled = false; btn.innerText = "ENTRAR NO PAINEL →";
+}
+
+window.voltarStep1 = function() {
+  sessionStorage.removeItem("delta_layer1_ok");
+  document.getElementById("step2Wrap").style.display = "none";
+  document.getElementById("step1Wrap").style.display = "flex";
+  document.getElementById("erroStep2").innerText = "";
+  document.getElementById("firebaseSenha").value = "";
+}
+
+window.sair = async function() {
+  sessionStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem("delta_layer1_ok");
+  if (sessionInterval) clearInterval(sessionInterval);
+  try { await signOut(auth); } catch(e) {}
+  document.getElementById("step1Wrap").style.display = "flex";
+  document.getElementById("step2Wrap").style.display = "none";
+  document.getElementById("painel").style.display = "none";
+  document.getElementById("senhaAdmin").value = "";
+  document.getElementById("erroStep1").innerText = "";
+  document.getElementById("attemptsInfo").innerText = "";
+}
+
+window.addEventListener("load", () => {
+  const lk = getLockout();
+  if (lk && Date.now() < lk.until) mostrarBloqueio();
+  onAuthStateChanged(auth, user => {
+    if (user && user.email === ADMIN_EMAIL && sessaoValida()) {
+      document.getElementById("step1Wrap").style.display = "none";
+      document.getElementById("painel").style.display = "block";
+      document.getElementById("bunnyInfo").style.display = "block";
+      iniciarTimerSessao();
+      carregarAulas(); carregarUsers(); verificarExpirados();
+    }
+  });
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && document.getElementById("painel").style.display !== "none") {
+    if (!sessaoValida()) sair();
+  }
+});
+
+// ─── PAINEL ───────────────────────────────────────────────
 window.mostrarTab = function(tab, event){
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
   event.target.classList.add("active");
@@ -677,46 +644,87 @@ async function carregarUsers(){
   snap.forEach(u=>{
     const d=u.data();
     const uniLabel=d.uni?`${d.uni}${NOMES_UNI[d.uni]?' — '+NOMES_UNI[d.uni]:''}` :"—";
-    let expiryTs=d.expiryDate||(d.approvedAt?d.approvedAt+DIAS_30:null);
+
+    // ── Duração e preço escolhidos pelo candidato ──
+    const duracaoLabel = d.duracao ? (DUR_LABELS[d.duracao] || d.duracao+" dias") : null;
+    const precoLabel   = d.preco   ? parseInt(d.preco).toLocaleString("pt-AO")+" KZ" : null;
+
+    let expiryTs = d.expiryDate || (d.approvedAt ? d.approvedAt + (DUR_MS[d.duracao] || DIAS_DEFAULT) : null);
     let expiryHtml="";
-    let statusBadge=d.approved?`<span class="badge approved">APROVADO</span>`:`<span class="badge pending">PENDENTE</span>`;
-    if(d.approved&&expiryTs){
+    let statusBadge = d.approved
+      ? `<span class="badge approved">APROVADO</span>`
+      : `<span class="badge pending">PENDENTE</span>`;
+
+    if(d.approved && expiryTs){
       const dias=Math.ceil((expiryTs-agora)/(1000*60*60*24));
       const ds=new Date(expiryTs).toLocaleDateString('pt-PT');
       if(expiryTs<agora){statusBadge=`<span class="badge expired">EXPIRADO</span>`;expiryHtml=`<span class="expiry-expired">⚠️ Expirou em ${ds}</span>`;}
       else if(dias<=7){expiryHtml=`<span class="expiry-warning">⏳ Expira em ${dias} dia${dias!==1?'s':''} (${ds})</span>`;}
       else{expiryHtml=`<span style="font-size:11px;color:var(--muted);">⏳ Expira: ${ds}</span>`;}
     }
-    div.innerHTML+=`<div class="user-card" id="card-${u.id}"><div class="user-info"><p class="email">${d.email}</p><p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px;">${statusBadge}${expiryHtml}</div></div><div class="user-actions">${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""} ${d.approved?`<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>`:""}<button class="btn-edit" onclick="abrirModal('${u.id}')">✏️ Editar</button><button class="btn-delete" onclick="removerUser('${u.id}','${d.email}')">🗑 Remover</button></div></div>`;
+
+    // Tags de duração e preço (só para pendentes — útil para o admin saber o que aprovar)
+    const durTagHtml   = duracaoLabel ? `<span class="dur-tag">📅 ${duracaoLabel}</span>` : "";
+    const precoTagHtml = precoLabel   ? `<span class="preco-tag">💰 ${precoLabel}</span>` : "";
+
+    div.innerHTML+=`<div class="user-card" id="card-${u.id}">
+      <div class="user-info">
+        <p class="email">${d.email}</p>
+        <p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">
+          ${statusBadge}${expiryHtml}
+        </div>
+        ${(durTagHtml || precoTagHtml) ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>` : ""}
+      </div>
+      <div class="user-actions">
+        ${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""}
+        ${d.approved?`<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>`:""}
+        <button class="btn-edit" onclick="abrirModal('${u.id}')">✏️ Editar</button>
+        <button class="btn-delete" onclick="removerUser('${u.id}','${d.email}')">🗑 Remover</button>
+      </div>
+    </div>`;
   });
 }
 
 async function verificarExpirados(){
-  const snap=await getDocs(collection(db,"users"));const agora=Date.now();
+  const snap=await getDocs(collection(db,"users")); const agora=Date.now();
   for(const u of snap.docs){
-    const d=u.data();if(!d.approved)continue;
-    const exp=d.expiryDate||(d.approvedAt?d.approvedAt+DIAS_30:null);
-    if(exp&&agora>=exp){await deleteDoc(doc(db,"users",u.id));try{await addDoc(collection(db,"deleted_users_auth"),{uid:d.uid,email:d.email,deletedAt:agora});}catch(e){}}
+    const d=u.data(); if(!d.approved)continue;
+    const exp = d.expiryDate || (d.approvedAt ? d.approvedAt + (DUR_MS[d.duracao] || DIAS_DEFAULT) : null);
+    if(exp && agora>=exp){
+      await deleteDoc(doc(db,"users",u.id));
+      try{await addDoc(collection(db,"deleted_users_auth"),{uid:d.uid,email:d.email,deletedAt:agora});}catch(e){}
+    }
   }
   carregarUsers();
 }
 
+// ── APROVAR: usa a duração escolhida pelo candidato ──
 window.aprovar = async function(id){
-  const approvedAt=Date.now();
-  await updateDoc(doc(db,"users",id),{approved:true,approvedAt,expiryDate:approvedAt+DIAS_30});
+  const snap = await getDoc(doc(db,"users",id));
+  if(!snap.exists()) return;
+  const d = snap.data();
+  const approvedAt = Date.now();
+  // Calcula expiração com base na duração escolhida pelo candidato
+  const duracaoMs  = DUR_MS[d.duracao] || DIAS_DEFAULT;
+  const expiryDate = approvedAt + duracaoMs;
+  await updateDoc(doc(db,"users",id),{approved:true, approvedAt, expiryDate});
   carregarUsers();
 }
+
 window.revogar = async function(id){
   if(!confirm("Revogar acesso?"))return;
-  await updateDoc(doc(db,"users",id),{approved:false});carregarUsers();
+  await updateDoc(doc(db,"users",id),{approved:false}); carregarUsers();
 }
+
 window.removerUser = async function(docId,email){
   if(!confirm(`Remover permanentemente ${email}?`))return;
   const snap=await getDoc(doc(db,"users",docId));
   const uid=snap.exists()?snap.data().uid:null;
-  await eliminarUserCompleto(uid||docId,docId);carregarUsers();
+  await eliminarUserCompleto(uid||docId,docId); carregarUsers();
 }
 
+// ── MODAL EDITAR ──
 let editingDocId=null;
 const modalUniSel=document.getElementById("modalUni");
 UNIVERSIDADES.forEach(u=>{modalUniSel.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`;});
@@ -731,28 +739,29 @@ window.atualizarCursosModal = function(){
 
 window.abrirModal = async function(docId){
   editingDocId=docId;
-  const snap=await getDoc(doc(db,"users",docId));if(!snap.exists())return;
+  const snap=await getDoc(doc(db,"users",docId)); if(!snap.exists())return;
   const d=snap.data();
   document.getElementById("modalUid").value=d.uid||"";
   document.getElementById("modalEmail").innerText=d.email||"";
   document.getElementById("modalUni").value=d.uni||"";
   atualizarCursosModal();
   document.getElementById("modalCurso").value=d.curso||"";
-  const exp=d.expiryDate||(d.approvedAt?d.approvedAt+DIAS_30:null);
-  document.getElementById("modalExpiry").value=exp?new Date(exp).toISOString().split("T")[0]:"";
+  const exp = d.expiryDate || (d.approvedAt ? d.approvedAt + (DUR_MS[d.duracao]||DIAS_DEFAULT) : null);
+  document.getElementById("modalExpiry").value = exp ? new Date(exp).toISOString().split("T")[0] : "";
   document.getElementById("modalMsg").className="modal-msg";
   document.getElementById("modalOverlay").classList.add("open");
 }
-window.fecharModal = function(){document.getElementById("modalOverlay").classList.remove("open");editingDocId=null;}
+
+window.fecharModal = function(){document.getElementById("modalOverlay").classList.remove("open"); editingDocId=null;}
 
 window.guardarEdicao = async function(){
-  const msgEl=document.getElementById("modalMsg");msgEl.className="modal-msg";
+  const msgEl=document.getElementById("modalMsg"); msgEl.className="modal-msg";
   const uni=document.getElementById("modalUni").value;
   const curso=document.getElementById("modalCurso").value;
   const expiry=document.getElementById("modalExpiry").value;
   if(!uni||!curso){msgEl.className="modal-msg error";msgEl.innerText="Seleciona universidade e curso.";return;}
   const updates={uni,curso,area:COURSE_TO_AREA[curso]||"medicina geral"};
-  if(expiry)updates.expiryDate=new Date(expiry).getTime();
+  if(expiry) updates.expiryDate=new Date(expiry).getTime();
   try{
     await updateDoc(doc(db,"users",editingDocId),updates);
     msgEl.className="modal-msg success";msgEl.innerText="✅ Dados actualizados com sucesso!";
