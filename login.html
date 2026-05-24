@@ -3,69 +3,224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOGIN - DELT∆</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>LOGIN - UNIVERSO QUÂNTICO | DIATOMA</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--text:#e2e8f0;--muted:#64748b;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;padding:20px;gap:20px;}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 30% 30%,rgba(0,255,136,0.07) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(59,130,246,0.07) 0%,transparent 60%);pointer-events:none;}
+:root{
+  --bg:#020818;
+  --surface:#060f22;
+  --accent:#00d4ff;
+  --accent2:#7c3aed;
+  --accent3:#00ffaa;
+  --text:#e2e8f0;
+  --muted:#4a5a7a;
+}
+body{
+  font-family:'Exo 2',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+  gap:20px;
+}
 
-.purchase-summary{position:relative;z-index:1;background:rgba(13,31,53,0.7);border:1px solid rgba(0,255,136,0.15);border-radius:16px;padding:20px 32px;width:100%;max-width:440px;backdrop-filter:blur(20px);display:none;}
-.ps-title{font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
+/* Starfield */
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0;}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:var(--o);}50%{opacity:0.05;}}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 25% 25%, rgba(0,212,255,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 75% 75%, rgba(124,58,237,0.07) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── PURCHASE SUMMARY ── */
+.purchase-summary{
+  position:relative;z-index:1;
+  background:rgba(6,15,34,0.85);
+  border:1px solid rgba(0,212,255,0.18);
+  border-radius:16px;
+  padding:20px 32px;
+  width:100%;max-width:460px;
+  backdrop-filter:blur(20px);
+  display:none;
+}
+.ps-title{
+  font-family:'Orbitron',monospace;
+  font-size:10px;letter-spacing:3px;
+  color:var(--muted);text-transform:uppercase;margin-bottom:12px;
+}
 .ps-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:8px;}
 .ps-label{color:var(--muted);}
 .ps-value{color:var(--text);font-weight:500;}
-.ps-price{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;color:var(--accent);}
-.ps-divider{width:100%;height:1px;background:rgba(255,255,255,0.06);margin:12px 0;}
-.ps-comprov-title{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:'Rajdhani',sans-serif;margin-bottom:10px;}
+.ps-price{font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--accent);}
+.ps-divider{width:100%;height:1px;background:rgba(0,212,255,0.08);margin:12px 0;}
+.ps-comprov-title{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:'Orbitron',monospace;margin-bottom:10px;}
 .ps-btns{display:flex;gap:8px;flex-wrap:wrap;}
-.btn{padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:1px;transition:0.3s;text-decoration:none;display:inline-block;}
+.btn{padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:1px;transition:0.3s;text-decoration:none;display:inline-block;font-family:'Exo 2',sans-serif;}
 .btn:hover{transform:translateY(-2px);}
 .whatsapp{background:#25D366;color:white;}
 .email-btn{background:var(--accent2);color:white;}
 
-.box{position:relative;z-index:1;background:rgba(13,31,53,0.9);border:1px solid rgba(0,255,136,0.15);padding:48px 40px;border-radius:20px;width:100%;max-width:440px;backdrop-filter:blur(20px);}
-.logo{font-family:'Rajdhani',sans-serif;font-size:13px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
-h2{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;letter-spacing:2px;margin-bottom:20px;color:var(--text);}
+/* ── MAIN BOX ── */
+.box{
+  position:relative;z-index:1;
+  background:rgba(6,15,34,0.92);
+  border:1px solid rgba(0,212,255,0.15);
+  padding:48px 40px;
+  border-radius:20px;
+  width:100%;max-width:460px;
+  backdrop-filter:blur(24px);
+  box-shadow:0 0 60px rgba(0,212,255,0.05), inset 0 0 40px rgba(124,58,237,0.03);
+}
+
+/* Mini logo no topo */
+.mini-logo{
+  display:flex;align-items:center;gap:16px;margin-bottom:16px;
+}
+.mini-logo svg{width:80px;height:80px;flex-shrink:0;}
+.mini-logo-text{}
+.brand-name{
+  font-family:'Orbitron',monospace;
+  font-size:19px;font-weight:900;
+  letter-spacing:2px;color:var(--accent);
+  text-transform:uppercase;line-height:1.2;
+  text-shadow:0 0 18px rgba(0,212,255,0.45);
+}
+.brand-sub{
+  font-family:'Exo 2',sans-serif;
+  font-size:7px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;margin-top:4px;
+  opacity:0.6;
+}
+
+/* Orbit animations */
+.orbit-1{animation:rot 6s linear infinite;transform-origin:40px 40px;}
+.orbit-2{animation:rot-rev 9s linear infinite;transform-origin:40px 40px;}
+.orbit-3{animation:rot 14s linear infinite;transform-origin:40px 40px;}
+.core-pulse{animation:cpulse 2.5s ease-in-out infinite;transform-origin:40px 40px;}
+.q-dot{animation:qdot 2s ease-in-out infinite;}
+.q-dot:nth-child(2){animation-delay:0.4s;}
+.q-dot:nth-child(3){animation-delay:0.8s;}
+@keyframes rot{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes rot-rev{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+@keyframes cpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.88);}}
+@keyframes qdot{0%,100%{opacity:1;}50%{opacity:0.15;}}
+
+.divider-line{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,212,255,0.3),rgba(124,58,237,0.3),transparent);
+  margin:16px 0;
+}
+
+h2{
+  font-family:'Orbitron',monospace;
+  font-size:28px;font-weight:900;
+  letter-spacing:3px;margin-bottom:20px;
+  color:var(--text);
+}
+h2 span{color:var(--accent);}
+
 .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
-.badge{display:inline-block;font-size:11px;letter-spacing:2px;padding:4px 12px;border-radius:20px;text-transform:uppercase;font-family:'Rajdhani',sans-serif;font-weight:600;}
-.badge.uni{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);}
-.badge.curso{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:var(--accent2);}
-.back-link{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--muted);text-decoration:none;margin-bottom:20px;font-family:'Rajdhani',sans-serif;transition:0.2s;}
+.badge{
+  display:inline-block;font-size:10px;letter-spacing:2px;
+  padding:4px 12px;border-radius:20px;text-transform:uppercase;
+  font-family:'Orbitron',monospace;font-weight:600;
+}
+.badge.uni{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);}
+.badge.curso{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;}
+
+.back-link{
+  display:inline-block;font-size:11px;letter-spacing:2px;
+  color:var(--muted);text-decoration:none;margin-bottom:20px;
+  font-family:'Orbitron',monospace;transition:0.2s;
+}
 .back-link:hover{color:var(--accent);}
+
 .field{margin-bottom:16px;}
-label{display:block;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
-input{width:100%;padding:13px 16px;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:15px;font-family:'Inter',sans-serif;transition:0.3s;outline:none;}
-input:focus{border-color:rgba(0,255,136,0.4);background:rgba(6,13,26,0.95);}
+label{
+  display:block;font-size:10px;letter-spacing:3px;
+  color:var(--muted);text-transform:uppercase;margin-bottom:6px;
+  font-family:'Orbitron',monospace;
+}
+input{
+  width:100%;padding:13px 16px;
+  background:rgba(2,8,24,0.8);
+  border:1px solid rgba(0,212,255,0.1);
+  border-radius:10px;color:var(--text);
+  font-size:15px;font-family:'Exo 2',sans-serif;
+  transition:0.3s;outline:none;
+}
+input:focus{border-color:rgba(0,212,255,0.4);background:rgba(2,8,24,0.98);}
+input::placeholder{color:var(--muted);}
 .password-wrap{position:relative;}
-.eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:18px;opacity:0.5;transition:0.2s;}
+.eye{
+  position:absolute;right:14px;top:50%;
+  transform:translateY(-50%);cursor:pointer;
+  font-size:17px;opacity:0.4;transition:0.2s;
+}
 .eye:hover{opacity:1;}
+
 .btns{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
-button{width:100%;padding:14px;border:none;border-radius:10px;font-size:15px;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:2px;cursor:pointer;transition:0.3s;}
+button{
+  width:100%;padding:14px;border:none;border-radius:10px;
+  font-size:14px;font-family:'Orbitron',monospace;
+  font-weight:700;letter-spacing:2px;cursor:pointer;transition:0.3s;
+}
 button:hover:not(:disabled){transform:translateY(-2px);}
 button:disabled{opacity:0.5;cursor:not-allowed;}
-.loginBtn{background:var(--accent);color:#060d1a;}
-.registerBtn{background:transparent;color:var(--accent2);border:1px solid var(--accent2);}
-.registerBtn:hover:not(:disabled){background:rgba(59,130,246,0.1);}
-.forgotBtn{background:transparent;color:var(--muted);border:none;font-size:13px;letter-spacing:1px;padding:8px;}
+.loginBtn{
+  background:linear-gradient(135deg,var(--accent),#0099cc);
+  color:#020818;
+  box-shadow:0 0 20px rgba(0,212,255,0.25);
+}
+.loginBtn:hover:not(:disabled){box-shadow:0 0 30px rgba(0,212,255,0.4);}
+.registerBtn{
+  background:transparent;color:#a78bfa;
+  border:1px solid rgba(124,58,237,0.5);
+}
+.registerBtn:hover:not(:disabled){background:rgba(124,58,237,0.1);}
+.registerBtn.hidden{display:none;}
+.forgotBtn{
+  background:transparent;color:var(--muted);
+  border:none;font-size:11px;letter-spacing:1px;padding:8px;
+}
 .forgotBtn:hover:not(:disabled){color:var(--text);transform:none;}
+
 .msg{margin-top:16px;padding:12px 16px;border-radius:8px;font-size:13px;display:none;}
 .msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
-.msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
-.msg.info{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#60a5fa;display:block;}
+.msg.success{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);display:block;}
+.msg.info{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;display:block;}
+
 .spinner-wrap{display:none;text-align:center;margin-top:16px;}
-.spinner{width:28px;height:28px;border:3px solid rgba(0,255,136,0.2);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:auto;}
+.spinner{
+  width:28px;height:28px;
+  border:3px solid rgba(0,212,255,0.2);
+  border-top:3px solid var(--accent);
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;margin:auto;
+}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-/* Esconder botão criar conta quando não vem do fluxo */
-.registerBtn.hidden{display:none;}
-
-@media(max-width:480px){.box{padding:36px 24px;}.purchase-summary{padding:16px 20px;}}
+@media(max-width:480px){.box{padding:32px 20px;}.purchase-summary{padding:16px 20px;}}
 </style>
 </head>
 <body>
 
+<!-- Starfield -->
+<div class="stars" id="stars"></div>
+
+<!-- Purchase Summary -->
 <div class="purchase-summary" id="purchaseSummary">
   <div class="ps-title">Resumo da Inscrição</div>
   <div class="ps-row">
@@ -101,10 +256,59 @@ button:disabled{opacity:0.5;cursor:not-allowed;}
   </div>
 </div>
 
+<!-- Login Box -->
 <div class="box">
-  <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
+
+  <!-- Mini Logo -->
+  <div class="mini-logo">
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="40%" stop-color="#00d4ff"/>
+          <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="glowBg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="gf">
+          <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="blur1"><feGaussianBlur stdDeviation="3"/></filter>
+      </defs>
+      <circle cx="40" cy="40" r="34" fill="url(#glowBg)"/>
+      <g class="orbit-1">
+        <ellipse cx="40" cy="40" rx="36" ry="12" stroke="#00d4ff" stroke-width="1.2" stroke-opacity="0.55" fill="none"/>
+        <circle cx="76" cy="40" r="3.5" fill="#00d4ff" filter="url(#gf)" class="q-dot"/>
+      </g>
+      <g class="orbit-2">
+        <ellipse cx="40" cy="40" rx="29" ry="10" stroke="#7c3aed" stroke-width="1.1" stroke-opacity="0.65" fill="none" transform="rotate(60 40 40)"/>
+        <circle cx="40" cy="11" r="3" fill="#a78bfa" filter="url(#gf)" class="q-dot"/>
+      </g>
+      <g class="orbit-3">
+        <ellipse cx="40" cy="40" rx="22" ry="7" stroke="#00ffaa" stroke-width="0.9" stroke-opacity="0.45" fill="none" transform="rotate(-45 40 40)"/>
+        <circle cx="60" cy="24" r="2.5" fill="#00ffaa" filter="url(#gf)" class="q-dot"/>
+      </g>
+      <circle cx="40" cy="40" r="14" fill="#00d4ff" fill-opacity="0.06" filter="url(#blur1)"/>
+      <g class="core-pulse">
+        <circle cx="40" cy="40" r="11" fill="url(#cg)" filter="url(#gf)"/>
+        <circle cx="40" cy="40" r="6" fill="#ffffff" fill-opacity="0.92"/>
+        <circle cx="37" cy="37" r="2" fill="#ffffff" fill-opacity="0.5"/>
+      </g>
+      <text x="40" y="43.5" font-family="serif" font-size="8" fill="#020818" text-anchor="middle" font-weight="bold">Ψ</text>
+    </svg>
+    <div class="mini-logo-text">
+      <div class="brand-name">Universo Quântico</div>
+      <div class="brand-sub">Preparatório Virtual com DIATOMA</div>
+    </div>
+  </div>
+
+  <div class="divider-line"></div>
+
   <a class="back-link" href="index.html">← VOLTAR AO INÍCIO</a>
-  <h2>ACESSO</h2>
+  <h2>ACESSO <span>.</span></h2>
 
   <div class="badges" id="badges"></div>
 
@@ -126,14 +330,26 @@ button:disabled{opacity:0.5;cursor:not-allowed;}
   <input type="hidden" id="preco">
 
   <div class="btns">
-    <button class="loginBtn"   id="btnLogin"    onclick="login()">ENTRAR</button>
+    <button class="loginBtn"    id="btnLogin"    onclick="login()">ENTRAR</button>
     <button class="registerBtn" id="btnRegister" onclick="register()">CRIAR CONTA</button>
-    <button class="forgotBtn"  id="btnForgot"   onclick="recuperar()">Esqueci a senha</button>
+    <button class="forgotBtn"   id="btnForgot"   onclick="recuperar()">Esqueci a senha</button>
   </div>
 
   <div class="spinner-wrap" id="loading"><div class="spinner"></div></div>
   <div class="msg" id="msg"></div>
 </div>
+
+<script>
+  // Starfield
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()*2+0.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--o:${Math.random()*0.6+0.1};--d:${Math.random()*3+2}s;animation-delay:${Math.random()*4}s;`;
+    starsEl.appendChild(s);
+  }
+</script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -176,11 +392,8 @@ const areaParam    = params.get("area")    || "";
 const duracaoParam = params.get("duracao") || "";
 const precoParam   = params.get("preco")   || "";
 
-// Vem do fluxo de inscrição se tiver duração + preço + curso
 const vemDoFluxo = !!(duracaoParam && precoParam && cursoParam);
 
-// Se NÃO vem do fluxo → esconder botão "Criar Conta"
-// (utilizador já registado que clicou em "Entrar" direto)
 if(!vemDoFluxo){
   btnRegister.classList.add("hidden");
 }
@@ -205,7 +418,6 @@ const DUR_LABELS = {
   "365":"1 Ano (365 dias)"
 };
 
-// Resumo da compra — só se vem do fluxo
 if(vemDoFluxo){
   const summary = document.getElementById("purchaseSummary");
   const psUniRow = document.getElementById("psUni").closest(".ps-row");
@@ -220,14 +432,13 @@ if(vemDoFluxo){
   document.getElementById("psPreco").innerText = precoFormatado;
 
   const waUni = uniParam ? `Universidade: ${uniParam}\n` : "";
-  const wa = `Olá, envio o meu comprovativo de pagamento do Preparatório Virtual.\n\nCurso: ${cursoParam}\n${waUni}Duração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}`;
+  const wa = `Olá, envio o meu comprovativo de pagamento do Universo Quântico - Preparatório Virtual com DIATOMA.\n\nCurso: ${cursoParam}\n${waUni}Duração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}`;
   document.getElementById("waLink").href    = `https://wa.me/244950509560?text=${encodeURIComponent(wa)}`;
   const emailBody = `Olá,\n\nComprovativo de pagamento:\n\nCurso: ${cursoParam}\n${waUni}Duração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}\n\nObrigado.`;
-  document.getElementById("emailLink").href = `mailto:deltaigualb.bmenos4.a.c@gmail.com?subject=Comprovativo%20de%20Pagamento&body=${encodeURIComponent(emailBody)}`;
+  document.getElementById("emailLink").href = `mailto:deltaigualb.bmenos4.a.c@gmail.com?subject=Comprovativo%20de%20Pagamento%20-%20Universo%20Quântico&body=${encodeURIComponent(emailBody)}`;
   summary.style.display = "block";
 }
 
-// ── HELPERS ──────────────────────────────────────────────
 function showMsg(texto, tipo){
   msgEl.className = "msg " + tipo;
   msgEl.innerText = texto;
@@ -241,14 +452,12 @@ function hideLoading(){
   btnLogin.disabled = btnRegister.disabled = btnForgot.disabled = false;
 }
 
-// Validação do login — NÃO exige area (utilizador já registado não tem params)
 function validarLogin(email, senha){
   if(!email || !senha){ showMsg("Preenche o email e a senha.", "error"); return false; }
   if(senha.length < 6){ showMsg("A senha deve ter pelo menos 6 caracteres.", "error"); return false; }
   return true;
 }
 
-// Validação do registo — exige area (vem sempre do fluxo)
 function validarRegisto(email, senha, area){
   if(!email || !senha){ showMsg("Preenche o email e a senha.", "error"); return false; }
   if(!area){            showMsg("Volta atrás e escolhe o teu curso.", "error"); return false; }
@@ -256,74 +465,56 @@ function validarRegisto(email, senha, area){
   return true;
 }
 
-// ─── LOGIN ────────────────────────────────────────────────
 window.login = async function(){
   const email = document.getElementById("email").value.trim();
   const senha = document.getElementById("senha").value;
-
   msgEl.className = "msg";
   if(!validarLogin(email, senha)) return;
   showLoading();
-
   try {
     const cred = await signInWithEmailAndPassword(auth, email, senha);
     const ref  = doc(db, "users", cred.user.uid);
     const snap = await getDoc(ref);
-
     if(!snap.exists()){
       try { await deleteUser(cred.user); } catch(e){}
       showMsg("✅ A tua conta foi removida pelo administrador. Podes criar uma nova conta.", "success");
-      hideLoading();
-      return;
+      hideLoading(); return;
     }
-
     const data = snap.data();
-
     if(data.approved !== true){
       document.getElementById("purchaseSummary").style.display = "none";
       showMsg("⏳ Conta pendente. Aguarda a aprovação do admin.", "info");
-      hideLoading();
-      return;
+      hideLoading(); return;
     }
-
-    // Verificar expiração
     const expiryTs = data.expiryDate || (data.approvedAt ? data.approvedAt + 365*24*60*60*1000 : null);
     if(expiryTs && Date.now() >= expiryTs){
       try { await deleteDoc(ref); }        catch(e){}
       try { await deleteUser(cred.user); } catch(e){}
       showMsg("✅ O teu acesso expirou. A conta foi removida — podes criar uma nova conta.", "success");
-      hideLoading();
-      return;
+      hideLoading(); return;
     }
-
-    // ✅ Aprovado
     document.getElementById("purchaseSummary").style.display = "none";
     localStorage.setItem("user",  email);
     localStorage.setItem("uid",   cred.user.uid);
     localStorage.setItem("area",  data.area  || areaParam);
     localStorage.setItem("uni",   data.uni   || uniParam  || "");
     localStorage.setItem("curso", data.curso || cursoParam || "");
-
     window.location.href = "aulas.html";
-
   } catch(e){
     showMsg("Email ou senha inválidos.", "error");
     hideLoading();
   }
 }
 
-// ─── REGISTO ──────────────────────────────────────────────
 window.register = async function(){
   const email   = document.getElementById("email").value.trim();
   const senha   = document.getElementById("senha").value;
   const area    = document.getElementById("area").value;
   const duracao = document.getElementById("duracao").value;
   const preco   = document.getElementById("preco").value;
-
   msgEl.className = "msg";
   if(!validarRegisto(email, senha, area)) return;
   showLoading();
-
   try {
     const newUser = await createUserWithEmailAndPassword(auth, email, senha);
     await setDoc(doc(db, "users", newUser.user.uid), {
@@ -350,7 +541,6 @@ window.register = async function(){
   }
 }
 
-// ─── RECUPERAR SENHA ──────────────────────────────────────
 window.recuperar = async function(){
   const email = document.getElementById("email").value.trim();
   msgEl.className = "msg";
