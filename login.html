@@ -388,11 +388,12 @@ const btnForgot   = document.getElementById("btnForgot");
 
 // Parâmetros da URL
 const params     = new URLSearchParams(window.location.search);
+const tipoParam    = params.get("tipo")    || "universitario";
 const uniParam   = params.get("uni")    || "";
 const cursoParam = params.get("curso")  || "";
 const areaParam  = params.get("area")   || "";
-const duracaoParam = params.get("duracao") || ""; // dias: 30,90,180,365
-const precoParam   = params.get("preco")   || ""; // valor numérico em KZ
+const duracaoParam = params.get("duracao") || "";
+const precoParam   = params.get("preco")   || "";
 
 // Verificar se foi redirecionado por expiração
 if(params.get("expirado")){
@@ -418,18 +419,21 @@ const DUR_LABELS = {
   "365": "1 Ano (365 dias)"
 };
 
-// ── Mostrar resumo da compra APENAS se vem do fluxo de inscrição
-//    (tem duração e preço nos params) e ainda não tem conta aprovada ──
+// ── Mostrar resumo da compra APENAS se vem do fluxo de inscrição ──
 async function iniciar(){
-  const temFluxoCompra = duracaoParam && precoParam && uniParam && cursoParam;
+  const temFluxoCompra = duracaoParam && precoParam && cursoParam;
 
   if(temFluxoCompra){
-    // Verificar se o utilizador já está logado e aprovado
-    // Se sim, esconder resumo. Se não, mostrar.
     const summary = document.getElementById("purchaseSummary");
 
-    // Preencher resumo
-    document.getElementById("psUni").innerText   = uniParam;
+    // Preencher resumo — esconder linha Universidade se não tiver
+    const psUniRow = document.getElementById("psUni").closest(".ps-row");
+    if(uniParam){
+      document.getElementById("psUni").innerText = uniParam;
+    } else {
+      if(psUniRow) psUniRow.style.display = "none";
+    }
+
     document.getElementById("psCurso").innerText = cursoParam;
     document.getElementById("psDur").innerText   = DUR_LABELS[duracaoParam] || duracaoParam + " dias";
 
@@ -437,14 +441,14 @@ async function iniciar(){
     document.getElementById("psPreco").innerText = precoFormatado;
 
     // WhatsApp
-    const wa = `Olá, envio o meu comprovativo de pagamento do Preparatório Virtual.\n\nUniversidade: ${uniParam}\nCurso: ${cursoParam}\nDuração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}`;
+    const waUni = uniParam ? `Universidade: ${uniParam}\n` : "";
+    const wa = `Olá, envio o meu comprovativo de pagamento do Preparatório Virtual.\n\nCurso: ${cursoParam}\n${waUni}Duração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}`;
     document.getElementById("waLink").href = `https://wa.me/244950509560?text=${encodeURIComponent(wa)}`;
 
     // Email
-    const emailBody = `Olá,\n\nComprovativo de pagamento:\n\nUniversidade: ${uniParam}\nCurso: ${cursoParam}\nDuração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}\n\nObrigado.`;
+    const emailBody = `Olá,\n\nComprovativo de pagamento:\n\nCurso: ${cursoParam}\n${waUni}Duração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}\n\nObrigado.`;
     document.getElementById("emailLink").href = `mailto:deltaigualb.bmenos4.a.c@gmail.com?subject=Comprovativo%20de%20Pagamento&body=${encodeURIComponent(emailBody)}`;
 
-    // Mostrar bloco
     summary.style.display = "block";
   }
 }
@@ -551,11 +555,12 @@ window.register = async function(){
     await setDoc(doc(db, "users", newUser.user.uid), {
       uid:       newUser.user.uid,
       email:     email,
+      tipo:      tipoParam,  // tipo de curso escolhido
       area:      area,
       uni:       uniParam,
       curso:     cursoParam,
-      duracao:   duracao,   // dias escolhidos (30,90,180,365)
-      preco:     preco,     // valor em KZ
+      duracao:   duracao,
+      preco:     preco,
       approved:  false,
       createdAt: Date.now()
     });
