@@ -9,7 +9,6 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-
 .login-wrap{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
 .login-box{background:rgba(13,31,53,0.9);border:1px solid rgba(0,255,136,0.15);padding:48px 40px;border-radius:20px;width:100%;max-width:400px;text-align:center;}
 .login-box .logo{font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:4px;color:var(--muted);margin-bottom:6px;}
@@ -19,11 +18,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .step-dot{width:28px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);transition:0.3s;}
 .step-dot.active{background:var(--accent);}
 .step-dot.done{background:rgba(0,255,136,0.4);}
-
 .lockout-banner{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#f87171;display:none;line-height:1.5;}
 .lockout-banner b{color:#ef4444;}
 .attempts-info{font-size:11px;color:var(--muted);margin-top:6px;}
-
 input,select{width:100%;padding:12px 14px;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;margin-bottom:12px;transition:0.3s;outline:none;}
 input:focus,select:focus{border-color:rgba(0,255,136,0.4);}
 select option{background:#0d1f35;}
@@ -41,13 +38,9 @@ button:hover{transform:translateY(-1px);}
 .btn-cancel{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--muted);}
 .btn-cancel:hover{background:rgba(255,255,255,0.05);transform:none;}
 .btn-save{background:var(--accent);color:#060d1a;}
-
 .error-login{color:#f87171;font-size:13px;margin-top:10px;min-height:20px;}
-.success-step{color:var(--accent);font-size:13px;margin-top:8px;}
-
 .security-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:20px;}
 .security-badge span{color:var(--accent);}
-
 #painel{display:none;padding:30px 20px;max-width:960px;margin:0 auto;}
 .painel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);}
 .painel-header h2{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;letter-spacing:2px;color:var(--accent);}
@@ -56,7 +49,6 @@ button:hover{transform:translateY(-1px);}
 .session-info{font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:4px;}
 .session-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:5px;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-
 .section{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px;margin-bottom:24px;}
 .section h3{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:20px;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -65,10 +57,8 @@ button:hover{transform:translateY(-1px);}
 .user-info p,.aula-info p{font-size:13px;margin-bottom:3px;}
 .user-info .email,.aula-info .titulo{color:var(--text);font-weight:500;}
 .user-info .meta,.aula-info .meta{color:var(--muted);font-size:12px;}
-
 .dur-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;color:var(--accent);}
 .preco-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;color:#fbbf24;}
-
 .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;letter-spacing:1px;font-weight:600;}
 .badge.approved{background:rgba(0,255,136,0.15);color:var(--accent);}
 .badge.pending{background:rgba(251,191,36,0.15);color:#fbbf24;}
@@ -85,222 +75,45 @@ button:hover{transform:translateY(-1px);}
 .expiry-warning{color:#fbbf24;font-size:11px;}
 .expiry-expired{color:#f87171;font-size:11px;}
 
-/* ═══════════════════════════════════════════════════
-   CHAT — ÁREA DE CONVERSA REDESENHADA
-═══════════════════════════════════════════════════ */
-#chatConversaWrap {
-  display: none;
-}
-
-/* Cabeçalho da conversa */
-.conversa-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-/* Área de mensagens — grande e visível */
-#conversaMsgs {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-height: 300px;
-  max-height: 500px;
-  overflow-y: auto;
-  padding: 12px 4px;
-  margin-bottom: 18px;
-  scroll-behavior: smooth;
-}
+/* CHAT */
+#chatConversaWrap{display:none;}
+.conversa-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);}
+#conversaMsgs{display:flex;flex-direction:column;gap:14px;min-height:300px;max-height:500px;overflow-y:auto;padding:12px 4px;margin-bottom:18px;scroll-behavior:smooth;}
 #conversaMsgs::-webkit-scrollbar{width:4px;}
-#conversaMsgs::-webkit-scrollbar-track{background:transparent;}
 #conversaMsgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+.msg-bubble-wrap{display:flex;flex-direction:column;max-width:75%;gap:4px;}
+.msg-bubble-wrap.prof{align-self:flex-end;align-items:flex-end;}
+.msg-bubble-wrap.aluno{align-self:flex-start;align-items:flex-start;}
+.msg-sender{font-size:10px;color:var(--muted);padding:0 6px;letter-spacing:0.5px;}
+.msg-bubble{padding:11px 15px;border-radius:16px;font-size:14px;line-height:1.6;color:var(--text);word-break:break-word;white-space:pre-wrap;}
+.msg-bubble.prof{background:rgba(0,255,136,0.13);border:1px solid rgba(0,255,136,0.25);border-bottom-right-radius:4px;}
+.msg-bubble.aluno{background:rgba(59,130,246,0.13);border:1px solid rgba(59,130,246,0.2);border-bottom-left-radius:4px;}
+.msg-bubble img{max-width:100%;max-height:260px;border-radius:10px;display:block;margin-top:4px;cursor:pointer;object-fit:contain;}
+.msg-bubble audio{width:100%;min-width:220px;margin-top:4px;accent-color:var(--accent);}
+.msg-time{font-size:10px;color:var(--muted);padding:0 6px;}
+.admin-input-area{border-top:1px solid rgba(255,255,255,0.07);padding-top:16px;}
+#adminInput{width:100%;min-height:90px;max-height:200px;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;padding:12px 16px;resize:vertical;outline:none;transition:border-color 0.2s;display:block;margin-bottom:10px;line-height:1.5;}
+#adminInput:focus{border-color:rgba(0,255,136,0.4);}
+#adminInput::placeholder{color:var(--muted);}
+.input-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.input-actions .right{margin-left:auto;display:flex;gap:8px;}
+.btn-media{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted);border-radius:9px;padding:8px 14px;font-size:13px;cursor:pointer;transition:0.2s;font-family:'Inter',sans-serif;font-weight:500;letter-spacing:0;display:flex;align-items:center;gap:6px;}
+.btn-media:hover{background:rgba(255,255,255,0.1);color:var(--text);transform:translateY(-1px);}
+.btn-media.recording{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.4);color:#f87171;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.btn-enviar{background:var(--accent);color:#060d1a;border:none;border-radius:9px;padding:9px 20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:1px;cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:6px;}
+.btn-enviar:hover{transform:translateY(-1px);opacity:0.9;}
+.media-preview{display:none;background:rgba(6,13,26,0.8);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--accent);align-items:center;gap:10px;}
+.media-preview.show{display:flex;}
+.media-preview img{max-height:80px;border-radius:8px;}
+.media-preview audio{height:32px;flex:1;}
+.btn-remove-preview{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0;white-space:nowrap;}
+.btn-remove-preview:hover{transform:none;background:rgba(239,68,68,0.25);}
 
-/* Balão de mensagem */
-.msg-bubble-wrap {
-  display: flex;
-  flex-direction: column;
-  max-width: 75%;
-  gap: 4px;
-}
-.msg-bubble-wrap.prof { align-self: flex-end; align-items: flex-end; }
-.msg-bubble-wrap.aluno { align-self: flex-start; align-items: flex-start; }
-
-.msg-sender {
-  font-size: 10px;
-  color: var(--muted);
-  padding: 0 6px;
-  letter-spacing: 0.5px;
-}
-
-.msg-bubble {
-  padding: 11px 15px;
-  border-radius: 16px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text);
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-.msg-bubble.prof {
-  background: rgba(0,255,136,0.13);
-  border: 1px solid rgba(0,255,136,0.25);
-  border-bottom-right-radius: 4px;
-}
-.msg-bubble.aluno {
-  background: rgba(59,130,246,0.13);
-  border: 1px solid rgba(59,130,246,0.2);
-  border-bottom-left-radius: 4px;
-}
-.msg-bubble img {
-  max-width: 100%;
-  max-height: 260px;
-  border-radius: 10px;
-  display: block;
-  margin-top: 4px;
-  cursor: pointer;
-  object-fit: contain;
-}
-.msg-bubble audio {
-  width: 100%;
-  min-width: 220px;
-  margin-top: 4px;
-  accent-color: var(--accent);
-}
-.msg-time {
-  font-size: 10px;
-  color: var(--muted);
-  padding: 0 6px;
-}
-
-/* ── ÁREA DE INPUT DO ADMIN ── */
-.admin-input-area {
-  border-top: 1px solid rgba(255,255,255,0.07);
-  padding-top: 16px;
-}
-
-/* Textarea grande e horizontal */
-#adminInput {
-  width: 100%;
-  min-height: 90px;
-  max-height: 200px;
-  background: rgba(6,13,26,0.8);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  color: var(--text);
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
-  padding: 12px 16px;
-  resize: vertical;
-  outline: none;
-  transition: border-color 0.2s;
-  display: block;
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-#adminInput:focus {
-  border-color: rgba(0,255,136,0.4);
-}
-#adminInput::placeholder { color: var(--muted); }
-
-/* Barra de botões inferior */
-.input-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.input-actions .right {
-  margin-left: auto;
-  display: flex;
-  gap: 8px;
-}
-
-/* Botões de mídia (foto/áudio) */
-.btn-media {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: var(--muted);
-  border-radius: 9px;
-  padding: 8px 14px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-media:hover {
-  background: rgba(255,255,255,0.1);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-.btn-media.recording {
-  background: rgba(239,68,68,0.2);
-  border-color: rgba(239,68,68,0.4);
-  color: #f87171;
-  animation: blink 1s infinite;
-}
-@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
-
-.btn-enviar {
-  background: var(--accent);
-  color: #060d1a;
-  border: none;
-  border-radius: 9px;
-  padding: 9px 20px;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-enviar:hover { transform: translateY(-1px); opacity: 0.9; }
-
-/* Preview antes de enviar */
-.media-preview {
-  display: none;
-  background: rgba(6,13,26,0.8);
-  border: 1px solid rgba(0,255,136,0.2);
-  border-radius: 10px;
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: var(--accent);
-  align-items: center;
-  gap: 10px;
-}
-.media-preview.show { display: flex; }
-.media-preview img { max-height: 80px; border-radius: 8px; }
-.media-preview audio { height: 32px; flex: 1; }
-.btn-remove-preview {
-  background: rgba(239,68,68,0.15);
-  border: 1px solid rgba(239,68,68,0.3);
-  color: #f87171;
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size:11px;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  letter-spacing: 0;
-  white-space: nowrap;
-}
-.btn-remove-preview:hover { transform: none; background: rgba(239,68,68,0.25); }
-
-/* ═══════════════════════════════════════════════════ */
-
+/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:1000;display:none;justify-content:center;align-items:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal{background:#0d1f35;border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:36px 32px;width:100%;max-width:460px;position:relative;}
+.modal{background:#0d1f35;border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:36px 32px;width:100%;max-width:480px;position:relative;max-height:90vh;overflow-y:auto;}
 .modal h3{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
 .modal .modal-email{font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:22px;}
 .modal label{display:block;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:5px;}
@@ -312,8 +125,6 @@ button:hover{transform:translateY(-1px);}
 .modal-msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:12px;display:none;}
 .modal-msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
 .modal-msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
-
-/* Modal de imagem grande */
 #imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:none;justify-content:center;align-items:center;cursor:zoom-out;}
 #imgModal.open{display:flex;}
 #imgModal img{max-width:92vw;max-height:90vh;border-radius:12px;object-fit:contain;}
@@ -327,15 +138,9 @@ button:hover{transform:translateY(-1px);}
     <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
     <h2>ADMIN</h2>
     <div class="step-label">VERIFICAÇÃO DE ACESSO</div>
-    <div class="step-dots">
-      <div class="step-dot active" id="dot1"></div>
-      <div class="step-dot" id="dot2"></div>
-    </div>
+    <div class="step-dots"><div class="step-dot active" id="dot1"></div><div class="step-dot" id="dot2"></div></div>
     <div class="security-badge">🔐 <span>Camada 1</span> — Senha secreta</div>
-    <div class="lockout-banner" id="lockoutBanner">
-      <b>🔒 Acesso bloqueado temporariamente</b><br>
-      Demasiadas tentativas falhadas. Aguarda <span id="lockoutTimer"></span>.
-    </div>
+    <div class="lockout-banner" id="lockoutBanner"><b>🔒 Acesso bloqueado temporariamente</b><br>Demasiadas tentativas falhadas. Aguarda <span id="lockoutTimer"></span>.</div>
     <input type="password" id="senhaAdmin" placeholder="Senha de administrador" onkeydown="if(event.key==='Enter')verificarCamada1()">
     <button class="btn-login" id="btnStep1" onclick="verificarCamada1()">CONTINUAR →</button>
     <p class="error-login" id="erroStep1"></p>
@@ -349,10 +154,7 @@ button:hover{transform:translateY(-1px);}
     <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
     <h2>ADMIN</h2>
     <div class="step-label">VERIFICAÇÃO DE IDENTIDADE</div>
-    <div class="step-dots">
-      <div class="step-dot done" id="dot1b"></div>
-      <div class="step-dot active" id="dot2b"></div>
-    </div>
+    <div class="step-dots"><div class="step-dot done" id="dot1b"></div><div class="step-dot active" id="dot2b"></div></div>
     <div class="security-badge">🔑 <span>Camada 2</span> — Firebase Auth</div>
     <input type="email" id="firebaseEmail" placeholder="Email de administrador" value="preparatoriovirtualcomdelta1@gmail.com" onkeydown="if(event.key==='Enter')verificarCamada2()">
     <input type="password" id="firebaseSenha" placeholder="Senha do Firebase" onkeydown="if(event.key==='Enter')verificarCamada2()">
@@ -367,10 +169,7 @@ button:hover{transform:translateY(-1px);}
   <div class="painel-header">
     <div>
       <h2>PAINEL ADMIN</h2>
-      <div class="session-info">
-        <span class="session-dot"></span>Sessão activa · expira em <span id="sessionTimer"></span>
-        &nbsp;·&nbsp; 🔐🔑 2 camadas verificadas
-      </div>
+      <div class="session-info"><span class="session-dot"></span>Sessão activa · expira em <span id="sessionTimer"></span> &nbsp;·&nbsp; 🔐🔑 2 camadas verificadas</div>
     </div>
     <button class="logout-btn" onclick="sair()">SAIR</button>
   </div>
@@ -387,12 +186,8 @@ button:hover{transform:translateY(-1px);}
       <option value="primeiros">🩺 Primeiros Socorros</option>
       <option value="minsa">🏥 Preparatório MINSA</option>
     </select>
-    <select id="seccao" onchange="atualizarSeccao()">
-      <option value="">— Seleciona o tipo de curso primeiro —</option>
-    </select>
-    <select id="sub1" onchange="atualizarSub2()">
-      <option value="">— Seleciona secção primeiro —</option>
-    </select>
+    <select id="seccao" onchange="atualizarSeccao()"><option value="">— Seleciona o tipo de curso primeiro —</option></select>
+    <select id="sub1" onchange="atualizarSub2()"><option value="">— Seleciona secção primeiro —</option></select>
     <select id="sub2" style="display:none;"><option value="">— Seleciona universidade primeiro —</option></select>
     <div class="grid2">
       <input id="titulo" placeholder="Título do conteúdo">
@@ -403,13 +198,7 @@ button:hover{transform:translateY(-1px);}
         <option value="imagem">🖼 Imagem (link direto)</option>
       </select>
     </div>
-    <div class="bunny-info" id="bunnyInfo">
-      <b>🐰 Como obter o link do Bunny Stream:</b><br>
-      1. Acede ao teu painel em <b>bunny.net → Stream</b><br>
-      2. Abre o vídeo que fizeste upload<br>
-      3. Clica em <b>"Embed"</b> e copia o link do <b>src</b> do iframe<br>
-      Exemplo: <b>https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID</b>
-    </div>
+    <div class="bunny-info" id="bunnyInfo"><b>🐰 Como obter o link do Bunny Stream:</b><br>1. Acede ao teu painel em <b>bunny.net → Stream</b><br>2. Abre o vídeo que fizeste upload<br>3. Clica em <b>"Embed"</b> e copia o link do <b>src</b> do iframe<br>Exemplo: <b>https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID</b></div>
     <input id="url" placeholder="Cole o link aqui">
     <div class="help-text" id="urlHelp"></div>
     <button class="btn-green" onclick="adicionarAula()">ADICIONAR CONTEÚDO</button>
@@ -423,17 +212,11 @@ button:hover{transform:translateY(-1px);}
   </div>
 
   <div id="tabAulas">
-    <div class="section">
-      <h3>Conteúdos Publicados</h3>
-      <div id="listaAulas"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
-    </div>
+    <div class="section"><h3>Conteúdos Publicados</h3><div id="listaAulas"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div></div>
   </div>
 
   <div id="tabUsers" style="display:none;">
-    <div class="section">
-      <h3>Utilizadores</h3>
-      <div id="users"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
-    </div>
+    <div class="section"><h3>Utilizadores</h3><div id="users"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div></div>
   </div>
 
   <div id="tabChat" style="display:none;">
@@ -441,8 +224,6 @@ button:hover{transform:translateY(-1px);}
       <h3>Mensagens dos Alunos</h3>
       <div id="chatLista"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
     </div>
-
-    <!-- JANELA DE CONVERSA -->
     <div class="section" id="chatConversaWrap">
       <div class="conversa-header">
         <button class="btn-cancel" style="padding:6px 14px;font-size:12px;" onclick="fecharConversa()">← Voltar</button>
@@ -451,70 +232,70 @@ button:hover{transform:translateY(-1px);}
           <div style="font-size:11px;color:var(--muted);" id="conversaInfo"></div>
         </div>
       </div>
-
-      <!-- Mensagens -->
       <div id="conversaMsgs"></div>
-
-      <!-- Input área -->
       <div class="admin-input-area">
-        <!-- Preview de mídia antes de enviar -->
         <div class="media-preview" id="mediaPreview">
-          <span id="previewIcon">📎</span>
-          <span id="previewLabel"></span>
+          <span id="previewIcon">📎</span><span id="previewLabel"></span>
           <img id="previewImg" src="" alt="" style="display:none;">
           <audio id="previewAudio" controls style="display:none;"></audio>
           <button class="btn-remove-preview" onclick="removerMidia()">✕ Remover</button>
         </div>
-
-        <!-- Textarea grande e horizontal -->
-        <textarea id="adminInput"
-          placeholder="Escreve a resposta aqui... (Enter para nova linha, Ctrl+Enter para enviar)"
-          onkeydown="if(event.key==='Enter'&&event.ctrlKey){event.preventDefault();enviarRespostaAdmin();}"></textarea>
-
-        <!-- Botões de ação -->
+        <textarea id="adminInput" placeholder="Escreve a resposta aqui... (Ctrl+Enter para enviar)" onkeydown="if(event.key==='Enter'&&event.ctrlKey){event.preventDefault();enviarRespostaAdmin();}"></textarea>
         <div class="input-actions">
-          <!-- Foto -->
-          <button class="btn-media" onclick="document.getElementById('inputFoto').click()" title="Enviar imagem">
-            🖼️ Foto
-          </button>
+          <button class="btn-media" onclick="document.getElementById('inputFoto').click()">🖼️ Foto</button>
           <input type="file" id="inputFoto" accept="image/*" style="display:none;" onchange="selecionarFoto(event)">
-
-          <!-- Áudio gravação -->
-          <button class="btn-media" id="btnGravarAudio" onclick="toggleGravarAudio()" title="Gravar áudio">
-            🎙️ Áudio
-          </button>
-
-          <!-- Áudio ficheiro -->
-          <button class="btn-media" onclick="document.getElementById('inputAudio').click()" title="Enviar ficheiro de áudio">
-            🎵 Ficheiro
-          </button>
+          <button class="btn-media" id="btnGravarAudio" onclick="toggleGravarAudio()">🎙️ Áudio</button>
+          <button class="btn-media" onclick="document.getElementById('inputAudio').click()">🎵 Ficheiro</button>
           <input type="file" id="inputAudio" accept="audio/*" style="display:none;" onchange="selecionarAudio(event)">
-
-          <div class="right">
-            <button class="btn-enviar" onclick="enviarRespostaAdmin()">Enviar ➤</button>
-          </div>
+          <div class="right"><button class="btn-enviar" onclick="enviarRespostaAdmin()">Enviar ➤</button></div>
         </div>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Ctrl+Enter para enviar · Shift+Enter para nova linha</p>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Ctrl+Enter para enviar</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MODAL EDITAR UTILIZADOR -->
+<!-- MODAL EDITAR UTILIZADOR — REDESENHADO -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="fecharModal()">✕</button>
     <h3>EDITAR UTILIZADOR</h3>
     <p class="modal-email" id="modalEmail"></p>
     <input type="hidden" id="modalUid">
-    <label>Universidade</label>
-    <select id="modalUni" onchange="atualizarCursosModal()">
-      <option value="">Seleciona universidade</option>
+
+    <!-- 1. Tipo de curso -->
+    <label>Tipo de Curso</label>
+    <select id="modalTipo" onchange="atualizarModalTipo()">
+      <option value="">Seleciona o tipo de curso</option>
+      <option value="universitario">🎓 Preparatório Universitário</option>
+      <option value="ensino_medio">📚 Preparatório Ensino Médio</option>
+      <option value="mat_basica">📐 Matemática Básica</option>
+      <option value="fis_basica">⚡ Física Básica</option>
+      <option value="medicamentos">💊 Cálculos de Medicamentos e Gotejamento</option>
+      <option value="primeiros">🩺 Primeiros Socorros</option>
+      <option value="minsa">🏥 Preparatório MINSA</option>
     </select>
-    <label>Curso</label>
-    <select id="modalCurso"><option value="">Seleciona curso</option></select>
+
+    <!-- 2. Universidade (só para universitário) -->
+    <div id="modalUniWrap">
+      <label>Universidade</label>
+      <select id="modalUni" onchange="atualizarModalCursos()">
+        <option value="">Seleciona a universidade</option>
+      </select>
+    </div>
+
+    <!-- 3. Curso -->
+    <div id="modalCursoWrap">
+      <label>Curso</label>
+      <select id="modalCurso">
+        <option value="">Seleciona o curso</option>
+      </select>
+    </div>
+
+    <!-- 4. Data de expiração -->
     <label>Data de Expiração</label>
     <input type="date" id="modalExpiry">
+
     <div class="modal-btns">
       <button class="btn-cancel" onclick="fecharModal()">CANCELAR</button>
       <button class="btn-save" onclick="guardarEdicao()">GUARDAR</button>
@@ -523,7 +304,6 @@ button:hover{transform:translateY(-1px);}
   </div>
 </div>
 
-<!-- Modal imagem grande -->
 <div id="imgModal" onclick="this.classList.remove('open')">
   <img id="imgModalSrc" src="" alt="">
 </div>
@@ -536,850 +316,136 @@ import { getFirestore, collection, getDocs, doc, updateDoc, addDoc, deleteDoc, g
                                from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
-  authDomain: "preparatoriovirtualcomde-38c0a.firebaseapp.com",
-  projectId: "preparatoriovirtualcomde-38c0a",
-  storageBucket: "preparatoriovirtualcomde-38c0a.firebasestorage.app",
-  messagingSenderId: "211289899773",
-  appId: "1:211289899773:web:dfc22d377c7172f936b494"
+  apiKey:"AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
+  authDomain:"preparatoriovirtualcomde-38c0a.firebaseapp.com",
+  projectId:"preparatoriovirtualcomde-38c0a",
+  storageBucket:"preparatoriovirtualcomde-38c0a.firebasestorage.app",
+  messagingSenderId:"211289899773",
+  appId:"1:211289899773:web:dfc22d377c7172f936b494"
+};
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+// ── CONSTANTES ────────────────────────────────────────────
+const SENHA_HASH="e12afa1c4ac73ca1954164f1e40498336c4cd8b2d761af0158bb8d239c1049f6";
+const MAX_TENT=5,LOCKOUT_MS=5*60*1000,DELAY_BASE=1000,SESSION_DUR=60*60*1000;
+const SESSION_KEY="delta_admin_session",LOCKOUT_KEY="delta_admin_lockout",ATTEMPTS_KEY="delta_admin_attempts";
+const ADMIN_EMAIL="preparatoriovirtualcomdelta1@gmail.com";
+const DUR_MS={"30":30*24*60*60*1000,"90":90*24*60*60*1000,"180":180*24*60*60*1000,"365":365*24*60*60*1000};
+const DUR_LABELS={"30":"1 Mês (30 dias)","90":"3 Meses (90 dias)","180":"6 Meses (180 dias)","365":"1 Ano (365 dias)"};
+const DIAS_DEFAULT=30*24*60*60*1000;
+
+const UNIVERSIDADES=["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC","OUTRA"];
+const NOMES_UNI={UAN:"Universidade Agostinho Neto",UMN:"Universidade Mandume Ya Ndemufayo",UON:"Universidade 11 de Novembro",UKB:"Universidade Katyavala Buila",URNM:"Universidade Rainha Njinga Mbande",UJES:"Universidade José Eduardo Dos Santos",ISTM:"Instituto Superior Técnico Militar",UPRA:"Universidade Privada de Angola",UNIPIAGET:"Universidade Jean Piaget",UNIKIV:"Universidade Kimpa Vita",UCC:"Universidade Cuito Cuanavale",OUTRA:"Outra Universidade"};
+const COURSES_BY_UNI={UAN:["Medicina Geral","Ciências de Enfermagem","Ciências Farmacêuticas","Análises Clínicas e Saúde Pública"],UMN:["Medicina Geral","Enfermagem","Análises Clínicas e Laboratório"],UON:["Medicina Geral","Enfermagem","Análises Clínicas"],UKB:["Medicina Geral"],URNM:["Medicina Geral","Ciências Farmacêuticas","Ciências de Enfermagem","Análises Clínicas e Toxicológicas"],UJES:["Medicina Geral","Electromedicina","Laboratório Clínico","Enfermagem"],ISTM:["Medicina Geral","Enfermagem"],UPRA:["Medicina Geral","Enfermagem","Fisioterapia","Odontologia"],UNIPIAGET:["Medicina Geral","Medicina Dentária","Enfermagem","Ciências Farmacêuticas","Fisioterapia","Análises Clínicas e Saúde Pública","Enfermagem e Obstetrícia","Radiologia e Imagiologia"],UNIKIV:["Enfermagem","Análises Clínicas","Agronomia"],UCC:["Enfermagem"],OUTRA:["Medicina Geral","Medicina Dentária","Enfermagem","Análises Clínicas","Farmácia","Nutrição","Cardiopneumologia","Fisioterapia"]};
+
+// Cursos para tipos sem universidade
+const COURSES_BY_TIPO={
+  ensino_medio:["Matemática","Biologia","Química","Física","Língua Portuguesa"],
+  mat_basica:["Matemática Básica"],
+  fis_basica:["Física Básica"],
+  medicamentos:["Cálculos de Medicamentos e Gotejamento"],
+  primeiros:["Primeiros Socorros"],
+  minsa:["Preparatório MINSA — Técnico de Enfermagem"]
 };
 
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
+const COURSE_TO_AREA={"Medicina Geral":"medicina geral","Medicina Dentária":"medicina dentária","Ciências de Enfermagem":"enfermagem","Enfermagem":"enfermagem","Enfermagem e Obstetrícia":"enfermagem","Ciências Farmacêuticas":"farmacia","Farmácia":"farmacia","Análises Clínicas e Saúde Pública":"analises clinicas","Análises Clínicas e Laboratório":"analises clinicas","Análises Clínicas":"analises clinicas","Análises Clínicas e Toxicológicas":"analises clinicas","Fisioterapia":"fisioterapia","Odontologia":"medicina dentária","Electromedicina":"analises clinicas","Laboratório Clínico":"analises clinicas","Radiologia e Imagiologia":"analises clinicas","Nutrição":"nutrição e dietética","Cardiopneumologia":"cardiopneumologia","Agronomia":"analises clinicas","Matemática":"matematica","Biologia":"biologia","Química":"quimica","Física":"fisica","Língua Portuguesa":"lingua portuguesa","Matemática Básica":"mat_basica","Física Básica":"fis_basica","Cálculos de Medicamentos e Gotejamento":"medicamentos","Primeiros Socorros":"primeiros","Preparatório MINSA — Técnico de Enfermagem":"minsa"};
 
-// ── VARIÁVEIS CHAT ─────────────────────────────────────────
-let chatAtualUid = null;
-let unsubConversa = null;
-let mediaParaEnviar = null; // { tipo: 'imagem'|'audio', base64, mimeType, nome }
-let mediaRecorder = null;
-let audioChunks = [];
-let gravando = false;
+const DISCIPLINAS_UNI={UAN:["Biologia","Química","Língua Portuguesa","Matemática"],UMN:["Biologia","Química","Língua Portuguesa","Matemática"],UON:["Biologia","Química","Língua Portuguesa","Física"],UKB:["Biologia","Química","Língua Portuguesa","Física"],URNM:["Biologia","Química","Língua Portuguesa","Matemática","Física"],UJES:["Biologia","Química","Língua Portuguesa","Física"],ISTM:["Biologia","Química","Matemática","Física"],UPRA:["Biologia","Química","Língua Portuguesa"],UNIPIAGET:["Biologia","Química","Língua Portuguesa","Matemática","Física"],UNIKIV:["Biologia","Química","Matemática","Língua Portuguesa"],UCC:["Biologia","Química","Língua Portuguesa","Matemática"],OUTRA:["Biologia","Química","Matemática","Língua Portuguesa","Física"]};
+const NOMES_SECCAO={video_aulas:"Vídeo Aulas",materiais:"Materiais de Apoio",cronograma:"Cronograma",provas:"Provas Passadas",resolucao:"Resolução de Provas"};
 
-// ── MÍDIA: selecionar foto ─────────────────────────────────
-window.selecionarFoto = function(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  if (file.size > 800 * 1024) { // 800KB
-    alert("⚠️ Imagem muito grande. Escolhe uma com menos de 800KB.");
-    event.target.value = "";
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = e => {
-    const base64 = e.target.result; // data:image/...;base64,...
-    mediaParaEnviar = { tipo: 'imagem', base64, nome: file.name };
-    mostrarPreview('imagem', base64, file.name);
-  };
-  reader.readAsDataURL(file);
-  event.target.value = "";
-}
+// ── CHAT VARS ─────────────────────────────────────────────
+let chatAtualUid=null,unsubConversa=null,mediaParaEnviar=null,mediaRecorder=null,audioChunks=[],gravando=false;
 
-// ── MÍDIA: selecionar áudio ficheiro ──────────────────────
-window.selecionarAudio = function(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  if (file.size > 500 * 1024) { // 500KB
-    alert("⚠️ Ficheiro de áudio muito grande. Escolhe um com menos de 500KB.");
-    event.target.value = "";
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = e => {
-    const base64 = e.target.result;
-    mediaParaEnviar = { tipo: 'audio', base64, nome: file.name };
-    mostrarPreview('audio', base64, file.name);
-  };
-  reader.readAsDataURL(file);
-  event.target.value = "";
-}
-
-// ── MÍDIA: gravar áudio do microfone ──────────────────────
-window.toggleGravarAudio = async function() {
-  const btn = document.getElementById("btnGravarAudio");
-  if (!gravando) {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      audioChunks = [];
-      mediaRecorder = new MediaRecorder(stream);
-      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-      mediaRecorder.onstop = () => {
-        const blob = new Blob(audioChunks, { type: 'audio/webm' });
-        if (blob.size > 500 * 1024) {
-          alert("⚠️ Gravação muito longa. Máximo ~30 segundos.");
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = e => {
-          const base64 = e.target.result;
-          mediaParaEnviar = { tipo: 'audio', base64, nome: 'gravacao.webm' };
-          mostrarPreview('audio', base64, 'Gravação de voz');
-        };
-        reader.readAsDataURL(blob);
-        stream.getTracks().forEach(t => t.stop());
-      };
-      mediaRecorder.start();
-      gravando = true;
-      btn.classList.add('recording');
-      btn.innerHTML = '⏹️ Parar';
-    } catch (e) {
-      alert("Não foi possível aceder ao microfone.");
-    }
-  } else {
-    mediaRecorder.stop();
-    gravando = false;
-    btn.classList.remove('recording');
-    btn.innerHTML = '🎙️ Áudio';
-  }
-}
-
-function mostrarPreview(tipo, base64, nome) {
-  const preview = document.getElementById("mediaPreview");
-  const previewImg = document.getElementById("previewImg");
-  const previewAudio = document.getElementById("previewAudio");
-  const previewLabel = document.getElementById("previewLabel");
-  const previewIcon = document.getElementById("previewIcon");
-
-  previewImg.style.display = "none";
-  previewAudio.style.display = "none";
-
-  if (tipo === 'imagem') {
-    previewIcon.innerText = "🖼️";
-    previewLabel.innerText = nome;
-    previewImg.src = base64;
-    previewImg.style.display = "block";
-  } else {
-    previewIcon.innerText = "🎵";
-    previewLabel.innerText = nome;
-    previewAudio.src = base64;
-    previewAudio.style.display = "block";
-  }
-  preview.classList.add("show");
-}
-
-window.removerMidia = function() {
-  mediaParaEnviar = null;
-  document.getElementById("mediaPreview").classList.remove("show");
-  document.getElementById("previewImg").src = "";
-  document.getElementById("previewAudio").src = "";
-}
-
-// ── RENDERIZAR MENSAGEM ────────────────────────────────────
-function renderAdminMsg(data) {
-  const isProf = data.sender === "prof";
-  const cls = isProf ? "prof" : "aluno";
-  const ts = data.ts
-    ? new Date(data.ts.toDate()).toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })
-    : "";
-  const sender = isProf ? "👨‍🏫 Tu (Professor)" : `🎓 ${data.email || "Aluno"}`;
-
-  let conteudo = "";
-
-  if (data.tipo === "imagem" && data.base64) {
-    // Imagem: mostra a imagem, não um link
-    conteudo = `<img src="${data.base64}" alt="imagem" onclick="abrirImgModal('${data.base64.replace(/'/g,"\\'")}')">`;
-    if (data.texto) conteudo += `<div style="margin-top:6px;">${escaparHtml(data.texto)}</div>`;
-  } else if (data.tipo === "audio" && data.base64) {
-    // Áudio: player nativo
-    conteudo = `<audio controls src="${data.base64}"></audio>`;
-    if (data.texto) conteudo += `<div style="margin-top:6px;">${escaparHtml(data.texto)}</div>`;
-  } else {
-    // Texto normal — sem links
-    conteudo = escaparHtml(data.texto || "").replace(/\n/g, "<br>");
-  }
-
-  return `<div class="msg-bubble-wrap ${cls}">
-    <div class="msg-sender">${sender}</div>
-    <div class="msg-bubble ${cls}">${conteudo}</div>
-    <div class="msg-time">${ts}</div>
-  </div>`;
-}
-
-function escaparHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-window.abrirImgModal = function(src) {
-  document.getElementById("imgModalSrc").src = src;
-  document.getElementById("imgModal").classList.add("open");
-}
-
-// ── CARREGAR CHATS ─────────────────────────────────────────
-async function carregarChats() {
-  const div = document.getElementById("chatLista");
-  div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>A carregar...</p>";
-  const snap = await getDocs(collection(db, "chat"));
-  if (snap.empty) { div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhuma mensagem ainda.</p>"; return; }
-  const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  docs.sort((a, b) => (b.ultimaTs?.toMillis?.() || 0) - (a.ultimaTs?.toMillis?.() || 0));
-  let totalNaoLido = 0; div.innerHTML = "";
-  docs.forEach(d => {
-    if (d.naoLidoAdmin) totalNaoLido++;
-    const ts = d.ultimaTs ? new Date(d.ultimaTs.toDate()).toLocaleDateString("pt-PT", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "—";
-    const uid = d.uid || d.id;
-    div.innerHTML += `<div class="user-card" style="cursor:pointer;"
-      data-uid="${uid}"
-      data-email="${(d.email || "").replace(/"/g, "&quot;")}"
-      data-curso="${(d.curso || "").replace(/"/g, "&quot;")}"
-      data-tipo="${(d.tipo || "").replace(/"/g, "&quot;")}">
-      <div class="user-info">
-        <p class="email">${d.email || d.id} ${d.naoLidoAdmin ? '<span style="color:#ef4444;font-size:11px;font-weight:700;">● Nova</span>' : ''}</p>
-        <p class="meta">${d.tipo || ""} · ${d.curso || ""}</p>
-        <p class="meta" style="margin-top:3px;">${d.ultimaMsg || ""} · ${ts}</p>
-      </div>
-      <button class="btn-approve" style="pointer-events:none;">Abrir →</button>
-    </div>`;
-  });
-  div.querySelectorAll(".user-card").forEach(card => {
-    card.addEventListener("click", () => {
-      abrirConversa(card.dataset.uid, card.dataset.email, card.dataset.curso, card.dataset.tipo);
-    });
-  });
-  const badge = document.getElementById("chatBadgeTab");
-  if (totalNaoLido > 0) { badge.style.display = "inline"; badge.innerText = totalNaoLido; }
-  else { badge.style.display = "none"; }
-}
-
-window.abrirConversa = async function(uid, email, curso, tipo) {
-  chatAtualUid = uid;
-  document.getElementById("chatLista").style.display = "none";
-  document.getElementById("chatConversaWrap").style.display = "block";
-  document.getElementById("conversaEmail").innerText = email;
-  document.getElementById("conversaInfo").innerText = `${tipo} · ${curso}`;
-  await setDoc(doc(db, "chat", uid), { naoLidoAdmin: false }, { merge: true }).catch(() => {});
-  if (unsubConversa) unsubConversa();
-  const q = query(collection(db, "chat", uid, "mensagens"), orderBy("ts", "asc"));
-  unsubConversa = onSnapshot(q, snap => {
-    const div = document.getElementById("conversaMsgs");
-    if (snap.empty) {
-      div.innerHTML = "<p style='color:var(--muted);font-size:13px;text-align:center;padding:20px;'>Sem mensagens ainda.</p>";
-      return;
-    }
-    div.innerHTML = snap.docs.map(d => renderAdminMsg(d.data())).join("");
-    div.scrollTop = div.scrollHeight;
-  });
-}
-
-window.fecharConversa = function() {
-  if (unsubConversa) { unsubConversa(); unsubConversa = null; }
-  chatAtualUid = null;
-  removerMidia();
-  document.getElementById("adminInput").value = "";
-  document.getElementById("chatLista").style.display = "block";
-  document.getElementById("chatConversaWrap").style.display = "none";
-  carregarChats();
-}
-
-// ── ENVIAR RESPOSTA DO ADMIN ───────────────────────────────
-window.enviarRespostaAdmin = async function() {
-  if (!chatAtualUid) return;
-  const texto = document.getElementById("adminInput").value.trim();
-  const temMedia = !!mediaParaEnviar;
-  if (!texto && !temMedia) return;
-
-  document.getElementById("adminInput").value = "";
-
-  const dadosMsg = {
-    sender: "prof",
-    ts: serverTimestamp(),
-    lidoAdmin: true,
-    lidoAluno: false
-  };
-
-  const dadosChat = {
-    ultimaTs: serverTimestamp(),
-    naoLidoAluno: true
-  };
-
-  if (temMedia) {
-    dadosMsg.tipo = mediaParaEnviar.tipo;
-    dadosMsg.base64 = mediaParaEnviar.base64;
-    dadosMsg.texto = texto || "";
-    dadosChat.ultimaMsg = mediaParaEnviar.tipo === 'imagem' ? "📷 Imagem" : "🎵 Áudio";
-    removerMidia();
-  } else {
-    dadosMsg.tipo = "texto";
-    dadosMsg.texto = texto;
-    dadosChat.ultimaMsg = texto.length > 50 ? texto.slice(0, 50) + "…" : texto;
-  }
-
-  await setDoc(doc(db, "chat", chatAtualUid), dadosChat, { merge: true });
-  await addDoc(collection(db, "chat", chatAtualUid, "mensagens"), dadosMsg);
-}
-
-function iniciarBadgeChat() {
-  onSnapshot(collection(db, "chat"), snap => {
-    const total = snap.docs.filter(d => d.data().naoLidoAdmin).length;
-    const badge = document.getElementById("chatBadgeTab");
-    if (total > 0) { badge.style.display = "inline"; badge.innerText = total; }
-    else { badge.style.display = "none"; }
-  });
-}
-
-// ─── CONSTANTES ───────────────────────────────────────────
-const SENHA_HASH   = "e12afa1c4ac73ca1954164f1e40498336c4cd8b2d761af0158bb8d239c1049f6";
-const MAX_TENT     = 5;
-const LOCKOUT_MS   = 5 * 60 * 1000;
-const DELAY_BASE   = 1000;
-const SESSION_DUR  = 60 * 60 * 1000;
-const SESSION_KEY  = "delta_admin_session";
-const LOCKOUT_KEY  = "delta_admin_lockout";
-const ATTEMPTS_KEY = "delta_admin_attempts";
-const ADMIN_EMAIL  = "preparatoriovirtualcomdelta1@gmail.com";
-
-const DUR_MS = {
-  "30":  30  * 24*60*60*1000,
-  "90":  90  * 24*60*60*1000,
-  "180": 180 * 24*60*60*1000,
-  "365": 365 * 24*60*60*1000
-};
-const DUR_LABELS = {
-  "30":"1 Mês (30 dias)","90":"3 Meses (90 dias)",
-  "180":"6 Meses (180 dias)","365":"1 Ano (365 dias)"
-};
-const DIAS_DEFAULT = 30*24*60*60*1000;
-
-const UNIVERSIDADES = ["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC","OUTRA"];
-const NOMES_UNI = {
-  UAN:"Universidade Agostinho Neto", UMN:"Universidade Mandume Ya Ndemufayo",
-  UON:"Universidade 11 de Novembro", UKB:"Universidade Katyavala Buila",
-  URNM:"Universidade Rainha Njinga Mbande", UJES:"Universidade José Eduardo Dos Santos",
-  ISTM:"Instituto Superior Técnico Militar", UPRA:"Universidade Privada de Angola",
-  UNIPIAGET:"Universidade Jean Piaget", UNIKIV:"Universidade Kimpa Vita",
-  UCC:"Universidade Cuito Cuanavale", OUTRA:"Outra Universidade"
-};
-const COURSES_BY_UNI = {
-  UAN:["Medicina Geral","Ciências de Enfermagem","Ciências Farmacêuticas","Análises Clínicas e Saúde Pública"],
-  UMN:["Medicina Geral","Enfermagem","Análises Clínicas e Laboratório"],
-  UON:["Medicina Geral","Enfermagem","Análises Clínicas"],
-  UKB:["Medicina Geral"],
-  URNM:["Medicina Geral","Ciências Farmacêuticas","Ciências de Enfermagem","Análises Clínicas e Toxicológicas"],
-  UJES:["Medicina Geral","Electromedicina","Laboratório Clínico","Enfermagem"],
-  ISTM:["Medicina Geral","Enfermagem"],
-  UPRA:["Medicina Geral","Enfermagem","Fisioterapia","Odontologia"],
-  UNIPIAGET:["Medicina Geral","Medicina Dentária","Enfermagem","Ciências Farmacêuticas","Fisioterapia","Análises Clínicas e Saúde Pública","Enfermagem e Obstetrícia","Radiologia e Imagiologia"],
-  UNIKIV:["Enfermagem","Análises Clínicas","Agronomia"],
-  UCC:["Enfermagem"],
-  OUTRA:["Medicina Geral","Medicina Dentária","Enfermagem","Análises Clínicas","Farmácia","Nutrição","Cardiopneumologia","Fisioterapia"]
-};
-const COURSE_TO_AREA = {
-  "Medicina Geral":"medicina geral","Medicina Dentária":"medicina dentária",
-  "Ciências de Enfermagem":"enfermagem","Enfermagem":"enfermagem","Enfermagem e Obstetrícia":"enfermagem",
-  "Ciências Farmacêuticas":"farmacia","Farmácia":"farmacia",
-  "Análises Clínicas e Saúde Pública":"analises clinicas","Análises Clínicas e Laboratório":"analises clinicas",
-  "Análises Clínicas":"analises clinicas","Análises Clínicas e Toxicológicas":"analises clinicas",
-  "Fisioterapia":"fisioterapia","Odontologia":"medicina dentária",
-  "Electromedicina":"analises clinicas","Laboratório Clínico":"analises clinicas",
-  "Radiologia e Imagiologia":"analises clinicas","Nutrição":"nutrição e dietética",
-  "Cardiopneumologia":"cardiopneumologia","Agronomia":"analises clinicas"
-};
-const DISCIPLINAS_UNI = {
-  UAN:["Biologia","Química","Língua Portuguesa","Matemática"],
-  UMN:["Biologia","Química","Língua Portuguesa","Matemática"],
-  UON:["Biologia","Química","Língua Portuguesa","Física"],
-  UKB:["Biologia","Química","Língua Portuguesa","Física"],
-  URNM:["Biologia","Química","Língua Portuguesa","Matemática","Física"],
-  UJES:["Biologia","Química","Língua Portuguesa","Física"],
-  ISTM:["Biologia","Química","Matemática","Física"],
-  UPRA:["Biologia","Química","Língua Portuguesa"],
-  UNIPIAGET:["Biologia","Química","Língua Portuguesa","Matemática","Física"],
-  UNIKIV:["Biologia","Química","Matemática","Língua Portuguesa"],
-  UCC:["Biologia","Química","Língua Portuguesa","Matemática"],
-  OUTRA:["Biologia","Química","Matemática","Língua Portuguesa","Física"]
-};
-const NOMES_SECCAO = {
-  video_aulas:"Vídeo Aulas", materiais:"Materiais de Apoio",
-  cronograma:"Cronograma", provas:"Provas Passadas", resolucao:"Resolução de Provas"
-};
-
-// ─── CRIPTO / SESSÃO / RATE LIMIT ────────────────────────
-async function sha256(text) {
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
-}
-function gerarToken() {
-  const a = new Uint8Array(32); crypto.getRandomValues(a);
-  return Array.from(a).map(b => b.toString(16).padStart(2,"0")).join("");
-}
-function sessaoValida() {
-  try {
-    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
-    if (!s?.token || !s?.expiry) return false;
-    if (Date.now() > s.expiry) { sessionStorage.removeItem(SESSION_KEY); return false; }
-    return true;
-  } catch { return false; }
-}
-function criarSessao() {
-  const expiry = Date.now() + SESSION_DUR;
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify({ token: gerarToken(), expiry }));
-  return expiry;
-}
-const getLockout  = () => { try { return JSON.parse(sessionStorage.getItem(LOCKOUT_KEY)||"null"); } catch { return null; } };
-const getAttempts = () => parseInt(sessionStorage.getItem(ATTEMPTS_KEY)||"0",10);
-const setAttempts = n  => sessionStorage.setItem(ATTEMPTS_KEY, String(n));
-const setLockout  = () => sessionStorage.setItem(LOCKOUT_KEY, JSON.stringify({ until: Date.now()+LOCKOUT_MS }));
-const clearLockout= () => { sessionStorage.removeItem(LOCKOUT_KEY); sessionStorage.removeItem(ATTEMPTS_KEY); };
-
-let sessionInterval = null;
-function iniciarTimerSessao() {
-  const el = document.getElementById("sessionTimer");
-  function tick() {
-    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY)||"null");
-    if (!s) { sair(); return; }
-    const r = s.expiry - Date.now();
-    if (r <= 0) { sair(); return; }
-    el.innerText = `${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;
-  }
-  tick(); sessionInterval = setInterval(tick, 1000);
-}
-
-let lockoutInterval = null;
-function mostrarBloqueio() {
-  const banner = document.getElementById("lockoutBanner");
-  const timerEl = document.getElementById("lockoutTimer");
-  const btn = document.getElementById("btnStep1");
-  const inp = document.getElementById("senhaAdmin");
-  banner.style.display = "block"; btn.disabled = true; inp.disabled = true;
-  function tick() {
-    const lk = getLockout();
-    if (!lk) { reset(); return; }
-    const r = lk.until - Date.now();
-    if (r <= 0) { clearLockout(); reset(); return; }
-    timerEl.innerText = `${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;
-  }
-  function reset() {
-    clearInterval(lockoutInterval);
-    banner.style.display = "none"; btn.disabled = false; inp.disabled = false;
-    document.getElementById("erroStep1").innerText = "";
-    document.getElementById("attemptsInfo").innerText = "";
-  }
-  tick(); lockoutInterval = setInterval(tick, 1000);
-}
-
-// ─── CAMADA 1 ─────────────────────────────────────────────
-let emProgresso = false;
-window.verificarCamada1 = async function() {
-  if (emProgresso) return;
-  const lk = getLockout();
-  if (lk && Date.now() < lk.until) { mostrarBloqueio(); return; }
-  if (lk) clearLockout();
-  const senha  = document.getElementById("senhaAdmin").value;
-  const erroEl = document.getElementById("erroStep1");
-  const infoEl = document.getElementById("attemptsInfo");
-  const btn    = document.getElementById("btnStep1");
-  if (!senha) { erroEl.innerText = "Introduz a senha."; return; }
-  emProgresso = true; btn.disabled = true; btn.innerText = "A verificar..."; erroEl.innerText = "";
-  const tent = getAttempts();
-  if (tent > 0) await new Promise(r => setTimeout(r, Math.min(DELAY_BASE * Math.pow(2, tent-1), 10000)));
-  try {
-    const hash = await sha256(senha);
-    if (hash === SENHA_HASH) {
-      clearLockout();
-      sessionStorage.setItem("delta_layer1_ok", "1");
-      document.getElementById("senhaAdmin").value = "";
-      document.getElementById("step1Wrap").style.display = "none";
-      document.getElementById("step2Wrap").style.display = "flex";
-      document.getElementById("firebaseSenha").focus();
-    } else {
-      const novas = tent + 1; setAttempts(novas);
-      const rest = MAX_TENT - novas;
-      if (novas >= MAX_TENT) { setLockout(); erroEl.innerText = "Demasiadas tentativas. Bloqueado por 5 minutos."; infoEl.innerText = ""; mostrarBloqueio(); }
-      else { erroEl.innerText = "Senha incorreta."; infoEl.innerText = `${rest} tentativa${rest!==1?"s":""} restante${rest!==1?"s":""} antes do bloqueio.`; }
-      document.getElementById("senhaAdmin").value = "";
-    }
-  } catch(e) { erroEl.innerText = "Erro ao verificar. Tenta novamente."; }
-  btn.disabled = false; btn.innerText = "CONTINUAR →"; emProgresso = false;
-}
-
-// ─── CAMADA 2 ─────────────────────────────────────────────
-window.verificarCamada2 = async function() {
-  if (!sessionStorage.getItem("delta_layer1_ok")) { voltarStep1(); return; }
-  const email  = document.getElementById("firebaseEmail").value.trim();
-  const senha  = document.getElementById("firebaseSenha").value;
-  const erroEl = document.getElementById("erroStep2");
-  const btn    = document.getElementById("btnStep2");
-  if (!email || !senha) { erroEl.innerText = "Preenche email e senha."; return; }
-  if (email !== ADMIN_EMAIL) { erroEl.innerText = "Email não autorizado."; return; }
-  btn.disabled = true; btn.innerText = "A autenticar..."; erroEl.innerText = "";
-  try {
-    await signInWithEmailAndPassword(auth, email, senha);
-    sessionStorage.removeItem("delta_layer1_ok");
-    criarSessao();
-    document.getElementById("firebaseSenha").value = "";
-    document.getElementById("step2Wrap").style.display = "none";
-    document.getElementById("painel").style.display = "block";
-    document.getElementById("bunnyInfo").style.display = "block";
-    iniciarTimerSessao();
-    carregarAulas(); carregarUsers(); verificarExpirados(); iniciarBadgeChat();
-  } catch(e) {
-    let msg = "Email ou senha incorretos.";
-    if (e.code === "auth/too-many-requests") msg = "Conta bloqueada temporariamente pelo Firebase. Tenta mais tarde.";
-    if (e.code === "auth/invalid-credential") msg = "Credenciais inválidas. Verifica email e senha.";
-    erroEl.innerText = msg;
-  }
-  btn.disabled = false; btn.innerText = "ENTRAR NO PAINEL →";
-}
-
-window.voltarStep1 = function() {
-  sessionStorage.removeItem("delta_layer1_ok");
-  document.getElementById("step2Wrap").style.display = "none";
-  document.getElementById("step1Wrap").style.display = "flex";
-  document.getElementById("erroStep2").innerText = "";
-  document.getElementById("firebaseSenha").value = "";
-}
-
-window.sair = async function() {
-  sessionStorage.removeItem(SESSION_KEY);
-  sessionStorage.removeItem("delta_layer1_ok");
-  if (sessionInterval) clearInterval(sessionInterval);
-  try { await signOut(auth); } catch(e) {}
-  document.getElementById("step1Wrap").style.display = "flex";
-  document.getElementById("step2Wrap").style.display = "none";
-  document.getElementById("painel").style.display = "none";
-  document.getElementById("senhaAdmin").value = "";
-  document.getElementById("erroStep1").innerText = "";
-  document.getElementById("attemptsInfo").innerText = "";
-}
-
-window.addEventListener("load", () => {
-  const lk = getLockout();
-  if (lk && Date.now() < lk.until) mostrarBloqueio();
-  onAuthStateChanged(auth, user => {
-    if (user && user.email === ADMIN_EMAIL && sessaoValida()) {
-      document.getElementById("step1Wrap").style.display = "none";
-      document.getElementById("painel").style.display = "block";
-      document.getElementById("bunnyInfo").style.display = "block";
-      iniciarTimerSessao();
-      carregarAulas(); carregarUsers(); verificarExpirados(); iniciarBadgeChat();
-    }
-  });
-});
-
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden && document.getElementById("painel").style.display !== "none") {
-    if (!sessaoValida()) sair();
-  }
-});
-
-// ─── PAINEL TABS ──────────────────────────────────────────
-window.mostrarTab = function(tab, event){
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  event.target.classList.add("active");
-  document.getElementById("tabAulas").style.display = tab==="aulas"?"block":"none";
-  document.getElementById("tabUsers").style.display  = tab==="users"?"block":"none";
-  document.getElementById("tabChat").style.display   = tab==="chat"?"block":"none";
-  if(tab==="chat") carregarChats();
-}
-
-// ─── SECÇÕES POR TIPO ─────────────────────────────────────
-const SECCOES_POR_TIPO = {
-  universitario: [
-    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:true,  hasUni:true},
-    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:true,  hasUni:true},
-    {v:"cronograma", l:"📅 Cronograma",         hasDis:false, hasUni:false},
-    {v:"provas",     l:"📝 Provas Passadas",    hasDis:false, hasUni:true},
-    {v:"resolucao",  l:"✅ Resolução de Provas",hasDis:false, hasUni:true}
-  ],
-  ensino_medio: [
-    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:true,  hasUni:false},
-    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:true,  hasUni:false}
-  ],
-  mat_basica: [
-    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
-    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
-  ],
-  fis_basica: [
-    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
-    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
-  ],
-  medicamentos: [
-    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
-    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
-  ],
-  primeiros: [
-    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
-    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
-  ],
-  minsa: [
-    {v:"video_aulas",      l:"🎥 Vídeo Aulas",               hasDis:false, hasUni:false},
-    {v:"materiais",        l:"📚 Materiais de Apoio",         hasDis:false, hasUni:false},
-    {v:"provas_dorsais",   l:"📝 Provas Dorsais",             hasDis:false, hasUni:false},
-    {v:"resolucao_dorsais",l:"✅ Resolução de Provas Dorsais",hasDis:false, hasUni:false}
-  ]
-};
-const DISC_POR_TIPO = {
-  universitario: null,
-  ensino_medio:  ["Matemática","Biologia","Química","Física","Língua Portuguesa"],
-};
-
-window.atualizarCampos = function(){
-  const tipoCurso = document.getElementById("tipoCurso").value;
-  const seccaoEl  = document.getElementById("seccao");
-  const sub1      = document.getElementById("sub1");
-  const sub2      = document.getElementById("sub2");
-  seccaoEl.innerHTML = `<option value="">— Seleciona a secção —</option>`;
-  sub1.innerHTML     = `<option value="">— Seleciona secção primeiro —</option>`;
-  sub2.innerHTML     = `<option value="">— Seleciona primeiro —</option>`;
-  sub2.style.display = "none";
-  if(!tipoCurso) return;
-  const seccoes = SECCOES_POR_TIPO[tipoCurso] || [];
-  seccoes.forEach(s => seccaoEl.innerHTML += `<option value="${s.v}">${s.l}</option>`);
-}
-
-window.atualizarSeccao = function(){
-  const tipoCurso = document.getElementById("tipoCurso").value;
-  const seccao    = document.getElementById("seccao").value;
-  const sub1      = document.getElementById("sub1");
-  const sub2      = document.getElementById("sub2");
-  const tipo      = document.getElementById("tipo");
-  const help      = document.getElementById("urlHelp");
-  sub1.innerHTML = ""; sub2.innerHTML = `<option value="">— Seleciona primeiro —</option>`; sub2.style.display="none";
-  if(!seccao){ sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`; return; }
-  const seccoes   = SECCOES_POR_TIPO[tipoCurso] || [];
-  const seccaoObj = seccoes.find(s=>s.v===seccao);
-  if(!seccaoObj){ return; }
-  if(seccaoObj.hasUni && tipoCurso==="universitario"){
-    sub1.innerHTML=`<option value="">Seleciona universidade</option>`;
-    UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);
-    if(seccaoObj.hasDis){ sub2.style.display="block"; }
-    tipo.value = seccao==="video_aulas"?"bunny":"pdf";
-  } else if(seccaoObj.hasDis && tipoCurso==="ensino_medio"){
-    sub1.innerHTML=`<option value="">Seleciona disciplina</option>`;
-    const discs = DISC_POR_TIPO[tipoCurso] || [];
-    discs.forEach(d=>sub1.innerHTML+=`<option value="${d}">${d}</option>`);
-    tipo.value = seccao==="video_aulas"?"bunny":"pdf";
-  } else {
-    sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;
-    tipo.value = seccao==="video_aulas"?"bunny":"pdf";
-  }
-  if(seccao==="materiais"||seccao==="provas"||seccao==="cronograma"){
-    tipo.value="pdf";
-    help.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";
-  } else { help.innerText=""; }
-  atualizarTipo();
-}
-
-window.atualizarSub2 = function(){
-  const tipoCurso = document.getElementById("tipoCurso").value;
-  if(tipoCurso !== "universitario") return;
-  const seccao=document.getElementById("seccao").value;
-  if(seccao!=="video_aulas"&&seccao!=="materiais") return;
-  const uni=document.getElementById("sub1").value;
-  const sub2=document.getElementById("sub2");
-  sub2.innerHTML=`<option value="">Seleciona disciplina</option>`;
-  if(!uni) return;
-  (DISCIPLINAS_UNI[uni]||[]).forEach(d=>sub2.innerHTML+=`<option value="${d}">${d}</option>`);
-}
-
-window.atualizarTipo = function(){
-  const tipo=document.getElementById("tipo").value;
-  const bi=document.getElementById("bunnyInfo");
-  const uh=document.getElementById("urlHelp");
-  const ui=document.getElementById("url");
-  if(tipo==="bunny"){bi.style.display="block";uh.innerText="🐰 Cola aqui o link embed do Bunny Stream";ui.placeholder="https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID";}
-  else if(tipo==="video"){bi.style.display="none";uh.innerText="💡 YouTube: copia o link do vídeo ou playlist";ui.placeholder="https://youtu.be/...";}
-  else if(tipo==="pdf"){bi.style.display="none";uh.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";ui.placeholder="https://drive.google.com/file/d/.../preview";}
-  else{bi.style.display="none";uh.innerText="";ui.placeholder="Cole o link aqui";}
-}
-
-function formatarURL(url,tipo){
-  if(tipo==="bunny"||tipo!=="video")return url;
-  if(url.includes("list=")&&!url.includes("embed")){const m=url.match(/list=([^&]+)/);if(m)return`https://www.youtube-nocookie.com/embed/videoseries?list=${m[1]}`;}
-  const m=url.match(/(?:youtu\.be\/|v=|embed\/)([a-zA-Z0-9_-]{11})/);
-  if(m)return`https://www.youtube-nocookie.com/embed/${m[1]}`;
-  return url;
-}
-
-window.adicionarAula = async function(){
-  const tipoCurso = document.getElementById("tipoCurso").value;
-  const seccao    = document.getElementById("seccao").value;
-  const sub1      = document.getElementById("sub1").value;
-  const sub2      = document.getElementById("sub2").value;
-  const titulo    = document.getElementById("titulo").value.trim();
-  const tipo      = document.getElementById("tipo").value;
-  const urlRaw    = document.getElementById("url").value.trim();
-  const msg       = document.getElementById("msgAula"); msg.className="msg";
-  if(!tipoCurso||!seccao||!titulo||!urlRaw){
-    msg.className="msg error"; msg.innerText="Preenche todos os campos obrigatórios."; return;
-  }
-  if(tipo==="bunny"&&!urlRaw.includes("mediadelivery.net")){
-    msg.className="msg error"; msg.innerText="⚠️ Link inválido para Bunny Stream."; return;
-  }
-  let sub = null;
-  const seccoes   = SECCOES_POR_TIPO[tipoCurso]||[];
-  const seccaoObj = seccoes.find(s=>s.v===seccao);
-  if(seccaoObj && seccaoObj.hasUni && tipoCurso==="universitario"){
-    if(seccaoObj.hasDis){
-      if(!sub1||!sub2){ msg.className="msg error"; msg.innerText="Seleciona a universidade e a disciplina."; return; }
-      sub = `${tipoCurso}|${sub1}|${sub2}`;
-    } else {
-      if(!sub1){ msg.className="msg error"; msg.innerText="Seleciona a universidade."; return; }
-      sub = sub1;
-    }
-  } else if(seccaoObj && seccaoObj.hasDis){
-    if(!sub1){ msg.className="msg error"; msg.innerText="Seleciona a disciplina."; return; }
-    sub = `${tipoCurso}|${sub1}`;
-  } else {
-    sub = tipoCurso;
-  }
-  try{
-    await addDoc(collection(db,"aulas"),{
-      tipo_curso: tipoCurso, seccao, sub, titulo, tipo,
-      url: formatarURL(urlRaw,tipo), createdAt: Date.now()
-    });
-    msg.className="msg success"; msg.innerText="✅ Conteúdo adicionado com sucesso!";
-    document.getElementById("titulo").value=""; document.getElementById("url").value="";
-    carregarAulas();
-  }catch(e){ msg.className="msg error"; msg.innerText="Erro: "+e.message; }
-}
-
-async function carregarAulas(){
-  const div=document.getElementById("listaAulas");
-  const snap=await getDocs(collection(db,"aulas"));
-  if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum conteúdo publicado ainda.</p>";return;}
-  div.innerHTML="";
-  const ic={video:"🎥",bunny:"🐰",pdf:"📄",imagem:"🖼"};
-  const TIPO_LABELS={universitario:"Univ.",ensino_medio:"Ens.Médio",mat_basica:"Mat.Básica",fis_basica:"Fís.Básica",medicamentos:"Medicamentos",primeiros:"Primeiros Socorros",minsa:"MINSA"};
-  snap.forEach(d=>{
-    const data=d.data();
-    const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";
-    const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";
-    let sub="—";
-    if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}
-    div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📁"} ${data.titulo}</p><p class="meta">[${tipoLabel}] ${sec} › ${sub} · ${data.tipo==="bunny"?"Bunny 🔒":data.tipo}</p></div><button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button></div>`;
-  });
-}
-
-window.eliminarAula = async function(id){
-  if(!confirm("Tens a certeza?"))return;
-  await deleteDoc(doc(db,"aulas",id));carregarAulas();
-}
-
-async function eliminarUserCompleto(uid,docId){
-  await deleteDoc(doc(db,"users",docId));
-  try{await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({idToken:uid})});}catch(e){}
-  try{await addDoc(collection(db,"deleted_users_auth"),{uid,deletedAt:Date.now()});}catch(e){}
-}
-
-async function carregarUsers(){
-  const div=document.getElementById("users");
-  const snap=await getDocs(collection(db,"users"));
-  if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>";return;}
-  div.innerHTML="";const agora=Date.now();
-  snap.forEach(u=>{
-    const d=u.data();
-    const uniLabel=d.uni?`${d.uni}${NOMES_UNI[d.uni]?' — '+NOMES_UNI[d.uni]:''}` :"—";
-    const duracaoLabel = d.duracao ? (DUR_LABELS[d.duracao] || d.duracao+" dias") : null;
-    const precoLabel   = d.preco   ? parseInt(d.preco).toLocaleString("pt-AO")+" KZ" : null;
-    let expiryTs = d.expiryDate || (d.approvedAt ? d.approvedAt + (DUR_MS[d.duracao] || DIAS_DEFAULT) : null);
-    let expiryHtml="";
-    let statusBadge = d.approved
-      ? `<span class="badge approved">APROVADO</span>`
-      : `<span class="badge pending">PENDENTE</span>`;
-    if(d.approved && expiryTs){
-      const dias=Math.ceil((expiryTs-agora)/(1000*60*60*24));
-      const ds=new Date(expiryTs).toLocaleDateString('pt-PT');
-      if(expiryTs<agora){statusBadge=`<span class="badge expired">EXPIRADO</span>`;expiryHtml=`<span class="expiry-expired">⚠️ Expirou em ${ds}</span>`;}
-      else if(dias<=7){expiryHtml=`<span class="expiry-warning">⏳ Expira em ${dias} dia${dias!==1?'s':''} (${ds})</span>`;}
-      else{expiryHtml=`<span style="font-size:11px;color:var(--muted);">⏳ Expira: ${ds}</span>`;}
-    }
-    const durTagHtml   = duracaoLabel ? `<span class="dur-tag">📅 ${duracaoLabel}</span>` : "";
-    const precoTagHtml = precoLabel   ? `<span class="preco-tag">💰 ${precoLabel}</span>` : "";
-    div.innerHTML+=`<div class="user-card" id="card-${u.id}">
-      <div class="user-info">
-        <p class="email">${d.email}</p>
-        <p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p>
-        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">${statusBadge}${expiryHtml}</div>
-        ${(durTagHtml||precoTagHtml)?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>`:""}
-      </div>
-      <div class="user-actions">
-        ${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""}
-        ${d.approved?`<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>`:""}
-        <button class="btn-edit" onclick="abrirModal('${u.id}')">✏️ Editar</button>
-        <button class="btn-delete" onclick="removerUser('${u.id}','${d.email}')">🗑 Remover</button>
-      </div>
-    </div>`;
-  });
-}
-
-async function verificarExpirados(){
-  const snap=await getDocs(collection(db,"users")); const agora=Date.now();
-  for(const u of snap.docs){
-    const d=u.data(); if(!d.approved)continue;
-    const exp = d.expiryDate || (d.approvedAt ? d.approvedAt + (DUR_MS[d.duracao] || DIAS_DEFAULT) : null);
-    if(exp && agora>=exp){
-      await deleteDoc(doc(db,"users",u.id));
-      try{await addDoc(collection(db,"deleted_users_auth"),{uid:d.uid,email:d.email,deletedAt:agora});}catch(e){}
-    }
-  }
-  carregarUsers();
-}
-
-window.aprovar = async function(id){
-  const snap = await getDoc(doc(db,"users",id));
-  if(!snap.exists()) return;
-  const d = snap.data();
-  const approvedAt = Date.now();
-  const duracaoMs  = DUR_MS[d.duracao] || DIAS_DEFAULT;
-  const expiryDate = approvedAt + duracaoMs;
-  await updateDoc(doc(db,"users",id),{approved:true, approvedAt, expiryDate});
-  carregarUsers();
-}
-
-window.revogar = async function(id){
-  if(!confirm("Revogar acesso?"))return;
-  await updateDoc(doc(db,"users",id),{approved:false}); carregarUsers();
-}
-
-window.removerUser = async function(docId,email){
-  if(!confirm(`Remover permanentemente ${email}?`))return;
-  const snap=await getDoc(doc(db,"users",docId));
-  const uid=snap.exists()?snap.data().uid:null;
-  await eliminarUserCompleto(uid||docId,docId); carregarUsers();
-}
-
-// ── MODAL EDITAR ──
-let editingDocId=null;
+// ── MODAL EDITAR — LÓGICA ─────────────────────────────────
+// Preencher universidades no modal
 const modalUniSel=document.getElementById("modalUni");
 UNIVERSIDADES.forEach(u=>{modalUniSel.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`;});
 
-window.atualizarCursosModal = function(){
+window.atualizarModalTipo = function(){
+  const tipo=document.getElementById("modalTipo").value;
+  const uniWrap=document.getElementById("modalUniWrap");
+  const cursoSel=document.getElementById("modalCurso");
+  const uniSel=document.getElementById("modalUni");
+
+  cursoSel.innerHTML=`<option value="">Seleciona o curso</option>`;
+  uniSel.value="";
+
+  if(tipo==="universitario"){
+    // Mostrar universidade, cursos dependem da uni
+    uniWrap.style.display="block";
+  } else {
+    // Esconder universidade, mostrar cursos do tipo
+    uniWrap.style.display="none";
+    const cursos=COURSES_BY_TIPO[tipo]||[];
+    cursos.forEach(c=>cursoSel.innerHTML+=`<option value="${c}">${c}</option>`);
+    // Se só há um curso, seleccionar automaticamente
+    if(cursos.length===1) cursoSel.value=cursos[0];
+  }
+}
+
+window.atualizarModalCursos = function(){
   const uni=document.getElementById("modalUni").value;
   const sel=document.getElementById("modalCurso");
-  sel.innerHTML=`<option value="">Seleciona curso</option>`;
+  sel.innerHTML=`<option value="">Seleciona o curso</option>`;
   if(!uni)return;
   (COURSES_BY_UNI[uni]||[]).forEach(c=>sel.innerHTML+=`<option value="${c}">${c}</option>`);
 }
 
 window.abrirModal = async function(docId){
   editingDocId=docId;
-  const snap=await getDoc(doc(db,"users",docId)); if(!snap.exists())return;
+  const snap=await getDoc(doc(db,"users",docId));if(!snap.exists())return;
   const d=snap.data();
   document.getElementById("modalUid").value=d.uid||"";
   document.getElementById("modalEmail").innerText=d.email||"";
-  document.getElementById("modalUni").value=d.uni||"";
-  atualizarCursosModal();
-  document.getElementById("modalCurso").value=d.curso||"";
-  const exp = d.expiryDate || (d.approvedAt ? d.approvedAt + (DUR_MS[d.duracao]||DIAS_DEFAULT) : null);
-  document.getElementById("modalExpiry").value = exp ? new Date(exp).toISOString().split("T")[0] : "";
   document.getElementById("modalMsg").className="modal-msg";
+
+  // Definir tipo
+  const tipo=d.tipo||"universitario";
+  document.getElementById("modalTipo").value=tipo;
+  atualizarModalTipo();
+
+  if(tipo==="universitario"){
+    // Definir universidade e depois cursos
+    document.getElementById("modalUni").value=d.uni||"";
+    atualizarModalCursos();
+    document.getElementById("modalCurso").value=d.curso||"";
+  } else {
+    // Para outros tipos, definir o curso directamente
+    const cursos=COURSES_BY_TIPO[tipo]||[];
+    const cursoSel=document.getElementById("modalCurso");
+    cursoSel.innerHTML=`<option value="">Seleciona o curso</option>`;
+    cursos.forEach(c=>cursoSel.innerHTML+=`<option value="${c}">${c}</option>`);
+    cursoSel.value=d.curso||"";
+  }
+
+  const exp=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);
+  document.getElementById("modalExpiry").value=exp?new Date(exp).toISOString().split("T")[0]:"";
   document.getElementById("modalOverlay").classList.add("open");
 }
 
-window.fecharModal = function(){document.getElementById("modalOverlay").classList.remove("open"); editingDocId=null;}
+window.fecharModal=function(){document.getElementById("modalOverlay").classList.remove("open");editingDocId=null;}
 
 window.guardarEdicao = async function(){
-  const msgEl=document.getElementById("modalMsg"); msgEl.className="modal-msg";
+  const msgEl=document.getElementById("modalMsg");msgEl.className="modal-msg";
+  const tipo=document.getElementById("modalTipo").value;
   const uni=document.getElementById("modalUni").value;
   const curso=document.getElementById("modalCurso").value;
   const expiry=document.getElementById("modalExpiry").value;
-  if(!uni||!curso){msgEl.className="modal-msg error";msgEl.innerText="Seleciona universidade e curso.";return;}
-  const updates={uni,curso,area:COURSE_TO_AREA[curso]||"medicina geral"};
-  if(expiry) updates.expiryDate=new Date(expiry).getTime();
+
+  if(!tipo){msgEl.className="modal-msg error";msgEl.innerText="Seleciona o tipo de curso.";return;}
+  if(tipo==="universitario"&&!uni){msgEl.className="modal-msg error";msgEl.innerText="Seleciona a universidade.";return;}
+  if(!curso){msgEl.className="modal-msg error";msgEl.innerText="Seleciona o curso.";return;}
+
+  const updates={
+    tipo,
+    uni: tipo==="universitario"?uni:"",
+    curso,
+    area: COURSE_TO_AREA[curso]||tipo
+  };
+  if(expiry)updates.expiryDate=new Date(expiry).getTime();
+
   try{
     await updateDoc(doc(db,"users",editingDocId),updates);
     msgEl.className="modal-msg success";msgEl.innerText="✅ Dados actualizados com sucesso!";
@@ -1388,6 +454,68 @@ window.guardarEdicao = async function(){
 }
 
 document.getElementById("modalOverlay").addEventListener("click",function(e){if(e.target===this)fecharModal();});
+
+// ── CHAT MÍDIA ────────────────────────────────────────────
+window.selecionarFoto=function(event){const file=event.target.files[0];if(!file)return;if(file.size>800*1024){alert("⚠️ Imagem muito grande. Máximo 800KB.");event.target.value="";return;}const reader=new FileReader();reader.onload=e=>{mediaParaEnviar={tipo:'imagem',base64:e.target.result,nome:file.name};mostrarPreview('imagem',e.target.result,file.name);};reader.readAsDataURL(file);event.target.value="";}
+window.selecionarAudio=function(event){const file=event.target.files[0];if(!file)return;if(file.size>500*1024){alert("⚠️ Ficheiro de áudio muito grande. Máximo 500KB.");event.target.value="";return;}const reader=new FileReader();reader.onload=e=>{mediaParaEnviar={tipo:'audio',base64:e.target.result,nome:file.name};mostrarPreview('audio',e.target.result,file.name);};reader.readAsDataURL(file);event.target.value="";}
+window.toggleGravarAudio=async function(){const btn=document.getElementById("btnGravarAudio");if(!gravando){try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});audioChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);mediaRecorder.onstop=()=>{const blob=new Blob(audioChunks,{type:'audio/webm'});if(blob.size>500*1024){alert("⚠️ Gravação muito longa.");return;}const reader=new FileReader();reader.onload=e=>{mediaParaEnviar={tipo:'audio',base64:e.target.result,nome:'gravacao.webm'};mostrarPreview('audio',e.target.result,'Gravação de voz');};reader.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop());};mediaRecorder.start();gravando=true;btn.classList.add('recording');btn.innerHTML='⏹️ Parar';}catch(e){alert("Não foi possível aceder ao microfone.");}}else{mediaRecorder.stop();gravando=false;btn.classList.remove('recording');btn.innerHTML='🎙️ Áudio';}}
+function mostrarPreview(tipo,base64,nome){const prev=document.getElementById("mediaPreview");const img=document.getElementById("previewImg");const aud=document.getElementById("previewAudio");const lbl=document.getElementById("previewLabel");const ico=document.getElementById("previewIcon");img.style.display="none";aud.style.display="none";if(tipo==='imagem'){ico.innerText="🖼️";lbl.innerText=nome;img.src=base64;img.style.display="block";}else{ico.innerText="🎵";lbl.innerText=nome;aud.src=base64;aud.style.display="block";}prev.classList.add("show");}
+window.removerMidia=function(){mediaParaEnviar=null;document.getElementById("mediaPreview").classList.remove("show");document.getElementById("previewImg").src="";document.getElementById("previewAudio").src="";}
+
+function escaparHtml(str){return(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function renderAdminMsg(data){const isProf=data.sender==="prof";const cls=isProf?"prof":"aluno";const ts=data.ts?new Date(data.ts.toDate()).toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"}):"";const sender=isProf?"👨‍🏫 Tu (Professor)":`🎓 ${data.email||"Aluno"}`;let conteudo="";if(data.tipo==="imagem"&&data.base64){conteudo=`<img src="${data.base64}" alt="imagem" onclick="abrirImgModal('${data.base64.replace(/'/g,"\\'")}')">`;if(data.texto)conteudo+=`<div style="margin-top:6px;">${escaparHtml(data.texto)}</div>`;}else if(data.tipo==="audio"&&data.base64){conteudo=`<audio controls src="${data.base64}"></audio>`;if(data.texto)conteudo+=`<div style="margin-top:6px;">${escaparHtml(data.texto)}</div>`;}else{conteudo=escaparHtml(data.texto||"").replace(/\n/g,"<br>");}return`<div class="msg-bubble-wrap ${cls}"><div class="msg-sender">${sender}</div><div class="msg-bubble ${cls}">${conteudo}</div><div class="msg-time">${ts}</div></div>`;}
+window.abrirImgModal=function(src){document.getElementById("imgModalSrc").src=src;document.getElementById("imgModal").classList.add("open");}
+
+async function carregarChats(){const div=document.getElementById("chatLista");div.innerHTML="<p style='color:var(--muted);font-size:13px;'>A carregar...</p>";const snap=await getDocs(collection(db,"chat"));if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhuma mensagem ainda.</p>";return;}const docs=snap.docs.map(d=>({id:d.id,...d.data()}));docs.sort((a,b)=>(b.ultimaTs?.toMillis?.()||0)-(a.ultimaTs?.toMillis?.()||0));let totalNaoLido=0;div.innerHTML="";docs.forEach(d=>{if(d.naoLidoAdmin)totalNaoLido++;const ts=d.ultimaTs?new Date(d.ultimaTs.toDate()).toLocaleDateString("pt-PT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";const uid=d.uid||d.id;div.innerHTML+=`<div class="user-card" style="cursor:pointer;" data-uid="${uid}" data-email="${(d.email||"").replace(/"/g,"&quot;")}" data-curso="${(d.curso||"").replace(/"/g,"&quot;")}" data-tipo="${(d.tipo||"").replace(/"/g,"&quot;")}"><div class="user-info"><p class="email">${d.email||d.id} ${d.naoLidoAdmin?'<span style="color:#ef4444;font-size:11px;font-weight:700;">● Nova</span>':''}</p><p class="meta">${d.tipo||""} · ${d.curso||""}</p><p class="meta" style="margin-top:3px;">${d.ultimaMsg||""} · ${ts}</p></div><button class="btn-approve" style="pointer-events:none;">Abrir →</button></div>`;});div.querySelectorAll(".user-card").forEach(card=>{card.addEventListener("click",()=>{abrirConversa(card.dataset.uid,card.dataset.email,card.dataset.curso,card.dataset.tipo);});});const badge=document.getElementById("chatBadgeTab");if(totalNaoLido>0){badge.style.display="inline";badge.innerText=totalNaoLido;}else{badge.style.display="none";}}
+
+window.abrirConversa=async function(uid,email,curso,tipo){chatAtualUid=uid;document.getElementById("chatLista").style.display="none";document.getElementById("chatConversaWrap").style.display="block";document.getElementById("conversaEmail").innerText=email;document.getElementById("conversaInfo").innerText=`${tipo} · ${curso}`;await setDoc(doc(db,"chat",uid),{naoLidoAdmin:false},{merge:true}).catch(()=>{});if(unsubConversa)unsubConversa();const q=query(collection(db,"chat",uid,"mensagens"),orderBy("ts","asc"));unsubConversa=onSnapshot(q,snap=>{const div=document.getElementById("conversaMsgs");if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;text-align:center;padding:20px;'>Sem mensagens ainda.</p>";return;}div.innerHTML=snap.docs.map(d=>renderAdminMsg(d.data())).join("");div.scrollTop=div.scrollHeight;});}
+window.fecharConversa=function(){if(unsubConversa){unsubConversa();unsubConversa=null;}chatAtualUid=null;removerMidia();document.getElementById("adminInput").value="";document.getElementById("chatLista").style.display="block";document.getElementById("chatConversaWrap").style.display="none";carregarChats();}
+window.enviarRespostaAdmin=async function(){if(!chatAtualUid)return;const texto=document.getElementById("adminInput").value.trim();const temMedia=!!mediaParaEnviar;if(!texto&&!temMedia)return;document.getElementById("adminInput").value="";const dadosMsg={sender:"prof",ts:serverTimestamp(),lidoAdmin:true,lidoAluno:false};const dadosChat={ultimaTs:serverTimestamp(),naoLidoAluno:true};if(temMedia){dadosMsg.tipo=mediaParaEnviar.tipo;dadosMsg.base64=mediaParaEnviar.base64;dadosMsg.texto=texto||"";dadosChat.ultimaMsg=mediaParaEnviar.tipo==='imagem'?"📷 Imagem":"🎵 Áudio";removerMidia();}else{dadosMsg.tipo="texto";dadosMsg.texto=texto;dadosChat.ultimaMsg=texto.length>50?texto.slice(0,50)+"…":texto;}await setDoc(doc(db,"chat",chatAtualUid),dadosChat,{merge:true});await addDoc(collection(db,"chat",chatAtualUid,"mensagens"),dadosMsg);}
+function iniciarBadgeChat(){onSnapshot(collection(db,"chat"),snap=>{const total=snap.docs.filter(d=>d.data().naoLidoAdmin).length;const badge=document.getElementById("chatBadgeTab");if(total>0){badge.style.display="inline";badge.innerText=total;}else{badge.style.display="none";}});}
+
+// ── SEGURANÇA ─────────────────────────────────────────────
+async function sha256(text){const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(text));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");}
+function gerarToken(){const a=new Uint8Array(32);crypto.getRandomValues(a);return Array.from(a).map(b=>b.toString(16).padStart(2,"0")).join("");}
+function sessaoValida(){try{const s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||"null");if(!s?.token||!s?.expiry)return false;if(Date.now()>s.expiry){sessionStorage.removeItem(SESSION_KEY);return false;}return true;}catch{return false;}}
+function criarSessao(){const expiry=Date.now()+SESSION_DUR;sessionStorage.setItem(SESSION_KEY,JSON.stringify({token:gerarToken(),expiry}));return expiry;}
+const getLockout=()=>{try{return JSON.parse(sessionStorage.getItem(LOCKOUT_KEY)||"null");}catch{return null;}};
+const getAttempts=()=>parseInt(sessionStorage.getItem(ATTEMPTS_KEY)||"0",10);
+const setAttempts=n=>sessionStorage.setItem(ATTEMPTS_KEY,String(n));
+const setLockout=()=>sessionStorage.setItem(LOCKOUT_KEY,JSON.stringify({until:Date.now()+LOCKOUT_MS}));
+const clearLockout=()=>{sessionStorage.removeItem(LOCKOUT_KEY);sessionStorage.removeItem(ATTEMPTS_KEY);};
+let sessionInterval=null;
+function iniciarTimerSessao(){const el=document.getElementById("sessionTimer");function tick(){const s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||"null");if(!s){sair();return;}const r=s.expiry-Date.now();if(r<=0){sair();return;}el.innerText=`${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;}tick();sessionInterval=setInterval(tick,1000);}
+let lockoutInterval=null;
+function mostrarBloqueio(){const banner=document.getElementById("lockoutBanner");const timerEl=document.getElementById("lockoutTimer");const btn=document.getElementById("btnStep1");const inp=document.getElementById("senhaAdmin");banner.style.display="block";btn.disabled=true;inp.disabled=true;function tick(){const lk=getLockout();if(!lk){reset();return;}const r=lk.until-Date.now();if(r<=0){clearLockout();reset();return;}timerEl.innerText=`${Math.floor(r/60000)}m ${String(Math.floor((r%60000)/1000)).padStart(2,"0")}s`;}function reset(){clearInterval(lockoutInterval);banner.style.display="none";btn.disabled=false;inp.disabled=false;document.getElementById("erroStep1").innerText="";document.getElementById("attemptsInfo").innerText="";}tick();lockoutInterval=setInterval(tick,1000);}
+let emProgresso=false;
+window.verificarCamada1=async function(){if(emProgresso)return;const lk=getLockout();if(lk&&Date.now()<lk.until){mostrarBloqueio();return;}if(lk)clearLockout();const senha=document.getElementById("senhaAdmin").value;const erroEl=document.getElementById("erroStep1");const infoEl=document.getElementById("attemptsInfo");const btn=document.getElementById("btnStep1");if(!senha){erroEl.innerText="Introduz a senha.";return;}emProgresso=true;btn.disabled=true;btn.innerText="A verificar...";erroEl.innerText="";const tent=getAttempts();if(tent>0)await new Promise(r=>setTimeout(r,Math.min(DELAY_BASE*Math.pow(2,tent-1),10000)));try{const hash=await sha256(senha);if(hash===SENHA_HASH){clearLockout();sessionStorage.setItem("delta_layer1_ok","1");document.getElementById("senhaAdmin").value="";document.getElementById("step1Wrap").style.display="none";document.getElementById("step2Wrap").style.display="flex";document.getElementById("firebaseSenha").focus();}else{const novas=tent+1;setAttempts(novas);const rest=MAX_TENT-novas;if(novas>=MAX_TENT){setLockout();erroEl.innerText="Demasiadas tentativas. Bloqueado por 5 minutos.";infoEl.innerText="";mostrarBloqueio();}else{erroEl.innerText="Senha incorreta.";infoEl.innerText=`${rest} tentativa${rest!==1?"s":""} restante${rest!==1?"s":""} antes do bloqueio.`;}document.getElementById("senhaAdmin").value="";}}catch(e){erroEl.innerText="Erro ao verificar. Tenta novamente.";}btn.disabled=false;btn.innerText="CONTINUAR →";emProgresso=false;}
+window.verificarCamada2=async function(){if(!sessionStorage.getItem("delta_layer1_ok")){voltarStep1();return;}const email=document.getElementById("firebaseEmail").value.trim();const senha=document.getElementById("firebaseSenha").value;const erroEl=document.getElementById("erroStep2");const btn=document.getElementById("btnStep2");if(!email||!senha){erroEl.innerText="Preenche email e senha.";return;}if(email!==ADMIN_EMAIL){erroEl.innerText="Email não autorizado.";return;}btn.disabled=true;btn.innerText="A autenticar...";erroEl.innerText="";try{await signInWithEmailAndPassword(auth,email,senha);sessionStorage.removeItem("delta_layer1_ok");criarSessao();document.getElementById("firebaseSenha").value="";document.getElementById("step2Wrap").style.display="none";document.getElementById("painel").style.display="block";document.getElementById("bunnyInfo").style.display="block";iniciarTimerSessao();carregarAulas();carregarUsers();verificarExpirados();iniciarBadgeChat();}catch(e){let msg="Email ou senha incorretos.";if(e.code==="auth/too-many-requests")msg="Conta bloqueada temporariamente.";if(e.code==="auth/invalid-credential")msg="Credenciais inválidas.";erroEl.innerText=msg;}btn.disabled=false;btn.innerText="ENTRAR NO PAINEL →";}
+window.voltarStep1=function(){sessionStorage.removeItem("delta_layer1_ok");document.getElementById("step2Wrap").style.display="none";document.getElementById("step1Wrap").style.display="flex";document.getElementById("erroStep2").innerText="";document.getElementById("firebaseSenha").value="";}
+window.sair=async function(){sessionStorage.removeItem(SESSION_KEY);sessionStorage.removeItem("delta_layer1_ok");if(sessionInterval)clearInterval(sessionInterval);try{await signOut(auth);}catch(e){}document.getElementById("step1Wrap").style.display="flex";document.getElementById("step2Wrap").style.display="none";document.getElementById("painel").style.display="none";document.getElementById("senhaAdmin").value="";document.getElementById("erroStep1").innerText="";document.getElementById("attemptsInfo").innerText="";}
+window.addEventListener("load",()=>{const lk=getLockout();if(lk&&Date.now()<lk.until)mostrarBloqueio();onAuthStateChanged(auth,user=>{if(user&&user.email===ADMIN_EMAIL&&sessaoValida()){document.getElementById("step1Wrap").style.display="none";document.getElementById("painel").style.display="block";document.getElementById("bunnyInfo").style.display="block";iniciarTimerSessao();carregarAulas();carregarUsers();verificarExpirados();iniciarBadgeChat();}});});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&document.getElementById("painel").style.display!=="none"){if(!sessaoValida())sair();}});
+
+// ── TABS ──────────────────────────────────────────────────
+window.mostrarTab=function(tab,event){document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));event.target.classList.add("active");document.getElementById("tabAulas").style.display=tab==="aulas"?"block":"none";document.getElementById("tabUsers").style.display=tab==="users"?"block":"none";document.getElementById("tabChat").style.display=tab==="chat"?"block":"none";if(tab==="chat")carregarChats();}
+
+// ── SECÇÕES ───────────────────────────────────────────────
+const SECCOES_POR_TIPO={universitario:[{v:"video_aulas",l:"🎥 Vídeo Aulas",hasDis:true,hasUni:true},{v:"materiais",l:"📚 Materiais de Apoio",hasDis:true,hasUni:true},{v:"cronograma",l:"📅 Cronograma",hasDis:false,hasUni:false},{v:"provas",l:"📝 Provas Passadas",hasDis:false,hasUni:true},{v:"resolucao",l:"✅ Resolução de Provas",hasDis:false,hasUni:true}],ensino_medio:[{v:"video_aulas",l:"🎥 Vídeo Aulas",hasDis:true,hasUni:false},{v:"materiais",l:"📚 Materiais de Apoio",hasDis:true,hasUni:false}],mat_basica:[{v:"video_aulas",l:"🎥 Vídeo Aulas",hasDis:false,hasUni:false},{v:"materiais",l:"📚 Materiais de Apoio",hasDis:false,hasUni:false}],fis_basica:[{v:"video_aulas",l:"🎥 Vídeo Aulas",hasDis:false,hasUni:false},{v:"materiais",l:"📚 Materiais de Apoio",hasDis:false,hasUni:false}],medicamentos:[{v:"video_aulas",l:"🎥 Vídeo Aulas",hasDis:false,hasUni:false},{v:"materiais",l:"📚 Materiais de Apoio",hasDis:false,hasUni:false}],primeiros:[{v:"video_aulas",l:"🎥 Vídeo Aulas",hasDis:false,hasUni:false},{v:"materiais",l:"📚 Materiais de Apoio",hasDis:false,hasUni:false}],minsa:[{v:"video_aulas",l:"🎥 Vídeo Aulas",hasDis:false,hasUni:false},{v:"materiais",l:"📚 Materiais de Apoio",hasDis:false,hasUni:false},{v:"provas_dorsais",l:"📝 Provas Dorsais",hasDis:false,hasUni:false},{v:"resolucao_dorsais",l:"✅ Resolução de Provas Dorsais",hasDis:false,hasUni:false}]};
+const DISC_POR_TIPO={ensino_medio:["Matemática","Biologia","Química","Física","Língua Portuguesa"]};
+window.atualizarCampos=function(){const tipoCurso=document.getElementById("tipoCurso").value;const seccaoEl=document.getElementById("seccao");const sub1=document.getElementById("sub1");const sub2=document.getElementById("sub2");seccaoEl.innerHTML=`<option value="">— Seleciona a secção —</option>`;sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";if(!tipoCurso)return;const seccoes=SECCOES_POR_TIPO[tipoCurso]||[];seccoes.forEach(s=>seccaoEl.innerHTML+=`<option value="${s.v}">${s.l}</option>`);}
+window.atualizarSeccao=function(){const tipoCurso=document.getElementById("tipoCurso").value;const seccao=document.getElementById("seccao").value;const sub1=document.getElementById("sub1");const sub2=document.getElementById("sub2");const tipo=document.getElementById("tipo");const help=document.getElementById("urlHelp");sub1.innerHTML="";sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";if(!seccao){sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;return;}const seccoes=SECCOES_POR_TIPO[tipoCurso]||[];const seccaoObj=seccoes.find(s=>s.v===seccao);if(!seccaoObj)return;if(seccaoObj.hasUni&&tipoCurso==="universitario"){sub1.innerHTML=`<option value="">Seleciona universidade</option>`;UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);if(seccaoObj.hasDis)sub2.style.display="block";tipo.value=seccao==="video_aulas"?"bunny":"pdf";}else if(seccaoObj.hasDis&&tipoCurso==="ensino_medio"){sub1.innerHTML=`<option value="">Seleciona disciplina</option>`;(DISC_POR_TIPO[tipoCurso]||[]).forEach(d=>sub1.innerHTML+=`<option value="${d}">${d}</option>`);tipo.value=seccao==="video_aulas"?"bunny":"pdf";}else{sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;tipo.value=seccao==="video_aulas"?"bunny":"pdf";}if(seccao==="materiais"||seccao==="provas"||seccao==="cronograma"){tipo.value="pdf";help.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";}else{help.innerText="";}atualizarTipo();}
+window.atualizarSub2=function(){const tipoCurso=document.getElementById("tipoCurso").value;if(tipoCurso!=="universitario")return;const seccao=document.getElementById("seccao").value;if(seccao!=="video_aulas"&&seccao!=="materiais")return;const uni=document.getElementById("sub1").value;const sub2=document.getElementById("sub2");sub2.innerHTML=`<option value="">Seleciona disciplina</option>`;if(!uni)return;(DISCIPLINAS_UNI[uni]||[]).forEach(d=>sub2.innerHTML+=`<option value="${d}">${d}</option>`);}
+window.atualizarTipo=function(){const tipo=document.getElementById("tipo").value;const bi=document.getElementById("bunnyInfo");const uh=document.getElementById("urlHelp");const ui=document.getElementById("url");if(tipo==="bunny"){bi.style.display="block";uh.innerText="🐰 Cola aqui o link embed do Bunny Stream";ui.placeholder="https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID";}else if(tipo==="video"){bi.style.display="none";uh.innerText="💡 YouTube: copia o link do vídeo ou playlist";ui.placeholder="https://youtu.be/...";}else if(tipo==="pdf"){bi.style.display="none";uh.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";ui.placeholder="https://drive.google.com/file/d/.../preview";}else{bi.style.display="none";uh.innerText="";ui.placeholder="Cole o link aqui";}}
+function formatarURL(url,tipo){if(tipo==="bunny"||tipo!=="video")return url;if(url.includes("list=")&&!url.includes("embed")){const m=url.match(/list=([^&]+)/);if(m)return`https://www.youtube-nocookie.com/embed/videoseries?list=${m[1]}`;}const m=url.match(/(?:youtu\.be\/|v=|embed\/)([a-zA-Z0-9_-]{11})/);if(m)return`https://www.youtube-nocookie.com/embed/${m[1]}`;return url;}
+window.adicionarAula=async function(){const tipoCurso=document.getElementById("tipoCurso").value;const seccao=document.getElementById("seccao").value;const sub1=document.getElementById("sub1").value;const sub2=document.getElementById("sub2").value;const titulo=document.getElementById("titulo").value.trim();const tipo=document.getElementById("tipo").value;const urlRaw=document.getElementById("url").value.trim();const msg=document.getElementById("msgAula");msg.className="msg";if(!tipoCurso||!seccao||!titulo||!urlRaw){msg.className="msg error";msg.innerText="Preenche todos os campos obrigatórios.";return;}if(tipo==="bunny"&&!urlRaw.includes("mediadelivery.net")){msg.className="msg error";msg.innerText="⚠️ Link inválido para Bunny Stream.";return;}let sub=null;const seccoes=SECCOES_POR_TIPO[tipoCurso]||[];const seccaoObj=seccoes.find(s=>s.v===seccao);if(seccaoObj&&seccaoObj.hasUni&&tipoCurso==="universitario"){if(seccaoObj.hasDis){if(!sub1||!sub2){msg.className="msg error";msg.innerText="Seleciona a universidade e a disciplina.";return;}sub=`${tipoCurso}|${sub1}|${sub2}`;}else{if(!sub1){msg.className="msg error";msg.innerText="Seleciona a universidade.";return;}sub=sub1;}}else if(seccaoObj&&seccaoObj.hasDis){if(!sub1){msg.className="msg error";msg.innerText="Seleciona a disciplina.";return;}sub=`${tipoCurso}|${sub1}`;}else{sub=tipoCurso;}try{await addDoc(collection(db,"aulas"),{tipo_curso:tipoCurso,seccao,sub,titulo,tipo,url:formatarURL(urlRaw,tipo),createdAt:Date.now()});msg.className="msg success";msg.innerText="✅ Conteúdo adicionado com sucesso!";document.getElementById("titulo").value="";document.getElementById("url").value="";carregarAulas();}catch(e){msg.className="msg error";msg.innerText="Erro: "+e.message;}}
+async function carregarAulas(){const div=document.getElementById("listaAulas");const snap=await getDocs(collection(db,"aulas"));if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum conteúdo publicado ainda.</p>";return;}div.innerHTML="";const ic={video:"🎥",bunny:"🐰",pdf:"📄",imagem:"🖼"};const TIPO_LABELS={universitario:"Univ.",ensino_medio:"Ens.Médio",mat_basica:"Mat.Básica",fis_basica:"Fís.Básica",medicamentos:"Medicamentos",primeiros:"Primeiros Socorros",minsa:"MINSA"};snap.forEach(d=>{const data=d.data();const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";let sub="—";if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📁"} ${data.titulo}</p><p class="meta">[${tipoLabel}] ${sec} › ${sub} · ${data.tipo==="bunny"?"Bunny 🔒":data.tipo}</p></div><button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button></div>`;});}
+window.eliminarAula=async function(id){if(!confirm("Tens a certeza?"))return;await deleteDoc(doc(db,"aulas",id));carregarAulas();}
+async function eliminarUserCompleto(uid,docId){await deleteDoc(doc(db,"users",docId));try{await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({idToken:uid})});}catch(e){}try{await addDoc(collection(db,"deleted_users_auth"),{uid,deletedAt:Date.now()});}catch(e){}}
+async function carregarUsers(){const div=document.getElementById("users");const snap=await getDocs(collection(db,"users"));if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>";return;}div.innerHTML="";const agora=Date.now();snap.forEach(u=>{const d=u.data();const uniLabel=d.uni?`${d.uni}${NOMES_UNI[d.uni]?' — '+NOMES_UNI[d.uni]:''}` :"—";const duracaoLabel=d.duracao?(DUR_LABELS[d.duracao]||d.duracao+" dias"):null;const precoLabel=d.preco?parseInt(d.preco).toLocaleString("pt-AO")+" KZ":null;let expiryTs=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);let expiryHtml="";let statusBadge=d.approved?`<span class="badge approved">APROVADO</span>`:`<span class="badge pending">PENDENTE</span>`;if(d.approved&&expiryTs){const dias=Math.ceil((expiryTs-agora)/(1000*60*60*24));const ds=new Date(expiryTs).toLocaleDateString('pt-PT');if(expiryTs<agora){statusBadge=`<span class="badge expired">EXPIRADO</span>`;expiryHtml=`<span class="expiry-expired">⚠️ Expirou em ${ds}</span>`;}else if(dias<=7){expiryHtml=`<span class="expiry-warning">⏳ Expira em ${dias} dia${dias!==1?'s':''} (${ds})</span>`;}else{expiryHtml=`<span style="font-size:11px;color:var(--muted);">⏳ Expira: ${ds}</span>`;}}const durTagHtml=duracaoLabel?`<span class="dur-tag">📅 ${duracaoLabel}</span>`:"";const precoTagHtml=precoLabel?`<span class="preco-tag">💰 ${precoLabel}</span>`:"";div.innerHTML+=`<div class="user-card" id="card-${u.id}"><div class="user-info"><p class="email">${d.email}</p><p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">${statusBadge}${expiryHtml}</div>${(durTagHtml||precoTagHtml)?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>`:""}</div><div class="user-actions">${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""} ${d.approved?`<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>`:""}<button class="btn-edit" onclick="abrirModal('${u.id}')">✏️ Editar</button><button class="btn-delete" onclick="removerUser('${u.id}','${d.email}')">🗑 Remover</button></div></div>`;});}
+async function verificarExpirados(){const snap=await getDocs(collection(db,"users"));const agora=Date.now();for(const u of snap.docs){const d=u.data();if(!d.approved)continue;const exp=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);if(exp&&agora>=exp){await deleteDoc(doc(db,"users",u.id));try{await addDoc(collection(db,"deleted_users_auth"),{uid:d.uid,email:d.email,deletedAt:agora});}catch(e){}}}carregarUsers();}
+window.aprovar=async function(id){const snap=await getDoc(doc(db,"users",id));if(!snap.exists())return;const d=snap.data();const approvedAt=Date.now();const duracaoMs=DUR_MS[d.duracao]||DIAS_DEFAULT;const expiryDate=approvedAt+duracaoMs;await updateDoc(doc(db,"users",id),{approved:true,approvedAt,expiryDate});carregarUsers();}
+window.revogar=async function(id){if(!confirm("Revogar acesso?"))return;await updateDoc(doc(db,"users",id),{approved:false});carregarUsers();}
+window.removerUser=async function(docId,email){if(!confirm(`Remover permanentemente ${email}?`))return;const snap=await getDoc(doc(db,"users",docId));const uid=snap.exists()?snap.data().uid:null;await eliminarUserCompleto(uid||docId,docId);carregarUsers();}
+let editingDocId=null;
 window.verificarExpirados=verificarExpirados;
 window.carregarUsers=carregarUsers;
 </script>
