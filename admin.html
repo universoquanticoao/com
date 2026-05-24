@@ -66,35 +66,8 @@ button:hover{transform:translateY(-1px);}
 .user-info .email,.aula-info .titulo{color:var(--text);font-weight:500;}
 .user-info .meta,.aula-info .meta{color:var(--muted);font-size:12px;}
 
-/* ── DURAÇÃO / PREÇO do candidato ── */
-.dur-tag{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  background:rgba(0,255,136,0.08);
-  border:1px solid rgba(0,255,136,0.2);
-  border-radius:20px;
-  padding:3px 10px;
-  font-size:10px;
-  font-family:'Rajdhani',sans-serif;
-  font-weight:700;
-  letter-spacing:1px;
-  color:var(--accent);
-}
-.preco-tag{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  background:rgba(251,191,36,0.08);
-  border:1px solid rgba(251,191,36,0.2);
-  border-radius:20px;
-  padding:3px 10px;
-  font-size:10px;
-  font-family:'Rajdhani',sans-serif;
-  font-weight:700;
-  letter-spacing:1px;
-  color:#fbbf24;
-}
+.dur-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;color:var(--accent);}
+.preco-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;color:#fbbf24;}
 
 .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;letter-spacing:1px;font-weight:600;}
 .badge.approved{background:rgba(0,255,136,0.15);color:var(--accent);}
@@ -111,7 +84,219 @@ button:hover{transform:translateY(-1px);}
 .tab.active{background:rgba(0,255,136,0.15);border-color:rgba(0,255,136,0.3);color:var(--accent);}
 .expiry-warning{color:#fbbf24;font-size:11px;}
 .expiry-expired{color:#f87171;font-size:11px;}
-#conversaMsgs{display:flex;flex-direction:column;gap:12px;}
+
+/* ═══════════════════════════════════════════════════
+   CHAT — ÁREA DE CONVERSA REDESENHADA
+═══════════════════════════════════════════════════ */
+#chatConversaWrap {
+  display: none;
+}
+
+/* Cabeçalho da conversa */
+.conversa-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Área de mensagens — grande e visível */
+#conversaMsgs {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 12px 4px;
+  margin-bottom: 18px;
+  scroll-behavior: smooth;
+}
+#conversaMsgs::-webkit-scrollbar{width:4px;}
+#conversaMsgs::-webkit-scrollbar-track{background:transparent;}
+#conversaMsgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+
+/* Balão de mensagem */
+.msg-bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  gap: 4px;
+}
+.msg-bubble-wrap.prof { align-self: flex-end; align-items: flex-end; }
+.msg-bubble-wrap.aluno { align-self: flex-start; align-items: flex-start; }
+
+.msg-sender {
+  font-size: 10px;
+  color: var(--muted);
+  padding: 0 6px;
+  letter-spacing: 0.5px;
+}
+
+.msg-bubble {
+  padding: 11px 15px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.msg-bubble.prof {
+  background: rgba(0,255,136,0.13);
+  border: 1px solid rgba(0,255,136,0.25);
+  border-bottom-right-radius: 4px;
+}
+.msg-bubble.aluno {
+  background: rgba(59,130,246,0.13);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-bottom-left-radius: 4px;
+}
+.msg-bubble img {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 10px;
+  display: block;
+  margin-top: 4px;
+  cursor: pointer;
+  object-fit: contain;
+}
+.msg-bubble audio {
+  width: 100%;
+  min-width: 220px;
+  margin-top: 4px;
+  accent-color: var(--accent);
+}
+.msg-time {
+  font-size: 10px;
+  color: var(--muted);
+  padding: 0 6px;
+}
+
+/* ── ÁREA DE INPUT DO ADMIN ── */
+.admin-input-area {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 16px;
+}
+
+/* Textarea grande e horizontal */
+#adminInput {
+  width: 100%;
+  min-height: 90px;
+  max-height: 200px;
+  background: rgba(6,13,26,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  padding: 12px 16px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+  display: block;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+#adminInput:focus {
+  border-color: rgba(0,255,136,0.4);
+}
+#adminInput::placeholder { color: var(--muted); }
+
+/* Barra de botões inferior */
+.input-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.input-actions .right {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+/* Botões de mídia (foto/áudio) */
+.btn-media {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--muted);
+  border-radius: 9px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-media:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+.btn-media.recording {
+  background: rgba(239,68,68,0.2);
+  border-color: rgba(239,68,68,0.4);
+  color: #f87171;
+  animation: blink 1s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+.btn-enviar {
+  background: var(--accent);
+  color: #060d1a;
+  border: none;
+  border-radius: 9px;
+  padding: 9px 20px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-enviar:hover { transform: translateY(-1px); opacity: 0.9; }
+
+/* Preview antes de enviar */
+.media-preview {
+  display: none;
+  background: rgba(6,13,26,0.8);
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--accent);
+  align-items: center;
+  gap: 10px;
+}
+.media-preview.show { display: flex; }
+.media-preview img { max-height: 80px; border-radius: 8px; }
+.media-preview audio { height: 32px; flex: 1; }
+.btn-remove-preview {
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #f87171;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size:11px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.btn-remove-preview:hover { transform: none; background: rgba(239,68,68,0.25); }
+
+/* ═══════════════════════════════════════════════════ */
 
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:1000;display:none;justify-content:center;align-items:center;padding:20px;}
 .modal-overlay.open{display:flex;}
@@ -127,6 +312,11 @@ button:hover{transform:translateY(-1px);}
 .modal-msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:12px;display:none;}
 .modal-msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
 .modal-msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
+
+/* Modal de imagem grande */
+#imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:none;justify-content:center;align-items:center;cursor:zoom-out;}
+#imgModal.open{display:flex;}
+#imgModal img{max-width:92vw;max-height:90vh;border-radius:12px;object-fit:contain;}
 </style>
 </head>
 <body>
@@ -231,47 +421,86 @@ button:hover{transform:translateY(-1px);}
     <button class="tab" onclick="mostrarTab('users',event)">👥 Utilizadores</button>
     <button class="tab" onclick="mostrarTab('chat',event)">💬 Mensagens <span id="chatBadgeTab" style="display:none;background:#ef4444;color:white;border-radius:10px;padding:1px 6px;font-size:10px;margin-left:4px;"></span></button>
   </div>
+
   <div id="tabAulas">
     <div class="section">
       <h3>Conteúdos Publicados</h3>
       <div id="listaAulas"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
     </div>
   </div>
+
   <div id="tabUsers" style="display:none;">
     <div class="section">
       <h3>Utilizadores</h3>
       <div id="users"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
     </div>
   </div>
+
   <div id="tabChat" style="display:none;">
     <div class="section">
       <h3>Mensagens dos Alunos</h3>
       <div id="chatLista"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
     </div>
-    <!-- Janela de conversa -->
-    <div class="section" id="chatConversaWrap" style="display:none;">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+
+    <!-- JANELA DE CONVERSA -->
+    <div class="section" id="chatConversaWrap">
+      <div class="conversa-header">
         <button class="btn-cancel" style="padding:6px 14px;font-size:12px;" onclick="fecharConversa()">← Voltar</button>
         <div>
           <div style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;" id="conversaEmail"></div>
           <div style="font-size:11px;color:var(--muted);" id="conversaInfo"></div>
         </div>
       </div>
-      <div id="conversaMsgs" style="display:flex;flex-direction:column;gap:12px;max-height:400px;overflow-y:auto;padding:8px 0;margin-bottom:16px;"></div>
-      <!-- Input resposta -->
-      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;">
-        <div style="display:flex;gap:8px;align-items:flex-end;">
-          <textarea id="adminInput" placeholder="Escreve a resposta..." rows="2"
-            style="flex:1;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif;padding:10px 14px;resize:none;outline:none;transition:0.2s;"
-            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();enviarRespostaAdmin();}"></textarea>
-          <button class="btn-green" style="padding:8px 16px;" onclick="enviarRespostaAdmin()">Enviar ➤</button>
+
+      <!-- Mensagens -->
+      <div id="conversaMsgs"></div>
+
+      <!-- Input área -->
+      <div class="admin-input-area">
+        <!-- Preview de mídia antes de enviar -->
+        <div class="media-preview" id="mediaPreview">
+          <span id="previewIcon">📎</span>
+          <span id="previewLabel"></span>
+          <img id="previewImg" src="" alt="" style="display:none;">
+          <audio id="previewAudio" controls style="display:none;"></audio>
+          <button class="btn-remove-preview" onclick="removerMidia()">✕ Remover</button>
         </div>
+
+        <!-- Textarea grande e horizontal -->
+        <textarea id="adminInput"
+          placeholder="Escreve a resposta aqui... (Enter para nova linha, Ctrl+Enter para enviar)"
+          onkeydown="if(event.key==='Enter'&&event.ctrlKey){event.preventDefault();enviarRespostaAdmin();}"></textarea>
+
+        <!-- Botões de ação -->
+        <div class="input-actions">
+          <!-- Foto -->
+          <button class="btn-media" onclick="document.getElementById('inputFoto').click()" title="Enviar imagem">
+            🖼️ Foto
+          </button>
+          <input type="file" id="inputFoto" accept="image/*" style="display:none;" onchange="selecionarFoto(event)">
+
+          <!-- Áudio gravação -->
+          <button class="btn-media" id="btnGravarAudio" onclick="toggleGravarAudio()" title="Gravar áudio">
+            🎙️ Áudio
+          </button>
+
+          <!-- Áudio ficheiro -->
+          <button class="btn-media" onclick="document.getElementById('inputAudio').click()" title="Enviar ficheiro de áudio">
+            🎵 Ficheiro
+          </button>
+          <input type="file" id="inputAudio" accept="audio/*" style="display:none;" onchange="selecionarAudio(event)">
+
+          <div class="right">
+            <button class="btn-enviar" onclick="enviarRespostaAdmin()">Enviar ➤</button>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Ctrl+Enter para enviar · Shift+Enter para nova linha</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MODAL EDITAR -->
+<!-- MODAL EDITAR UTILIZADOR -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="fecharModal()">✕</button>
@@ -294,13 +523,17 @@ button:hover{transform:translateY(-1px);}
   </div>
 </div>
 
+<!-- Modal imagem grande -->
+<div id="imgModal" onclick="this.classList.remove('open')">
+  <img id="imgModalSrc" src="" alt="">
+</div>
+
 <script type="module">
 import { initializeApp }      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                                from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, getDocs, doc, updateDoc, addDoc, deleteDoc, getDoc, onSnapshot, orderBy, query, serverTimestamp, setDoc }
                                from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
@@ -314,108 +547,276 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
-// ── VARIÁVEIS CHAT ────────────────────────────────────────
-let chatAtualUid=null,unsubConversa=null;
 
-async function carregarChats(){
-  const div=document.getElementById("chatLista");
-  div.innerHTML="<p style='color:var(--muted);font-size:13px;'>A carregar...</p>";
-  const snap=await getDocs(collection(db,"chat"));
-  if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhuma mensagem ainda.</p>";return;}
-  const docs=snap.docs.map(d=>({id:d.id,...d.data()}));
-  docs.sort((a,b)=>(b.ultimaTs?.toMillis?.()||0)-(a.ultimaTs?.toMillis?.()||0));
-  let totalNaoLido=0; div.innerHTML="";
-  docs.forEach(d=>{
-    if(d.naoLidoAdmin) totalNaoLido++;
-    const ts=d.ultimaTs?new Date(d.ultimaTs.toDate()).toLocaleDateString("pt-PT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
-    const uid = d.uid||d.id;
-    div.innerHTML+=`<div class="user-card" style="cursor:pointer;"
+// ── VARIÁVEIS CHAT ─────────────────────────────────────────
+let chatAtualUid = null;
+let unsubConversa = null;
+let mediaParaEnviar = null; // { tipo: 'imagem'|'audio', base64, mimeType, nome }
+let mediaRecorder = null;
+let audioChunks = [];
+let gravando = false;
+
+// ── MÍDIA: selecionar foto ─────────────────────────────────
+window.selecionarFoto = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 800 * 1024) { // 800KB
+    alert("⚠️ Imagem muito grande. Escolhe uma com menos de 800KB.");
+    event.target.value = "";
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const base64 = e.target.result; // data:image/...;base64,...
+    mediaParaEnviar = { tipo: 'imagem', base64, nome: file.name };
+    mostrarPreview('imagem', base64, file.name);
+  };
+  reader.readAsDataURL(file);
+  event.target.value = "";
+}
+
+// ── MÍDIA: selecionar áudio ficheiro ──────────────────────
+window.selecionarAudio = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 500 * 1024) { // 500KB
+    alert("⚠️ Ficheiro de áudio muito grande. Escolhe um com menos de 500KB.");
+    event.target.value = "";
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const base64 = e.target.result;
+    mediaParaEnviar = { tipo: 'audio', base64, nome: file.name };
+    mostrarPreview('audio', base64, file.name);
+  };
+  reader.readAsDataURL(file);
+  event.target.value = "";
+}
+
+// ── MÍDIA: gravar áudio do microfone ──────────────────────
+window.toggleGravarAudio = async function() {
+  const btn = document.getElementById("btnGravarAudio");
+  if (!gravando) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+        if (blob.size > 500 * 1024) {
+          alert("⚠️ Gravação muito longa. Máximo ~30 segundos.");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+          const base64 = e.target.result;
+          mediaParaEnviar = { tipo: 'audio', base64, nome: 'gravacao.webm' };
+          mostrarPreview('audio', base64, 'Gravação de voz');
+        };
+        reader.readAsDataURL(blob);
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      gravando = true;
+      btn.classList.add('recording');
+      btn.innerHTML = '⏹️ Parar';
+    } catch (e) {
+      alert("Não foi possível aceder ao microfone.");
+    }
+  } else {
+    mediaRecorder.stop();
+    gravando = false;
+    btn.classList.remove('recording');
+    btn.innerHTML = '🎙️ Áudio';
+  }
+}
+
+function mostrarPreview(tipo, base64, nome) {
+  const preview = document.getElementById("mediaPreview");
+  const previewImg = document.getElementById("previewImg");
+  const previewAudio = document.getElementById("previewAudio");
+  const previewLabel = document.getElementById("previewLabel");
+  const previewIcon = document.getElementById("previewIcon");
+
+  previewImg.style.display = "none";
+  previewAudio.style.display = "none";
+
+  if (tipo === 'imagem') {
+    previewIcon.innerText = "🖼️";
+    previewLabel.innerText = nome;
+    previewImg.src = base64;
+    previewImg.style.display = "block";
+  } else {
+    previewIcon.innerText = "🎵";
+    previewLabel.innerText = nome;
+    previewAudio.src = base64;
+    previewAudio.style.display = "block";
+  }
+  preview.classList.add("show");
+}
+
+window.removerMidia = function() {
+  mediaParaEnviar = null;
+  document.getElementById("mediaPreview").classList.remove("show");
+  document.getElementById("previewImg").src = "";
+  document.getElementById("previewAudio").src = "";
+}
+
+// ── RENDERIZAR MENSAGEM ────────────────────────────────────
+function renderAdminMsg(data) {
+  const isProf = data.sender === "prof";
+  const cls = isProf ? "prof" : "aluno";
+  const ts = data.ts
+    ? new Date(data.ts.toDate()).toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })
+    : "";
+  const sender = isProf ? "👨‍🏫 Tu (Professor)" : `🎓 ${data.email || "Aluno"}`;
+
+  let conteudo = "";
+
+  if (data.tipo === "imagem" && data.base64) {
+    // Imagem: mostra a imagem, não um link
+    conteudo = `<img src="${data.base64}" alt="imagem" onclick="abrirImgModal('${data.base64.replace(/'/g,"\\'")}')">`;
+    if (data.texto) conteudo += `<div style="margin-top:6px;">${escaparHtml(data.texto)}</div>`;
+  } else if (data.tipo === "audio" && data.base64) {
+    // Áudio: player nativo
+    conteudo = `<audio controls src="${data.base64}"></audio>`;
+    if (data.texto) conteudo += `<div style="margin-top:6px;">${escaparHtml(data.texto)}</div>`;
+  } else {
+    // Texto normal — sem links
+    conteudo = escaparHtml(data.texto || "").replace(/\n/g, "<br>");
+  }
+
+  return `<div class="msg-bubble-wrap ${cls}">
+    <div class="msg-sender">${sender}</div>
+    <div class="msg-bubble ${cls}">${conteudo}</div>
+    <div class="msg-time">${ts}</div>
+  </div>`;
+}
+
+function escaparHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+window.abrirImgModal = function(src) {
+  document.getElementById("imgModalSrc").src = src;
+  document.getElementById("imgModal").classList.add("open");
+}
+
+// ── CARREGAR CHATS ─────────────────────────────────────────
+async function carregarChats() {
+  const div = document.getElementById("chatLista");
+  div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>A carregar...</p>";
+  const snap = await getDocs(collection(db, "chat"));
+  if (snap.empty) { div.innerHTML = "<p style='color:var(--muted);font-size:13px;'>Nenhuma mensagem ainda.</p>"; return; }
+  const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  docs.sort((a, b) => (b.ultimaTs?.toMillis?.() || 0) - (a.ultimaTs?.toMillis?.() || 0));
+  let totalNaoLido = 0; div.innerHTML = "";
+  docs.forEach(d => {
+    if (d.naoLidoAdmin) totalNaoLido++;
+    const ts = d.ultimaTs ? new Date(d.ultimaTs.toDate()).toLocaleDateString("pt-PT", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "—";
+    const uid = d.uid || d.id;
+    div.innerHTML += `<div class="user-card" style="cursor:pointer;"
       data-uid="${uid}"
-      data-email="${(d.email||"").replace(/"/g,"&quot;")}"
-      data-curso="${(d.curso||"").replace(/"/g,"&quot;")}"
-      data-tipo="${(d.tipo||"").replace(/"/g,"&quot;")}">
+      data-email="${(d.email || "").replace(/"/g, "&quot;")}"
+      data-curso="${(d.curso || "").replace(/"/g, "&quot;")}"
+      data-tipo="${(d.tipo || "").replace(/"/g, "&quot;")}">
       <div class="user-info">
-        <p class="email">${d.email||d.id} ${d.naoLidoAdmin?'<span style="color:#ef4444;font-size:11px;font-weight:700;">● Nova</span>':''}</p>
-        <p class="meta">${d.tipo||""} · ${d.curso||""}</p>
-        <p class="meta" style="margin-top:3px;">${d.ultimaMsg||""} · ${ts}</p>
+        <p class="email">${d.email || d.id} ${d.naoLidoAdmin ? '<span style="color:#ef4444;font-size:11px;font-weight:700;">● Nova</span>' : ''}</p>
+        <p class="meta">${d.tipo || ""} · ${d.curso || ""}</p>
+        <p class="meta" style="margin-top:3px;">${d.ultimaMsg || ""} · ${ts}</p>
       </div>
       <button class="btn-approve" style="pointer-events:none;">Abrir →</button>
     </div>`;
   });
-
-  // Adicionar listeners depois de renderizar
-  div.querySelectorAll(".user-card").forEach(card=>{
-    card.addEventListener("click",()=>{
-      abrirConversa(
-        card.dataset.uid,
-        card.dataset.email,
-        card.dataset.curso,
-        card.dataset.tipo
-      );
+  div.querySelectorAll(".user-card").forEach(card => {
+    card.addEventListener("click", () => {
+      abrirConversa(card.dataset.uid, card.dataset.email, card.dataset.curso, card.dataset.tipo);
     });
   });
-  const badge=document.getElementById("chatBadgeTab");
-  if(totalNaoLido>0){badge.style.display="inline";badge.innerText=totalNaoLido;}
-  else{badge.style.display="none";}
+  const badge = document.getElementById("chatBadgeTab");
+  if (totalNaoLido > 0) { badge.style.display = "inline"; badge.innerText = totalNaoLido; }
+  else { badge.style.display = "none"; }
 }
 
-window.abrirConversa=async function(uid,email,curso,tipo){
-  chatAtualUid=uid;
-  document.getElementById("chatLista").style.display="none";
-  document.getElementById("chatConversaWrap").style.display="block";
-  document.getElementById("conversaEmail").innerText=email;
-  document.getElementById("conversaInfo").innerText=`${tipo} · ${curso}`;
-  await setDoc(doc(db,"chat",uid),{naoLidoAdmin:false},{merge:true}).catch(()=>{});
-  if(unsubConversa)unsubConversa();
-  const q=query(collection(db,"chat",uid,"mensagens"),orderBy("ts","asc"));
-  unsubConversa=onSnapshot(q,snap=>{
-    const div=document.getElementById("conversaMsgs");
-    if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;text-align:center;padding:20px;'>Sem mensagens ainda.</p>";return;}
-    div.innerHTML=snap.docs.map(d=>renderAdminMsg(d.data())).join("");
-    div.scrollTop=div.scrollHeight;
+window.abrirConversa = async function(uid, email, curso, tipo) {
+  chatAtualUid = uid;
+  document.getElementById("chatLista").style.display = "none";
+  document.getElementById("chatConversaWrap").style.display = "block";
+  document.getElementById("conversaEmail").innerText = email;
+  document.getElementById("conversaInfo").innerText = `${tipo} · ${curso}`;
+  await setDoc(doc(db, "chat", uid), { naoLidoAdmin: false }, { merge: true }).catch(() => {});
+  if (unsubConversa) unsubConversa();
+  const q = query(collection(db, "chat", uid, "mensagens"), orderBy("ts", "asc"));
+  unsubConversa = onSnapshot(q, snap => {
+    const div = document.getElementById("conversaMsgs");
+    if (snap.empty) {
+      div.innerHTML = "<p style='color:var(--muted);font-size:13px;text-align:center;padding:20px;'>Sem mensagens ainda.</p>";
+      return;
+    }
+    div.innerHTML = snap.docs.map(d => renderAdminMsg(d.data())).join("");
+    div.scrollTop = div.scrollHeight;
   });
 }
 
-window.fecharConversa=function(){
-  if(unsubConversa){unsubConversa();unsubConversa=null;}
-  chatAtualUid=null;
-  document.getElementById("chatLista").style.display="block";
-  document.getElementById("chatConversaWrap").style.display="none";
+window.fecharConversa = function() {
+  if (unsubConversa) { unsubConversa(); unsubConversa = null; }
+  chatAtualUid = null;
+  removerMidia();
+  document.getElementById("adminInput").value = "";
+  document.getElementById("chatLista").style.display = "block";
+  document.getElementById("chatConversaWrap").style.display = "none";
   carregarChats();
 }
 
-function renderAdminMsg(data){
-  const isProf=data.sender==="prof";
-  const ts=data.ts?new Date(data.ts.toDate()).toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"}):"";
-  const sender=isProf?"👨‍🏫 Tu (Professor)":`🎓 ${data.email||"Aluno"}`;
-  const html=`<div style="padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;background:${isProf?"rgba(0,255,136,0.12)":"rgba(59,130,246,0.12)"};border:1px solid ${isProf?"rgba(0,255,136,0.25)":"rgba(59,130,246,0.2)"};color:var(--text);">${(data.texto||"").replace(/\n/g,"<br>")}</div>`;
-  return `<div style="display:flex;flex-direction:column;gap:3px;max-width:85%;align-self:${isProf?"flex-end":"flex-start"};align-items:${isProf?"flex-end":"flex-start"};">
-    <div style="font-size:10px;color:var(--muted);padding:0 4px;">${sender}</div>
-    ${html}
-    <div style="font-size:10px;color:var(--muted);padding:0 4px;">${ts}</div>
-  </div>`;
+// ── ENVIAR RESPOSTA DO ADMIN ───────────────────────────────
+window.enviarRespostaAdmin = async function() {
+  if (!chatAtualUid) return;
+  const texto = document.getElementById("adminInput").value.trim();
+  const temMedia = !!mediaParaEnviar;
+  if (!texto && !temMedia) return;
+
+  document.getElementById("adminInput").value = "";
+
+  const dadosMsg = {
+    sender: "prof",
+    ts: serverTimestamp(),
+    lidoAdmin: true,
+    lidoAluno: false
+  };
+
+  const dadosChat = {
+    ultimaTs: serverTimestamp(),
+    naoLidoAluno: true
+  };
+
+  if (temMedia) {
+    dadosMsg.tipo = mediaParaEnviar.tipo;
+    dadosMsg.base64 = mediaParaEnviar.base64;
+    dadosMsg.texto = texto || "";
+    dadosChat.ultimaMsg = mediaParaEnviar.tipo === 'imagem' ? "📷 Imagem" : "🎵 Áudio";
+    removerMidia();
+  } else {
+    dadosMsg.tipo = "texto";
+    dadosMsg.texto = texto;
+    dadosChat.ultimaMsg = texto.length > 50 ? texto.slice(0, 50) + "…" : texto;
+  }
+
+  await setDoc(doc(db, "chat", chatAtualUid), dadosChat, { merge: true });
+  await addDoc(collection(db, "chat", chatAtualUid, "mensagens"), dadosMsg);
 }
 
-
-window.enviarRespostaAdmin=async function(){
-  if(!chatAtualUid)return;
-  const texto=document.getElementById("adminInput").value.trim();
-  if(!texto)return;
-  document.getElementById("adminInput").value="";
-  await setDoc(doc(db,"chat",chatAtualUid),{
-    ultimaMsg:texto,ultimaTs:serverTimestamp(),naoLidoAluno:true
-  },{merge:true});
-  await addDoc(collection(db,"chat",chatAtualUid,"mensagens"),{
-    sender:"prof",tipo:"texto",texto,
-    ts:serverTimestamp(),lidoAdmin:true,lidoAluno:false
-  });
-}
-
-function iniciarBadgeChat(){
-  onSnapshot(collection(db,"chat"),snap=>{
-    const total=snap.docs.filter(d=>d.data().naoLidoAdmin).length;
-    const badge=document.getElementById("chatBadgeTab");
-    if(total>0){badge.style.display="inline";badge.innerText=total;}else{badge.style.display="none";}
+function iniciarBadgeChat() {
+  onSnapshot(collection(db, "chat"), snap => {
+    const total = snap.docs.filter(d => d.data().naoLidoAdmin).length;
+    const badge = document.getElementById("chatBadgeTab");
+    if (total > 0) { badge.style.display = "inline"; badge.innerText = total; }
+    else { badge.style.display = "none"; }
   });
 }
 
@@ -430,7 +831,6 @@ const LOCKOUT_KEY  = "delta_admin_lockout";
 const ATTEMPTS_KEY = "delta_admin_attempts";
 const ADMIN_EMAIL  = "preparatoriovirtualcomdelta1@gmail.com";
 
-// Duração em dias → milissegundos
 const DUR_MS = {
   "30":  30  * 24*60*60*1000,
   "90":  90  * 24*60*60*1000,
@@ -441,7 +841,6 @@ const DUR_LABELS = {
   "30":"1 Mês (30 dias)","90":"3 Meses (90 dias)",
   "180":"6 Meses (180 dias)","365":"1 Ano (365 dias)"
 };
-// Fallback se não tiver duração guardada
 const DIAS_DEFAULT = 30*24*60*60*1000;
 
 const UNIVERSIDADES = ["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC","OUTRA"];
@@ -666,7 +1065,7 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-// ─── PAINEL ───────────────────────────────────────────────
+// ─── PAINEL TABS ──────────────────────────────────────────
 window.mostrarTab = function(tab, event){
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
   event.target.classList.add("active");
@@ -676,7 +1075,7 @@ window.mostrarTab = function(tab, event){
   if(tab==="chat") carregarChats();
 }
 
-// Secções por tipo de curso
+// ─── SECÇÕES POR TIPO ─────────────────────────────────────
 const SECCOES_POR_TIPO = {
   universitario: [
     {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:true,  hasUni:true},
@@ -712,27 +1111,21 @@ const SECCOES_POR_TIPO = {
     {v:"resolucao_dorsais",l:"✅ Resolução de Provas Dorsais",hasDis:false, hasUni:false}
   ]
 };
-
 const DISC_POR_TIPO = {
-  universitario: null, // usa DISCIPLINAS_UNI com uni
+  universitario: null,
   ensino_medio:  ["Matemática","Biologia","Química","Física","Língua Portuguesa"],
 };
 
-// Atualiza secções ao escolher tipo de curso
 window.atualizarCampos = function(){
   const tipoCurso = document.getElementById("tipoCurso").value;
   const seccaoEl  = document.getElementById("seccao");
   const sub1      = document.getElementById("sub1");
   const sub2      = document.getElementById("sub2");
-
-  // Reset
   seccaoEl.innerHTML = `<option value="">— Seleciona a secção —</option>`;
   sub1.innerHTML     = `<option value="">— Seleciona secção primeiro —</option>`;
   sub2.innerHTML     = `<option value="">— Seleciona primeiro —</option>`;
   sub2.style.display = "none";
-
   if(!tipoCurso) return;
-
   const seccoes = SECCOES_POR_TIPO[tipoCurso] || [];
   seccoes.forEach(s => seccaoEl.innerHTML += `<option value="${s.v}">${s.l}</option>`);
 }
@@ -744,32 +1137,25 @@ window.atualizarSeccao = function(){
   const sub2      = document.getElementById("sub2");
   const tipo      = document.getElementById("tipo");
   const help      = document.getElementById("urlHelp");
-
   sub1.innerHTML = ""; sub2.innerHTML = `<option value="">— Seleciona primeiro —</option>`; sub2.style.display="none";
   if(!seccao){ sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`; return; }
-
   const seccoes   = SECCOES_POR_TIPO[tipoCurso] || [];
   const seccaoObj = seccoes.find(s=>s.v===seccao);
   if(!seccaoObj){ return; }
-
   if(seccaoObj.hasUni && tipoCurso==="universitario"){
-    // Universitário com uni: sub1=uni, sub2=disciplina (se hasDis)
     sub1.innerHTML=`<option value="">Seleciona universidade</option>`;
     UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);
     if(seccaoObj.hasDis){ sub2.style.display="block"; }
     tipo.value = seccao==="video_aulas"?"bunny":"pdf";
   } else if(seccaoObj.hasDis && tipoCurso==="ensino_medio"){
-    // Ensino médio com disciplinas: sub1=disciplina
     sub1.innerHTML=`<option value="">Seleciona disciplina</option>`;
     const discs = DISC_POR_TIPO[tipoCurso] || [];
     discs.forEach(d=>sub1.innerHTML+=`<option value="${d}">${d}</option>`);
     tipo.value = seccao==="video_aulas"?"bunny":"pdf";
   } else {
-    // Sem sub
     sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;
     tipo.value = seccao==="video_aulas"?"bunny":"pdf";
   }
-
   if(seccao==="materiais"||seccao==="provas"||seccao==="cronograma"){
     tipo.value="pdf";
     help.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";
@@ -817,47 +1203,33 @@ window.adicionarAula = async function(){
   const tipo      = document.getElementById("tipo").value;
   const urlRaw    = document.getElementById("url").value.trim();
   const msg       = document.getElementById("msgAula"); msg.className="msg";
-
   if(!tipoCurso||!seccao||!titulo||!urlRaw){
     msg.className="msg error"; msg.innerText="Preenche todos os campos obrigatórios."; return;
   }
   if(tipo==="bunny"&&!urlRaw.includes("mediadelivery.net")){
     msg.className="msg error"; msg.innerText="⚠️ Link inválido para Bunny Stream."; return;
   }
-
-  // Construir chave sub
   let sub = null;
   const seccoes   = SECCOES_POR_TIPO[tipoCurso]||[];
   const seccaoObj = seccoes.find(s=>s.v===seccao);
-
   if(seccaoObj && seccaoObj.hasUni && tipoCurso==="universitario"){
     if(seccaoObj.hasDis){
-      // universitario|UNI|DISC
       if(!sub1||!sub2){ msg.className="msg error"; msg.innerText="Seleciona a universidade e a disciplina."; return; }
       sub = `${tipoCurso}|${sub1}|${sub2}`;
     } else {
-      // universitario|UNI (provas/resolucao)
       if(!sub1){ msg.className="msg error"; msg.innerText="Seleciona a universidade."; return; }
-      sub = sub1; // mantém compatibilidade com código anterior
+      sub = sub1;
     }
   } else if(seccaoObj && seccaoObj.hasDis){
-    // TIPO|DISC (ensino médio)
     if(!sub1){ msg.className="msg error"; msg.innerText="Seleciona a disciplina."; return; }
     sub = `${tipoCurso}|${sub1}`;
   } else {
-    // Sem sub — usa sempre o tipo como sub para garantir isolamento
     sub = tipoCurso;
   }
-
   try{
     await addDoc(collection(db,"aulas"),{
-      tipo_curso: tipoCurso,
-      seccao,
-      sub,
-      titulo,
-      tipo,
-      url: formatarURL(urlRaw,tipo),
-      createdAt: Date.now()
+      tipo_curso: tipoCurso, seccao, sub, titulo, tipo,
+      url: formatarURL(urlRaw,tipo), createdAt: Date.now()
     });
     msg.className="msg success"; msg.innerText="✅ Conteúdo adicionado com sucesso!";
     document.getElementById("titulo").value=""; document.getElementById("url").value="";
@@ -877,10 +1249,7 @@ async function carregarAulas(){
     const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";
     const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";
     let sub="—";
-    if(data.sub){
-      const partes=data.sub.split("|");
-      sub=partes.length>1?partes.slice(1).join(" › "):partes[0];
-    }
+    if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}
     div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📁"} ${data.titulo}</p><p class="meta">[${tipoLabel}] ${sec} › ${sub} · ${data.tipo==="bunny"?"Bunny 🔒":data.tipo}</p></div><button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button></div>`;
   });
 }
@@ -904,17 +1273,13 @@ async function carregarUsers(){
   snap.forEach(u=>{
     const d=u.data();
     const uniLabel=d.uni?`${d.uni}${NOMES_UNI[d.uni]?' — '+NOMES_UNI[d.uni]:''}` :"—";
-
-    // ── Duração e preço escolhidos pelo candidato ──
     const duracaoLabel = d.duracao ? (DUR_LABELS[d.duracao] || d.duracao+" dias") : null;
     const precoLabel   = d.preco   ? parseInt(d.preco).toLocaleString("pt-AO")+" KZ" : null;
-
     let expiryTs = d.expiryDate || (d.approvedAt ? d.approvedAt + (DUR_MS[d.duracao] || DIAS_DEFAULT) : null);
     let expiryHtml="";
     let statusBadge = d.approved
       ? `<span class="badge approved">APROVADO</span>`
       : `<span class="badge pending">PENDENTE</span>`;
-
     if(d.approved && expiryTs){
       const dias=Math.ceil((expiryTs-agora)/(1000*60*60*24));
       const ds=new Date(expiryTs).toLocaleDateString('pt-PT');
@@ -922,19 +1287,14 @@ async function carregarUsers(){
       else if(dias<=7){expiryHtml=`<span class="expiry-warning">⏳ Expira em ${dias} dia${dias!==1?'s':''} (${ds})</span>`;}
       else{expiryHtml=`<span style="font-size:11px;color:var(--muted);">⏳ Expira: ${ds}</span>`;}
     }
-
-    // Tags de duração e preço (só para pendentes — útil para o admin saber o que aprovar)
     const durTagHtml   = duracaoLabel ? `<span class="dur-tag">📅 ${duracaoLabel}</span>` : "";
     const precoTagHtml = precoLabel   ? `<span class="preco-tag">💰 ${precoLabel}</span>` : "";
-
     div.innerHTML+=`<div class="user-card" id="card-${u.id}">
       <div class="user-info">
         <p class="email">${d.email}</p>
         <p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p>
-        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">
-          ${statusBadge}${expiryHtml}
-        </div>
-        ${(durTagHtml || precoTagHtml) ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>` : ""}
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">${statusBadge}${expiryHtml}</div>
+        ${(durTagHtml||precoTagHtml)?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>`:""}
       </div>
       <div class="user-actions">
         ${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""}
@@ -959,13 +1319,11 @@ async function verificarExpirados(){
   carregarUsers();
 }
 
-// ── APROVAR: usa a duração escolhida pelo candidato ──
 window.aprovar = async function(id){
   const snap = await getDoc(doc(db,"users",id));
   if(!snap.exists()) return;
   const d = snap.data();
   const approvedAt = Date.now();
-  // Calcula expiração com base na duração escolhida pelo candidato
   const duracaoMs  = DUR_MS[d.duracao] || DIAS_DEFAULT;
   const expiryDate = approvedAt + duracaoMs;
   await updateDoc(doc(db,"users",id),{approved:true, approvedAt, expiryDate});
