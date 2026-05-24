@@ -111,6 +111,7 @@ button:hover{transform:translateY(-1px);}
 .tab.active{background:rgba(0,255,136,0.15);border-color:rgba(0,255,136,0.3);color:var(--accent);}
 .expiry-warning{color:#fbbf24;font-size:11px;}
 .expiry-expired{color:#f87171;font-size:11px;}
+#conversaMsgs{display:flex;flex-direction:column;gap:12px;}
 
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:1000;display:none;justify-content:center;align-items:center;padding:20px;}
 .modal-overlay.open{display:flex;}
@@ -186,13 +187,18 @@ button:hover{transform:translateY(-1px);}
 
   <div class="section">
     <h3>Adicionar Conteúdo</h3>
-    <select id="seccao" onchange="atualizarCampos()">
-      <option value="">Seleciona a secção</option>
-      <option value="video_aulas">🎥 Vídeo Aulas</option>
-      <option value="materiais">📚 Materiais de Apoio</option>
-      <option value="cronograma">📅 Cronograma de Estudo</option>
-      <option value="provas">📝 Provas Passadas</option>
-      <option value="resolucao">✅ Resolução de Provas</option>
+    <select id="tipoCurso" onchange="atualizarCampos()">
+      <option value="">Seleciona o tipo de curso</option>
+      <option value="universitario">🎓 Preparatório Universitário</option>
+      <option value="ensino_medio">📚 Preparatório Ensino Médio</option>
+      <option value="mat_basica">📐 Matemática Básica</option>
+      <option value="fis_basica">⚡ Física Básica</option>
+      <option value="medicamentos">💊 Cálculos de Medicamentos e Gotejamento</option>
+      <option value="primeiros">🩺 Primeiros Socorros</option>
+      <option value="minsa">🏥 Preparatório MINSA</option>
+    </select>
+    <select id="seccao" onchange="atualizarSeccao()">
+      <option value="">— Seleciona o tipo de curso primeiro —</option>
     </select>
     <select id="sub1" onchange="atualizarSub2()">
       <option value="">— Seleciona secção primeiro —</option>
@@ -223,6 +229,7 @@ button:hover{transform:translateY(-1px);}
   <div class="tabs">
     <button class="tab active" onclick="mostrarTab('aulas',event)">📁 Conteúdos Publicados</button>
     <button class="tab" onclick="mostrarTab('users',event)">👥 Utilizadores</button>
+    <button class="tab" onclick="mostrarTab('chat',event)">💬 Mensagens <span id="chatBadgeTab" style="display:none;background:#ef4444;color:white;border-radius:10px;padding:1px 6px;font-size:10px;margin-left:4px;"></span></button>
   </div>
   <div id="tabAulas">
     <div class="section">
@@ -234,6 +241,32 @@ button:hover{transform:translateY(-1px);}
     <div class="section">
       <h3>Utilizadores</h3>
       <div id="users"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
+    </div>
+  </div>
+  <div id="tabChat" style="display:none;">
+    <div class="section">
+      <h3>Mensagens dos Alunos</h3>
+      <div id="chatLista"><p style="color:var(--muted);font-size:13px;">A carregar...</p></div>
+    </div>
+    <!-- Janela de conversa -->
+    <div class="section" id="chatConversaWrap" style="display:none;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <button class="btn-cancel" style="padding:6px 14px;font-size:12px;" onclick="fecharConversa()">← Voltar</button>
+        <div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;" id="conversaEmail"></div>
+          <div style="font-size:11px;color:var(--muted);" id="conversaInfo"></div>
+        </div>
+      </div>
+      <div id="conversaMsgs" style="display:flex;flex-direction:column;gap:12px;max-height:400px;overflow-y:auto;padding:8px 0;margin-bottom:16px;"></div>
+      <!-- Input resposta -->
+      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;">
+        <div style="display:flex;gap:8px;align-items:flex-end;">
+          <textarea id="adminInput" placeholder="Escreve a resposta..." rows="2"
+            style="flex:1;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif;padding:10px 14px;resize:none;outline:none;transition:0.2s;"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();enviarRespostaAdmin();}"></textarea>
+          <button class="btn-green" style="padding:8px 16px;" onclick="enviarRespostaAdmin()">Enviar ➤</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -265,8 +298,9 @@ button:hover{transform:translateY(-1px);}
 import { initializeApp }      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                                from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, addDoc, deleteDoc, getDoc }
+import { getFirestore, collection, getDocs, doc, updateDoc, addDoc, deleteDoc, getDoc, onSnapshot, orderBy, query, serverTimestamp, setDoc }
                                from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
@@ -280,6 +314,110 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
+// ── VARIÁVEIS CHAT ────────────────────────────────────────
+let chatAtualUid=null,unsubConversa=null;
+
+async function carregarChats(){
+  const div=document.getElementById("chatLista");
+  div.innerHTML="<p style='color:var(--muted);font-size:13px;'>A carregar...</p>";
+  const snap=await getDocs(collection(db,"chat"));
+  if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhuma mensagem ainda.</p>";return;}
+  const docs=snap.docs.map(d=>({id:d.id,...d.data()}));
+  docs.sort((a,b)=>(b.ultimaTs?.toMillis?.()||0)-(a.ultimaTs?.toMillis?.()||0));
+  let totalNaoLido=0; div.innerHTML="";
+  docs.forEach(d=>{
+    if(d.naoLidoAdmin) totalNaoLido++;
+    const ts=d.ultimaTs?new Date(d.ultimaTs.toDate()).toLocaleDateString("pt-PT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
+    const uid = d.uid||d.id;
+    div.innerHTML+=`<div class="user-card" style="cursor:pointer;"
+      data-uid="${uid}"
+      data-email="${(d.email||"").replace(/"/g,"&quot;")}"
+      data-curso="${(d.curso||"").replace(/"/g,"&quot;")}"
+      data-tipo="${(d.tipo||"").replace(/"/g,"&quot;")}">
+      <div class="user-info">
+        <p class="email">${d.email||d.id} ${d.naoLidoAdmin?'<span style="color:#ef4444;font-size:11px;font-weight:700;">● Nova</span>':''}</p>
+        <p class="meta">${d.tipo||""} · ${d.curso||""}</p>
+        <p class="meta" style="margin-top:3px;">${d.ultimaMsg||""} · ${ts}</p>
+      </div>
+      <button class="btn-approve" style="pointer-events:none;">Abrir →</button>
+    </div>`;
+  });
+
+  // Adicionar listeners depois de renderizar
+  div.querySelectorAll(".user-card").forEach(card=>{
+    card.addEventListener("click",()=>{
+      abrirConversa(
+        card.dataset.uid,
+        card.dataset.email,
+        card.dataset.curso,
+        card.dataset.tipo
+      );
+    });
+  });
+  const badge=document.getElementById("chatBadgeTab");
+  if(totalNaoLido>0){badge.style.display="inline";badge.innerText=totalNaoLido;}
+  else{badge.style.display="none";}
+}
+
+window.abrirConversa=async function(uid,email,curso,tipo){
+  chatAtualUid=uid;
+  document.getElementById("chatLista").style.display="none";
+  document.getElementById("chatConversaWrap").style.display="block";
+  document.getElementById("conversaEmail").innerText=email;
+  document.getElementById("conversaInfo").innerText=`${tipo} · ${curso}`;
+  await setDoc(doc(db,"chat",uid),{naoLidoAdmin:false},{merge:true}).catch(()=>{});
+  if(unsubConversa)unsubConversa();
+  const q=query(collection(db,"chat",uid,"mensagens"),orderBy("ts","asc"));
+  unsubConversa=onSnapshot(q,snap=>{
+    const div=document.getElementById("conversaMsgs");
+    if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;text-align:center;padding:20px;'>Sem mensagens ainda.</p>";return;}
+    div.innerHTML=snap.docs.map(d=>renderAdminMsg(d.data())).join("");
+    div.scrollTop=div.scrollHeight;
+  });
+}
+
+window.fecharConversa=function(){
+  if(unsubConversa){unsubConversa();unsubConversa=null;}
+  chatAtualUid=null;
+  document.getElementById("chatLista").style.display="block";
+  document.getElementById("chatConversaWrap").style.display="none";
+  carregarChats();
+}
+
+function renderAdminMsg(data){
+  const isProf=data.sender==="prof";
+  const ts=data.ts?new Date(data.ts.toDate()).toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"}):"";
+  const sender=isProf?"👨‍🏫 Tu (Professor)":`🎓 ${data.email||"Aluno"}`;
+  const html=`<div style="padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;background:${isProf?"rgba(0,255,136,0.12)":"rgba(59,130,246,0.12)"};border:1px solid ${isProf?"rgba(0,255,136,0.25)":"rgba(59,130,246,0.2)"};color:var(--text);">${(data.texto||"").replace(/\n/g,"<br>")}</div>`;
+  return `<div style="display:flex;flex-direction:column;gap:3px;max-width:85%;align-self:${isProf?"flex-end":"flex-start"};align-items:${isProf?"flex-end":"flex-start"};">
+    <div style="font-size:10px;color:var(--muted);padding:0 4px;">${sender}</div>
+    ${html}
+    <div style="font-size:10px;color:var(--muted);padding:0 4px;">${ts}</div>
+  </div>`;
+}
+
+
+window.enviarRespostaAdmin=async function(){
+  if(!chatAtualUid)return;
+  const texto=document.getElementById("adminInput").value.trim();
+  if(!texto)return;
+  document.getElementById("adminInput").value="";
+  await setDoc(doc(db,"chat",chatAtualUid),{
+    ultimaMsg:texto,ultimaTs:serverTimestamp(),naoLidoAluno:true
+  },{merge:true});
+  await addDoc(collection(db,"chat",chatAtualUid,"mensagens"),{
+    sender:"prof",tipo:"texto",texto,
+    ts:serverTimestamp(),lidoAdmin:true,lidoAluno:false
+  });
+}
+
+function iniciarBadgeChat(){
+  onSnapshot(collection(db,"chat"),snap=>{
+    const total=snap.docs.filter(d=>d.data().naoLidoAdmin).length;
+    const badge=document.getElementById("chatBadgeTab");
+    if(total>0){badge.style.display="inline";badge.innerText=total;}else{badge.style.display="none";}
+  });
+}
 
 // ─── CONSTANTES ───────────────────────────────────────────
 const SENHA_HASH   = "e12afa1c4ac73ca1954164f1e40498336c4cd8b2d761af0158bb8d239c1049f6";
@@ -477,7 +615,7 @@ window.verificarCamada2 = async function() {
     document.getElementById("painel").style.display = "block";
     document.getElementById("bunnyInfo").style.display = "block";
     iniciarTimerSessao();
-    carregarAulas(); carregarUsers(); verificarExpirados();
+    carregarAulas(); carregarUsers(); verificarExpirados(); iniciarBadgeChat();
   } catch(e) {
     let msg = "Email ou senha incorretos.";
     if (e.code === "auth/too-many-requests") msg = "Conta bloqueada temporariamente pelo Firebase. Tenta mais tarde.";
@@ -517,7 +655,7 @@ window.addEventListener("load", () => {
       document.getElementById("painel").style.display = "block";
       document.getElementById("bunnyInfo").style.display = "block";
       iniciarTimerSessao();
-      carregarAulas(); carregarUsers(); verificarExpirados();
+      carregarAulas(); carregarUsers(); verificarExpirados(); iniciarBadgeChat();
     }
   });
 });
@@ -534,40 +672,120 @@ window.mostrarTab = function(tab, event){
   event.target.classList.add("active");
   document.getElementById("tabAulas").style.display = tab==="aulas"?"block":"none";
   document.getElementById("tabUsers").style.display  = tab==="users"?"block":"none";
+  document.getElementById("tabChat").style.display   = tab==="chat"?"block":"none";
+  if(tab==="chat") carregarChats();
 }
 
+// Secções por tipo de curso
+const SECCOES_POR_TIPO = {
+  universitario: [
+    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:true,  hasUni:true},
+    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:true,  hasUni:true},
+    {v:"cronograma", l:"📅 Cronograma",         hasDis:false, hasUni:false},
+    {v:"provas",     l:"📝 Provas Passadas",    hasDis:false, hasUni:true},
+    {v:"resolucao",  l:"✅ Resolução de Provas",hasDis:false, hasUni:true}
+  ],
+  ensino_medio: [
+    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:true,  hasUni:false},
+    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:true,  hasUni:false}
+  ],
+  mat_basica: [
+    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
+    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
+  ],
+  fis_basica: [
+    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
+    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
+  ],
+  medicamentos: [
+    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
+    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
+  ],
+  primeiros: [
+    {v:"video_aulas",l:"🎥 Vídeo Aulas",       hasDis:false, hasUni:false},
+    {v:"materiais",  l:"📚 Materiais de Apoio", hasDis:false, hasUni:false}
+  ],
+  minsa: [
+    {v:"video_aulas",      l:"🎥 Vídeo Aulas",               hasDis:false, hasUni:false},
+    {v:"materiais",        l:"📚 Materiais de Apoio",         hasDis:false, hasUni:false},
+    {v:"provas_dorsais",   l:"📝 Provas Dorsais",             hasDis:false, hasUni:false},
+    {v:"resolucao_dorsais",l:"✅ Resolução de Provas Dorsais",hasDis:false, hasUni:false}
+  ]
+};
+
+const DISC_POR_TIPO = {
+  universitario: null, // usa DISCIPLINAS_UNI com uni
+  ensino_medio:  ["Matemática","Biologia","Química","Física","Língua Portuguesa"],
+};
+
+// Atualiza secções ao escolher tipo de curso
 window.atualizarCampos = function(){
-  const seccao=document.getElementById("seccao").value;
-  const sub1=document.getElementById("sub1");
-  const sub2=document.getElementById("sub2");
-  const tipo=document.getElementById("tipo");
-  const help=document.getElementById("urlHelp");
-  sub1.innerHTML=""; sub2.innerHTML=`<option value="">— Seleciona universidade primeiro —</option>`; sub2.style.display="none";
-  if(!seccao){sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;return;}
-  if(seccao==="video_aulas"||seccao==="materiais"){
+  const tipoCurso = document.getElementById("tipoCurso").value;
+  const seccaoEl  = document.getElementById("seccao");
+  const sub1      = document.getElementById("sub1");
+  const sub2      = document.getElementById("sub2");
+
+  // Reset
+  seccaoEl.innerHTML = `<option value="">— Seleciona a secção —</option>`;
+  sub1.innerHTML     = `<option value="">— Seleciona secção primeiro —</option>`;
+  sub2.innerHTML     = `<option value="">— Seleciona primeiro —</option>`;
+  sub2.style.display = "none";
+
+  if(!tipoCurso) return;
+
+  const seccoes = SECCOES_POR_TIPO[tipoCurso] || [];
+  seccoes.forEach(s => seccaoEl.innerHTML += `<option value="${s.v}">${s.l}</option>`);
+}
+
+window.atualizarSeccao = function(){
+  const tipoCurso = document.getElementById("tipoCurso").value;
+  const seccao    = document.getElementById("seccao").value;
+  const sub1      = document.getElementById("sub1");
+  const sub2      = document.getElementById("sub2");
+  const tipo      = document.getElementById("tipo");
+  const help      = document.getElementById("urlHelp");
+
+  sub1.innerHTML = ""; sub2.innerHTML = `<option value="">— Seleciona primeiro —</option>`; sub2.style.display="none";
+  if(!seccao){ sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`; return; }
+
+  const seccoes   = SECCOES_POR_TIPO[tipoCurso] || [];
+  const seccaoObj = seccoes.find(s=>s.v===seccao);
+  if(!seccaoObj){ return; }
+
+  if(seccaoObj.hasUni && tipoCurso==="universitario"){
+    // Universitário com uni: sub1=uni, sub2=disciplina (se hasDis)
     sub1.innerHTML=`<option value="">Seleciona universidade</option>`;
     UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);
-    sub2.style.display="block"; tipo.value=seccao==="video_aulas"?"bunny":"pdf"; atualizarTipo();
-    if(seccao==="materiais")help.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";
-  }else if(seccao==="provas"||seccao==="resolucao"){
-    sub1.innerHTML=`<option value="">Seleciona universidade</option>`;
-    UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);
-    tipo.value=seccao==="resolucao"?"bunny":"pdf"; atualizarTipo();
-    if(seccao==="provas")help.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";
-  }else if(seccao==="cronograma"){
+    if(seccaoObj.hasDis){ sub2.style.display="block"; }
+    tipo.value = seccao==="video_aulas"?"bunny":"pdf";
+  } else if(seccaoObj.hasDis && tipoCurso==="ensino_medio"){
+    // Ensino médio com disciplinas: sub1=disciplina
+    sub1.innerHTML=`<option value="">Seleciona disciplina</option>`;
+    const discs = DISC_POR_TIPO[tipoCurso] || [];
+    discs.forEach(d=>sub1.innerHTML+=`<option value="${d}">${d}</option>`);
+    tipo.value = seccao==="video_aulas"?"bunny":"pdf";
+  } else {
+    // Sem sub
     sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;
-    tipo.value="pdf"; atualizarTipo();
-    help.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";
+    tipo.value = seccao==="video_aulas"?"bunny":"pdf";
   }
+
+  if(seccao==="materiais"||seccao==="provas"||seccao==="cronograma"){
+    tipo.value="pdf";
+    help.innerText="💡 Google Drive: faz upload → Partilhar → troca /view por /preview";
+  } else { help.innerText=""; }
+  atualizarTipo();
 }
 
 window.atualizarSub2 = function(){
+  const tipoCurso = document.getElementById("tipoCurso").value;
+  if(tipoCurso !== "universitario") return;
   const seccao=document.getElementById("seccao").value;
-  if(seccao!=="video_aulas"&&seccao!=="materiais")return;
+  if(seccao!=="video_aulas"&&seccao!=="materiais") return;
   const uni=document.getElementById("sub1").value;
   const sub2=document.getElementById("sub2");
   sub2.innerHTML=`<option value="">Seleciona disciplina</option>`;
-  if(!uni)return;
+  if(!uni) return;
   (DISCIPLINAS_UNI[uni]||[]).forEach(d=>sub2.innerHTML+=`<option value="${d}">${d}</option>`);
 }
 
@@ -591,23 +809,60 @@ function formatarURL(url,tipo){
 }
 
 window.adicionarAula = async function(){
-  const seccao=document.getElementById("seccao").value;
-  const sub1=document.getElementById("sub1").value;
-  const sub2=document.getElementById("sub2").value;
-  const titulo=document.getElementById("titulo").value.trim();
-  const tipo=document.getElementById("tipo").value;
-  const urlRaw=document.getElementById("url").value.trim();
-  const msg=document.getElementById("msgAula"); msg.className="msg";
-  if(!seccao||!titulo||!urlRaw){msg.className="msg error";msg.innerText="Preenche todos os campos obrigatórios.";return;}
-  if(tipo==="bunny"&&!urlRaw.includes("mediadelivery.net")){msg.className="msg error";msg.innerText="⚠️ Link inválido para Bunny Stream.";return;}
-  let sub=null;
-  if(seccao==="video_aulas"||seccao==="materiais"){if(!sub1||!sub2){msg.className="msg error";msg.innerText="Seleciona a universidade e a disciplina.";return;}sub=`${sub1}|${sub2}`;}else{sub=sub1||null;}
+  const tipoCurso = document.getElementById("tipoCurso").value;
+  const seccao    = document.getElementById("seccao").value;
+  const sub1      = document.getElementById("sub1").value;
+  const sub2      = document.getElementById("sub2").value;
+  const titulo    = document.getElementById("titulo").value.trim();
+  const tipo      = document.getElementById("tipo").value;
+  const urlRaw    = document.getElementById("url").value.trim();
+  const msg       = document.getElementById("msgAula"); msg.className="msg";
+
+  if(!tipoCurso||!seccao||!titulo||!urlRaw){
+    msg.className="msg error"; msg.innerText="Preenche todos os campos obrigatórios."; return;
+  }
+  if(tipo==="bunny"&&!urlRaw.includes("mediadelivery.net")){
+    msg.className="msg error"; msg.innerText="⚠️ Link inválido para Bunny Stream."; return;
+  }
+
+  // Construir chave sub
+  let sub = null;
+  const seccoes   = SECCOES_POR_TIPO[tipoCurso]||[];
+  const seccaoObj = seccoes.find(s=>s.v===seccao);
+
+  if(seccaoObj && seccaoObj.hasUni && tipoCurso==="universitario"){
+    if(seccaoObj.hasDis){
+      // universitario|UNI|DISC
+      if(!sub1||!sub2){ msg.className="msg error"; msg.innerText="Seleciona a universidade e a disciplina."; return; }
+      sub = `${tipoCurso}|${sub1}|${sub2}`;
+    } else {
+      // universitario|UNI (provas/resolucao)
+      if(!sub1){ msg.className="msg error"; msg.innerText="Seleciona a universidade."; return; }
+      sub = sub1; // mantém compatibilidade com código anterior
+    }
+  } else if(seccaoObj && seccaoObj.hasDis){
+    // TIPO|DISC (ensino médio)
+    if(!sub1){ msg.className="msg error"; msg.innerText="Seleciona a disciplina."; return; }
+    sub = `${tipoCurso}|${sub1}`;
+  } else {
+    // Sem sub — usa sempre o tipo como sub para garantir isolamento
+    sub = tipoCurso;
+  }
+
   try{
-    await addDoc(collection(db,"aulas"),{seccao,sub,titulo,tipo,url:formatarURL(urlRaw,tipo),createdAt:Date.now()});
-    msg.className="msg success";msg.innerText="✅ Conteúdo adicionado com sucesso!";
-    document.getElementById("titulo").value="";document.getElementById("url").value="";
+    await addDoc(collection(db,"aulas"),{
+      tipo_curso: tipoCurso,
+      seccao,
+      sub,
+      titulo,
+      tipo,
+      url: formatarURL(urlRaw,tipo),
+      createdAt: Date.now()
+    });
+    msg.className="msg success"; msg.innerText="✅ Conteúdo adicionado com sucesso!";
+    document.getElementById("titulo").value=""; document.getElementById("url").value="";
     carregarAulas();
-  }catch(e){msg.className="msg error";msg.innerText="Erro: "+e.message;}
+  }catch(e){ msg.className="msg error"; msg.innerText="Erro: "+e.message; }
 }
 
 async function carregarAulas(){
@@ -616,12 +871,17 @@ async function carregarAulas(){
   if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum conteúdo publicado ainda.</p>";return;}
   div.innerHTML="";
   const ic={video:"🎥",bunny:"🐰",pdf:"📄",imagem:"🖼"};
+  const TIPO_LABELS={universitario:"Univ.",ensino_medio:"Ens.Médio",mat_basica:"Mat.Básica",fis_basica:"Fís.Básica",medicamentos:"Medicamentos",primeiros:"Primeiros Socorros",minsa:"MINSA"};
   snap.forEach(d=>{
     const data=d.data();
     const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";
+    const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";
     let sub="—";
-    if(data.sub){if(data.sub.includes("|")){const[u,disc]=data.sub.split("|");sub=`${u} — ${disc}`;}else{sub=NOMES_UNI[data.sub]?`${data.sub} — ${NOMES_UNI[data.sub]}`:data.sub;}}
-    div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📁"} ${data.titulo}</p><p class="meta">${sec} › ${sub} · ${data.tipo==="bunny"?"Bunny Stream 🔒":data.tipo}</p></div><button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button></div>`;
+    if(data.sub){
+      const partes=data.sub.split("|");
+      sub=partes.length>1?partes.slice(1).join(" › "):partes[0];
+    }
+    div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📁"} ${data.titulo}</p><p class="meta">[${tipoLabel}] ${sec} › ${sub} · ${data.tipo==="bunny"?"Bunny 🔒":data.tipo}</p></div><button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button></div>`;
   });
 }
 
