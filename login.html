@@ -8,101 +8,29 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#020818;
-  --surface:#060f22;
-  --accent:#00d4ff;
-  --accent2:#7c3aed;
-  --accent3:#00ffaa;
-  --text:#e2e8f0;
-  --muted:#4a5a7a;
+  --bg:#020818;--surface:#060f22;--accent:#00d4ff;--accent2:#7c3aed;--accent3:#00ffaa;--text:#e2e8f0;--muted:#4a5a7a;
 }
-body{
-  font-family:'Exo 2',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  padding:20px;
-  gap:20px;
-}
-
-/* Starfield */
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;padding:20px;gap:20px;}
 .stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0;}
 .star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite;}
 @keyframes twinkle{0%,100%{opacity:var(--o);}50%{opacity:0.05;}}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 25% 25%,rgba(0,212,255,0.07) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 75% 75%,rgba(124,58,237,0.07) 0%,transparent 60%);pointer-events:none;z-index:0;}
 
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 25% 25%, rgba(0,212,255,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 75% 75%, rgba(124,58,237,0.07) 0%, transparent 60%);
-  pointer-events:none;
-  z-index:0;
-}
-
-/* ── PURCHASE SUMMARY ── */
-.purchase-summary{
-  position:relative;z-index:1;
-  background:rgba(6,15,34,0.85);
-  border:1px solid rgba(0,212,255,0.18);
-  border-radius:16px;
-  padding:20px 32px;
-  width:100%;max-width:460px;
-  backdrop-filter:blur(20px);
-  display:none;
-}
-.ps-title{
-  font-family:'Orbitron',monospace;
-  font-size:10px;letter-spacing:3px;
-  color:var(--muted);text-transform:uppercase;margin-bottom:12px;
-}
+/* PURCHASE SUMMARY */
+.purchase-summary{position:relative;z-index:1;background:rgba(6,15,34,0.85);border:1px solid rgba(0,212,255,0.18);border-radius:16px;padding:20px 32px;width:100%;max-width:460px;backdrop-filter:blur(20px);display:none;}
+.ps-title{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 .ps-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:8px;}
 .ps-label{color:var(--muted);}
 .ps-value{color:var(--text);font-weight:500;}
 .ps-price{font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--accent);}
 .ps-divider{width:100%;height:1px;background:rgba(0,212,255,0.08);margin:12px 0;}
-.ps-comprov-title{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:'Orbitron',monospace;margin-bottom:10px;}
-.ps-btns{display:flex;gap:8px;flex-wrap:wrap;}
-.btn{padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:1px;transition:0.3s;text-decoration:none;display:inline-block;font-family:'Exo 2',sans-serif;}
-.btn:hover{transform:translateY(-2px);}
-.whatsapp{background:#25D366;color:white;}
-.email-btn{background:var(--accent2);color:white;}
 
-/* ── MAIN BOX ── */
-.box{
-  position:relative;z-index:1;
-  background:rgba(6,15,34,0.92);
-  border:1px solid rgba(0,212,255,0.15);
-  padding:48px 40px;
-  border-radius:20px;
-  width:100%;max-width:460px;
-  backdrop-filter:blur(24px);
-  box-shadow:0 0 60px rgba(0,212,255,0.05), inset 0 0 40px rgba(124,58,237,0.03);
-}
-
-/* Mini logo no topo */
-.mini-logo{
-  display:flex;align-items:center;gap:12px;margin-bottom:16px;
-}
+/* MAIN BOX */
+.box{position:relative;z-index:1;background:rgba(6,15,34,0.92);border:1px solid rgba(0,212,255,0.15);padding:48px 40px;border-radius:20px;width:100%;max-width:460px;backdrop-filter:blur(24px);box-shadow:0 0 60px rgba(0,212,255,0.05),inset 0 0 40px rgba(124,58,237,0.03);}
+.mini-logo{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
 .mini-logo svg{width:44px;height:44px;flex-shrink:0;}
-.mini-logo-text{}
-.brand-name{
-  font-family:'Orbitron',monospace;
-  font-size:11px;font-weight:700;
-  letter-spacing:3px;color:var(--accent);
-  text-transform:uppercase;line-height:1.2;
-}
-.brand-sub{
-  font-family:'Exo 2',sans-serif;
-  font-size:9px;letter-spacing:3px;
-  color:var(--muted);text-transform:uppercase;margin-top:2px;
-}
-
-/* Orbit animations */
+.brand-name{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--accent);text-transform:uppercase;line-height:1.2;}
+.brand-sub{font-family:'Exo 2',sans-serif;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:2px;}
 .orbit-1{animation:rot 6s linear infinite;transform-origin:40px 40px;}
 .orbit-2{animation:rot-rev 9s linear infinite;transform-origin:40px 40px;}
 .orbit-3{animation:rot 14s linear infinite;transform-origin:40px 40px;}
@@ -114,150 +42,81 @@ body::before{
 @keyframes rot-rev{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
 @keyframes cpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.88);}}
 @keyframes qdot{0%,100%{opacity:1;}50%{opacity:0.15;}}
-
-.divider-line{
-  width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(0,212,255,0.3),rgba(124,58,237,0.3),transparent);
-  margin:16px 0;
-}
-
-h2{
-  font-family:'Orbitron',monospace;
-  font-size:28px;font-weight:900;
-  letter-spacing:3px;margin-bottom:20px;
-  color:var(--text);
-}
+.divider-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.3),rgba(124,58,237,0.3),transparent);margin:16px 0;}
+h2{font-family:'Orbitron',monospace;font-size:28px;font-weight:900;letter-spacing:3px;margin-bottom:20px;color:var(--text);}
 h2 span{color:var(--accent);}
-
 .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
-.badge{
-  display:inline-block;font-size:10px;letter-spacing:2px;
-  padding:4px 12px;border-radius:20px;text-transform:uppercase;
-  font-family:'Orbitron',monospace;font-weight:600;
-}
+.badge{display:inline-block;font-size:10px;letter-spacing:2px;padding:4px 12px;border-radius:20px;text-transform:uppercase;font-family:'Orbitron',monospace;font-weight:600;}
 .badge.uni{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);}
 .badge.curso{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;}
-
-.back-link{
-  display:inline-block;font-size:11px;letter-spacing:2px;
-  color:var(--muted);text-decoration:none;margin-bottom:20px;
-  font-family:'Orbitron',monospace;transition:0.2s;
-}
+.back-link{display:inline-block;font-size:11px;letter-spacing:2px;color:var(--muted);text-decoration:none;margin-bottom:20px;font-family:'Orbitron',monospace;transition:0.2s;}
 .back-link:hover{color:var(--accent);}
-
 .field{margin-bottom:16px;}
-label{
-  display:block;font-size:10px;letter-spacing:3px;
-  color:var(--muted);text-transform:uppercase;margin-bottom:6px;
-  font-family:'Orbitron',monospace;
-}
-input{
-  width:100%;padding:13px 16px;
-  background:rgba(2,8,24,0.8);
-  border:1px solid rgba(0,212,255,0.1);
-  border-radius:10px;color:var(--text);
-  font-size:15px;font-family:'Exo 2',sans-serif;
-  transition:0.3s;outline:none;
-}
+label{display:block;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;font-family:'Orbitron',monospace;}
+input[type="email"],input[type="password"],input[type="text"]{width:100%;padding:13px 16px;background:rgba(2,8,24,0.8);border:1px solid rgba(0,212,255,0.1);border-radius:10px;color:var(--text);font-size:15px;font-family:'Exo 2',sans-serif;transition:0.3s;outline:none;}
 input:focus{border-color:rgba(0,212,255,0.4);background:rgba(2,8,24,0.98);}
 input::placeholder{color:var(--muted);}
 .password-wrap{position:relative;}
-.eye{
-  position:absolute;right:14px;top:50%;
-  transform:translateY(-50%);cursor:pointer;
-  font-size:17px;opacity:0.4;transition:0.2s;
-}
+.eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:17px;opacity:0.4;transition:0.2s;}
 .eye:hover{opacity:1;}
 
+/* UPLOAD COMPROVATIVO */
+.comprov-section{margin-top:4px;margin-bottom:4px;display:none;}
+.comprov-label{display:block;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;font-family:'Orbitron',monospace;}
+.upload-area{border:2px dashed rgba(0,212,255,0.2);border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:0.3s;background:rgba(0,212,255,0.02);position:relative;}
+.upload-area:hover{border-color:rgba(0,212,255,0.45);background:rgba(0,212,255,0.05);}
+.upload-area.has-file{border-color:var(--accent3);border-style:solid;background:rgba(0,255,170,0.04);}
+.upload-icon{font-size:24px;margin-bottom:6px;display:block;}
+.upload-text{font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--muted);}
+.upload-text b{color:var(--accent);}
+.upload-formats{font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:0.5px;}
+#inputComprovativo{display:none;}
+.file-info{margin-top:10px;background:rgba(0,255,170,0.07);border:1px solid rgba(0,255,170,0.2);border-radius:8px;padding:9px 13px;font-size:12px;color:var(--accent3);display:none;align-items:center;gap:8px;justify-content:space-between;}
+.file-info.show{display:flex;}
+.btn-remover{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:'Exo 2',sans-serif;white-space:nowrap;transition:0.2s;}
+.btn-remover:hover{background:rgba(239,68,68,0.25);transform:none;}
+.comprov-nota{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.5;background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.12);border-radius:8px;padding:8px 12px;}
+.comprov-nota b{color:#a78bfa;}
+
 .btns{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
-button{
-  width:100%;padding:14px;border:none;border-radius:10px;
-  font-size:14px;font-family:'Orbitron',monospace;
-  font-weight:700;letter-spacing:2px;cursor:pointer;transition:0.3s;
-}
+button{width:100%;padding:14px;border:none;border-radius:10px;font-size:14px;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:2px;cursor:pointer;transition:0.3s;}
 button:hover:not(:disabled){transform:translateY(-2px);}
 button:disabled{opacity:0.5;cursor:not-allowed;}
-.loginBtn{
-  background:linear-gradient(135deg,var(--accent),#0099cc);
-  color:#020818;
-  box-shadow:0 0 20px rgba(0,212,255,0.25);
-}
+.loginBtn{background:linear-gradient(135deg,var(--accent),#0099cc);color:#020818;box-shadow:0 0 20px rgba(0,212,255,0.25);}
 .loginBtn:hover:not(:disabled){box-shadow:0 0 30px rgba(0,212,255,0.4);}
-.registerBtn{
-  background:transparent;color:#a78bfa;
-  border:1px solid rgba(124,58,237,0.5);
-}
+.registerBtn{background:transparent;color:#a78bfa;border:1px solid rgba(124,58,237,0.5);}
 .registerBtn:hover:not(:disabled){background:rgba(124,58,237,0.1);}
 .registerBtn.hidden{display:none;}
-.forgotBtn{
-  background:transparent;color:var(--muted);
-  border:none;font-size:11px;letter-spacing:1px;padding:8px;
-}
+.forgotBtn{background:transparent;color:var(--muted);border:none;font-size:11px;letter-spacing:1px;padding:8px;}
 .forgotBtn:hover:not(:disabled){color:var(--text);transform:none;}
-
 .msg{margin-top:16px;padding:12px 16px;border-radius:8px;font-size:13px;display:none;}
 .msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
 .msg.success{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);display:block;}
 .msg.info{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;display:block;}
-
 .spinner-wrap{display:none;text-align:center;margin-top:16px;}
-.spinner{
-  width:28px;height:28px;
-  border:3px solid rgba(0,212,255,0.2);
-  border-top:3px solid var(--accent);
-  border-radius:50%;
-  animation:spin 0.8s linear infinite;margin:auto;
-}
+.spinner{width:28px;height:28px;border:3px solid rgba(0,212,255,0.2);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:auto;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-
 @media(max-width:480px){.box{padding:32px 20px;}.purchase-summary{padding:16px 20px;}}
 </style>
 </head>
 <body>
 
-<!-- Starfield -->
 <div class="stars" id="stars"></div>
 
 <!-- Purchase Summary -->
 <div class="purchase-summary" id="purchaseSummary">
   <div class="ps-title">Resumo da Inscrição</div>
-  <div class="ps-row">
-    <span class="ps-label">Universidade</span>
-    <span class="ps-value" id="psUni">—</span>
-  </div>
-  <div class="ps-row">
-    <span class="ps-label">Curso</span>
-    <span class="ps-value" id="psCurso">—</span>
-  </div>
-  <div class="ps-row">
-    <span class="ps-label">Duração</span>
-    <span class="ps-value" id="psDur">—</span>
-  </div>
-  <div class="ps-row">
-    <span class="ps-label">Valor</span>
-    <span class="ps-price" id="psPreco">—</span>
-  </div>
+  <div class="ps-row"><span class="ps-label">Universidade</span><span class="ps-value" id="psUni">—</span></div>
+  <div class="ps-row"><span class="ps-label">Curso</span><span class="ps-value" id="psCurso">—</span></div>
+  <div class="ps-row"><span class="ps-label">Duração</span><span class="ps-value" id="psDur">—</span></div>
+  <div class="ps-row"><span class="ps-label">Valor</span><span class="ps-price" id="psPreco">—</span></div>
   <div class="ps-divider"></div>
-  <div class="ps-row">
-    <span class="ps-label">IBAN</span>
-    <span class="ps-value" style="font-size:12px;">AO06 0040 0000 5071 2010 1017 8</span>
-  </div>
-  <div class="ps-row">
-    <span class="ps-label">Proprietário</span>
-    <span class="ps-value">MPEKO CRUZ</span>
-  </div>
-  <div class="ps-divider"></div>
-  <div class="ps-comprov-title">Enviar comprovativo após pagamento:</div>
-  <div class="ps-btns">
-    <a id="waLink" href="#" target="_blank"><button class="btn whatsapp">📱 WhatsApp</button></a>
-    <a id="emailLink" href="#"><button class="btn email-btn">✉️ Email</button></a>
-  </div>
+  <div class="ps-row"><span class="ps-label">IBAN</span><span class="ps-value" style="font-size:12px;">AO06 0040 0000 5302 5246 1013 5</span></div>
+  <div class="ps-row"><span class="ps-label">Proprietário</span><span class="ps-value">ERNESTO JORGE DIATOMA</span></div>
 </div>
 
 <!-- Login Box -->
 <div class="box">
-
-  <!-- Mini Logo -->
   <div class="mini-logo">
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -296,17 +155,14 @@ button:disabled{opacity:0.5;cursor:not-allowed;}
   </div>
 
   <div class="divider-line"></div>
-
   <a class="back-link" href="index.html">← VOLTAR AO INÍCIO</a>
   <h2>ACESSO <span>.</span></h2>
-
   <div class="badges" id="badges"></div>
 
   <div class="field">
     <label>Email</label>
     <input type="email" id="email" placeholder="o-seu@email.com">
   </div>
-
   <div class="field">
     <label>Senha</label>
     <div class="password-wrap">
@@ -319,6 +175,26 @@ button:disabled{opacity:0.5;cursor:not-allowed;}
   <input type="hidden" id="duracao">
   <input type="hidden" id="preco">
 
+  <!-- COMPROVATIVO — só aparece no modo registo -->
+  <div class="comprov-section" id="comprovSection">
+    <div class="divider-line" style="margin-bottom:14px;"></div>
+    <span class="comprov-label">📎 Comprovativo de Pagamento</span>
+    <div class="upload-area" id="uploadArea" onclick="document.getElementById('inputComprovativo').click()">
+      <span class="upload-icon" id="uploadIcon">📎</span>
+      <div class="upload-text" id="uploadText">Toca para <b>anexar o comprovativo</b></div>
+      <div class="upload-formats">Formatos aceites: JPG, PNG, PDF · Máx. 4MB</div>
+      <input type="file" id="inputComprovativo" accept="image/*,.pdf" onchange="anexarComprovativo(event)">
+    </div>
+    <div class="file-info" id="fileInfo">
+      <span id="fileInfoText">📄 ficheiro</span>
+      <button class="btn-remover" onclick="removerComprovativo(event)">✕ Remover</button>
+    </div>
+    <div class="comprov-nota">
+      Faz o pagamento pelo IBAN acima e anexa o comprovativo.<br>
+      <b>O admin irá verificar e aprovar a tua conta.</b>
+    </div>
+  </div>
+
   <div class="btns">
     <button class="loginBtn"    id="btnLogin"    onclick="login()">ENTRAR</button>
     <button class="registerBtn" id="btnRegister" onclick="register()">CRIAR CONTA</button>
@@ -330,15 +206,49 @@ button:disabled{opacity:0.5;cursor:not-allowed;}
 </div>
 
 <script>
-  // Starfield
-  const starsEl = document.getElementById('stars');
-  for(let i=0;i<120;i++){
-    const s=document.createElement('div');
-    s.className='star';
-    const sz=Math.random()*2+0.5;
-    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--o:${Math.random()*0.6+0.1};--d:${Math.random()*3+2}s;animation-delay:${Math.random()*4}s;`;
-    starsEl.appendChild(s);
-  }
+const starsEl=document.getElementById('stars');
+for(let i=0;i<120;i++){
+  const s=document.createElement('div');s.className='star';
+  const sz=Math.random()*2+0.5;
+  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--o:${Math.random()*0.6+0.1};--d:${Math.random()*3+2}s;animation-delay:${Math.random()*4}s;`;
+  starsEl.appendChild(s);
+}
+
+// Estado do comprovativo (só memória, sem storage)
+let comprovB64  = null;
+let comprovNome = "";
+let comprovTipo = "";
+
+window.anexarComprovativo = function(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const isPdf   = file.type === "application/pdf";
+  const isImage = file.type.startsWith("image/");
+  if(!isPdf && !isImage){ alert("⚠️ Formato não suportado. Usa JPG, PNG ou PDF."); event.target.value=""; return; }
+  if(file.size > 4*1024*1024){ alert("⚠️ Ficheiro muito grande. Máximo 4MB."); event.target.value=""; return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    comprovB64  = e.target.result;
+    comprovNome = file.name;
+    comprovTipo = file.type;
+    document.getElementById("uploadArea").classList.add("has-file");
+    document.getElementById("uploadIcon").innerText = isPdf ? "📄" : "🖼️";
+    document.getElementById("uploadText").innerHTML = `<b style="color:var(--accent3)">${file.name}</b>`;
+    document.getElementById("fileInfoText").innerText = (isPdf?"📄 ":"🖼️ ")+file.name;
+    document.getElementById("fileInfo").classList.add("show");
+  };
+  reader.readAsDataURL(file);
+};
+
+window.removerComprovativo = function(e){
+  e.stopPropagation();
+  comprovB64 = null; comprovNome = ""; comprovTipo = "";
+  document.getElementById("inputComprovativo").value = "";
+  document.getElementById("uploadArea").classList.remove("has-file");
+  document.getElementById("uploadIcon").innerText = "📎";
+  document.getElementById("uploadText").innerHTML = 'Toca para <b>anexar o comprovativo</b>';
+  document.getElementById("fileInfo").classList.remove("show");
+};
 </script>
 
 <script type="module">
@@ -355,18 +265,17 @@ import {
   doc, getDoc, setDoc, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
-  authDomain: "preparatoriovirtualcomde-38c0a.firebaseapp.com",
-  projectId: "preparatoriovirtualcomde-38c0a",
-  storageBucket: "preparatoriovirtualcomde-38c0a.firebasestorage.app",
-  messagingSenderId: "211289899773",
-  appId: "1:211289899773:web:dfc22d377c7172f936b494"
+const firebaseConfig={
+  apiKey:"AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js",
+  authDomain:"preparatoriovirtualcomde-38c0a.firebaseapp.com",
+  projectId:"preparatoriovirtualcomde-38c0a",
+  storageBucket:"preparatoriovirtualcomde-38c0a.firebasestorage.app",
+  messagingSenderId:"211289899773",
+  appId:"1:211289899773:web:dfc22d377c7172f936b494"
 };
-
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
 const msgEl       = document.getElementById("msg");
 const loading     = document.getElementById("loading");
@@ -381,16 +290,14 @@ const cursoParam   = params.get("curso")   || "";
 const areaParam    = params.get("area")    || "";
 const duracaoParam = params.get("duracao") || "";
 const precoParam   = params.get("preco")   || "";
+const vemDoFluxo   = !!(duracaoParam && precoParam && cursoParam);
 
-const vemDoFluxo = !!(duracaoParam && precoParam && cursoParam);
-
-if(!vemDoFluxo){
+// Mostrar campo de comprovativo e resumo só no modo registo
+if(vemDoFluxo){
+  document.getElementById("comprovSection").style.display = "block";
+  document.getElementById("purchaseSummary").style.display = "block";
+} else {
   btnRegister.classList.add("hidden");
-}
-
-if(params.get("expirado")){
-  msgEl.className = "msg error";
-  msgEl.innerText = "⚠️ O teu acesso expirou. Podes criar uma nova conta com o mesmo email.";
 }
 
 document.getElementById("area").value    = areaParam;
@@ -401,100 +308,67 @@ const badgesDiv = document.getElementById("badges");
 if(uniParam)   badgesDiv.innerHTML += `<span class="badge uni">${uniParam}</span>`;
 if(cursoParam) badgesDiv.innerHTML += `<span class="badge curso">${cursoParam}</span>`;
 
-const DUR_LABELS = {
-  "30":"1 Mês (30 dias)",
-  "90":"3 Meses (90 dias)",
-  "180":"6 Meses (180 dias)",
-  "365":"1 Ano (365 dias)"
-};
+const DUR_LABELS={"30":"1 Mês (30 dias)","90":"3 Meses (90 dias)","180":"6 Meses (180 dias)","365":"1 Ano (365 dias)"};
 
 if(vemDoFluxo){
-  const summary = document.getElementById("purchaseSummary");
-  const psUniRow = document.getElementById("psUni").closest(".ps-row");
-  if(uniParam){
-    document.getElementById("psUni").innerText = uniParam;
-  } else {
-    if(psUniRow) psUniRow.style.display = "none";
-  }
-  document.getElementById("psCurso").innerText = cursoParam;
-  document.getElementById("psDur").innerText   = DUR_LABELS[duracaoParam] || duracaoParam + " dias";
-  const precoFormatado = parseInt(precoParam).toLocaleString("pt-AO") + " KZ";
-  document.getElementById("psPreco").innerText = precoFormatado;
-
-  const waUni = uniParam ? `Universidade: ${uniParam}\n` : "";
-  const wa = `Olá, envio o meu comprovativo de pagamento do Universo Quântico - Preparatório Virtual com DIATOMA.\n\nCurso: ${cursoParam}\n${waUni}Duração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}`;
-  document.getElementById("waLink").href    = `https://wa.me/244950509560?text=${encodeURIComponent(wa)}`;
-  const emailBody = `Olá,\n\nComprovativo de pagamento:\n\nCurso: ${cursoParam}\n${waUni}Duração: ${DUR_LABELS[duracaoParam]||duracaoParam+" dias"}\nValor: ${precoFormatado}\n\nObrigado.`;
-  document.getElementById("emailLink").href = `mailto:deltaigualb.bmenos4.a.c@gmail.com?subject=Comprovativo%20de%20Pagamento%20-%20Universo%20Quântico&body=${encodeURIComponent(emailBody)}`;
-  summary.style.display = "block";
+  const psUniRow=document.getElementById("psUni").closest(".ps-row");
+  if(uniParam){ document.getElementById("psUni").innerText=uniParam; }
+  else if(psUniRow){ psUniRow.style.display="none"; }
+  document.getElementById("psCurso").innerText=cursoParam;
+  document.getElementById("psDur").innerText=DUR_LABELS[duracaoParam]||duracaoParam+" dias";
+  document.getElementById("psPreco").innerText=parseInt(precoParam).toLocaleString("pt-AO")+" KZ";
 }
 
-function showMsg(texto, tipo){
-  msgEl.className = "msg " + tipo;
-  msgEl.innerText = texto;
-}
-function showLoading(){
-  loading.style.display = "block";
-  btnLogin.disabled = btnRegister.disabled = btnForgot.disabled = true;
-}
-function hideLoading(){
-  loading.style.display = "none";
-  btnLogin.disabled = btnRegister.disabled = btnForgot.disabled = false;
+if(params.get("expirado")){
+  msgEl.className="msg error";
+  msgEl.innerText="⚠️ O teu acesso expirou. Podes criar uma nova conta com o mesmo email.";
 }
 
-function validarLogin(email, senha){
-  if(!email || !senha){ showMsg("Preenche o email e a senha.", "error"); return false; }
-  if(senha.length < 6){ showMsg("A senha deve ter pelo menos 6 caracteres.", "error"); return false; }
-  return true;
-}
-
-function validarRegisto(email, senha, area){
-  if(!email || !senha){ showMsg("Preenche o email e a senha.", "error"); return false; }
-  if(!area){            showMsg("Volta atrás e escolhe o teu curso.", "error"); return false; }
-  if(senha.length < 6){ showMsg("A senha deve ter pelo menos 6 caracteres.", "error"); return false; }
-  return true;
-}
+function showMsg(t,tipo){msgEl.className="msg "+tipo;msgEl.innerText=t;}
+function showLoading(){loading.style.display="block";btnLogin.disabled=btnRegister.disabled=btnForgot.disabled=true;}
+function hideLoading(){loading.style.display="none";btnLogin.disabled=btnRegister.disabled=btnForgot.disabled=false;}
 
 window.login = async function(){
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-  msgEl.className = "msg";
-  if(!validarLogin(email, senha)) return;
+  const email=document.getElementById("email").value.trim();
+  const senha=document.getElementById("senha").value;
+  msgEl.className="msg";
+  if(!email||!senha){showMsg("Preenche o email e a senha.","error");return;}
+  if(senha.length<6){showMsg("A senha deve ter pelo menos 6 caracteres.","error");return;}
   showLoading();
-  try {
-    const cred = await signInWithEmailAndPassword(auth, email, senha);
-    const ref  = doc(db, "users", cred.user.uid);
-    const snap = await getDoc(ref);
+  try{
+    const cred=await signInWithEmailAndPassword(auth,email,senha);
+    const ref=doc(db,"users",cred.user.uid);
+    const snap=await getDoc(ref);
     if(!snap.exists()){
-      try { await deleteUser(cred.user); } catch(e){}
-      showMsg("✅ A tua conta foi removida pelo administrador. Podes criar uma nova conta.", "success");
-      hideLoading(); return;
+      try{await deleteUser(cred.user);}catch(e){}
+      showMsg("✅ A tua conta foi removida pelo administrador. Podes criar uma nova conta.","success");
+      hideLoading();return;
     }
-    const data = snap.data();
-    if(data.approved !== true){
-      document.getElementById("purchaseSummary").style.display = "none";
-      showMsg("⏳ Conta pendente. Aguarda a aprovação do admin.", "info");
-      hideLoading(); return;
+    const data=snap.data();
+    if(data.approved!==true){
+      document.getElementById("purchaseSummary").style.display="none";
+      showMsg("⏳ Conta pendente. Aguarda a aprovação do admin.","info");
+      hideLoading();return;
     }
-    const expiryTs = data.expiryDate || (data.approvedAt ? data.approvedAt + 365*24*60*60*1000 : null);
-    if(expiryTs && Date.now() >= expiryTs){
-      try { await deleteDoc(ref); }        catch(e){}
-      try { await deleteUser(cred.user); } catch(e){}
-      showMsg("✅ O teu acesso expirou. A conta foi removida — podes criar uma nova conta.", "success");
-      hideLoading(); return;
+    const expiryTs=data.expiryDate||(data.approvedAt?data.approvedAt+365*24*60*60*1000:null);
+    if(expiryTs&&Date.now()>=expiryTs){
+      try{await deleteDoc(ref);}catch(e){}
+      try{await deleteUser(cred.user);}catch(e){}
+      showMsg("✅ O teu acesso expirou. A conta foi removida — podes criar uma nova conta.","success");
+      hideLoading();return;
     }
-    document.getElementById("purchaseSummary").style.display = "none";
-    localStorage.setItem("user",  email);
-    localStorage.setItem("uid",   cred.user.uid);
-    localStorage.setItem("area",  data.area  || areaParam);
-    localStorage.setItem("uni",   data.uni   || uniParam  || "");
-    localStorage.setItem("curso", data.curso || cursoParam || "");
-    window.location.href = "aulas.html";
-  } catch(e){
-    showMsg("Email ou senha inválidos.", "error");
+    document.getElementById("purchaseSummary").style.display="none";
+    localStorage.setItem("user",email);
+    localStorage.setItem("uid",cred.user.uid);
+    localStorage.setItem("area",data.area||areaParam);
+    localStorage.setItem("uni",data.uni||uniParam||"");
+    localStorage.setItem("curso",data.curso||cursoParam||"");
+    window.location.href="aulas.html";
+  }catch(e){
+    showMsg("Email ou senha inválidos.","error");
     hideLoading();
   }
-}
+};
 
 window.register = async function(){
   const email   = document.getElementById("email").value.trim();
@@ -502,13 +376,22 @@ window.register = async function(){
   const area    = document.getElementById("area").value;
   const duracao = document.getElementById("duracao").value;
   const preco   = document.getElementById("preco").value;
-  msgEl.className = "msg";
-  if(!validarRegisto(email, senha, area)) return;
+  msgEl.className="msg";
+
+  if(!email||!senha){showMsg("Preenche o email e a senha.","error");return;}
+  if(!area){showMsg("Volta atrás e escolhe o teu curso.","error");return;}
+  if(senha.length<6){showMsg("A senha deve ter pelo menos 6 caracteres.","error");return;}
+  if(!comprovB64){showMsg("⚠️ Anexa o comprovativo de pagamento antes de criar a conta.","error");return;}
+
   showLoading();
-  try {
+  try{
+    // 1. Criar conta Firebase Auth
     const newUser = await createUserWithEmailAndPassword(auth, email, senha);
-    await setDoc(doc(db, "users", newUser.user.uid), {
-      uid:       newUser.user.uid,
+    const uid = newUser.user.uid;
+
+    // 2. Guardar dados do utilizador no Firestore
+    await setDoc(doc(db,"users",uid),{
+      uid,
       email,
       tipo:      tipoParam,
       area,
@@ -517,39 +400,54 @@ window.register = async function(){
       duracao,
       preco,
       approved:  false,
+      temComprovativo: true,
       createdAt: Date.now()
     });
-    showMsg("✅ Conta criada! Envia o comprovativo de pagamento e aguarda a aprovação do admin.", "success");
-  } catch(e){
-    if(e.code === "auth/email-already-in-use"){
-      showMsg("Este email já está registado. Faz login.", "error");
-    } else {
-      showMsg("Erro ao criar conta: " + e.message, "error");
+
+    // 3. Guardar comprovativo em colecção separada (base64 pode ser grande)
+    await setDoc(doc(db,"comprovativosDocs",uid),{
+      uid,
+      email,
+      base64:     comprovB64,
+      nome:       comprovNome,
+      tipo:       comprovTipo,
+      uploadedAt: Date.now()
+    });
+
+    // 4. Limpar variáveis locais
+    comprovB64=null; comprovNome=""; comprovTipo="";
+
+    showMsg("✅ Conta criada com sucesso! O teu comprovativo foi enviado — aguarda a aprovação do admin para aceder às aulas.","success");
+  }catch(e){
+    if(e.code==="auth/email-already-in-use"){
+      showMsg("Este email já está registado. Faz login.","error");
+    }else{
+      showMsg("Erro ao criar conta: "+e.message,"error");
     }
-  } finally {
+  }finally{
     hideLoading();
   }
-}
+};
 
 window.recuperar = async function(){
-  const email = document.getElementById("email").value.trim();
-  msgEl.className = "msg";
-  if(!email){ showMsg("Escreve o teu email primeiro.", "error"); return; }
+  const email=document.getElementById("email").value.trim();
+  msgEl.className="msg";
+  if(!email){showMsg("Escreve o teu email primeiro.","error");return;}
   showLoading();
-  try {
-    await sendPasswordResetEmail(auth, email);
-    showMsg("✅ Email de recuperação enviado! Verifica a tua caixa de entrada.", "success");
-  } catch(e){
-    showMsg("Email não encontrado. Verifica se está correcto.", "error");
-  } finally {
+  try{
+    await sendPasswordResetEmail(auth,email);
+    showMsg("✅ Email de recuperação enviado! Verifica a tua caixa de entrada.","success");
+  }catch(e){
+    showMsg("Email não encontrado. Verifica se está correcto.","error");
+  }finally{
     hideLoading();
   }
-}
+};
 
-window.toggleSenha = function(){
-  const s = document.getElementById("senha");
-  s.type = s.type === "password" ? "text" : "password";
-}
+window.toggleSenha=function(){
+  const s=document.getElementById("senha");
+  s.type=s.type==="password"?"text":"password";
+};
 </script>
 </body>
 </html>
