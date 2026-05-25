@@ -3,134 +3,271 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN - DELT∆</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>ADMIN - UNIVERSO QUÂNTICO | DIATOMA</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--bg:#060d1a;--surface:#0d1f35;--accent:#00ff88;--accent2:#3b82f6;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-.login-wrap{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
-.login-box{background:rgba(13,31,53,0.9);border:1px solid rgba(0,255,136,0.15);padding:48px 40px;border-radius:20px;width:100%;max-width:400px;text-align:center;}
-.login-box .logo{font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:4px;color:var(--muted);margin-bottom:6px;}
-.login-box h2{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;letter-spacing:2px;margin-bottom:6px;}
-.step-label{font-size:11px;letter-spacing:3px;color:var(--muted);margin-bottom:24px;}
-.step-dots{display:flex;justify-content:center;gap:8px;margin-bottom:28px;}
-.step-dot{width:28px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);transition:0.3s;}
-.step-dot.active{background:var(--accent);}
-.step-dot.done{background:rgba(0,255,136,0.4);}
-.lockout-banner{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#f87171;display:none;line-height:1.5;}
+:root{
+  --bg:#020818;
+  --surface:#060f22;
+  --accent:#00d4ff;
+  --accent2:#7c3aed;
+  --accent3:#00ffaa;
+  --danger:#ef4444;
+  --text:#e2e8f0;
+  --muted:#4a5a7a;
+}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* Starfield */
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0;}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:var(--o);}50%{opacity:0.05;}}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 20%,rgba(0,212,255,0.06) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(124,58,237,0.06) 0%,transparent 60%);pointer-events:none;z-index:0;}
+
+/* ── LOGIN WRAP ── */
+.login-wrap{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
+.login-box{
+  background:rgba(6,15,34,0.92);
+  border:1px solid rgba(0,212,255,0.15);
+  padding:48px 40px;border-radius:20px;
+  width:100%;max-width:420px;text-align:center;
+  backdrop-filter:blur(24px);
+  box-shadow:0 0 60px rgba(0,212,255,0.05),inset 0 0 40px rgba(124,58,237,0.03);
+}
+
+/* Mini logo centrado */
+.login-logo{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:20px;}
+.login-logo svg{width:72px;height:72px;}
+.login-brand{font-family:'Orbitron',monospace;font-size:17px;font-weight:900;letter-spacing:2px;color:var(--accent);text-shadow:0 0 16px rgba(0,212,255,0.4);}
+.login-sub{font-family:'Exo 2',sans-serif;font-size:7px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;opacity:0.6;}
+
+.login-box h2{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;letter-spacing:4px;margin-bottom:4px;color:var(--text);}
+.step-label{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:20px;font-family:'Orbitron',monospace;}
+.step-dots{display:flex;justify-content:center;gap:8px;margin-bottom:24px;}
+.step-dot{width:28px;height:3px;border-radius:2px;background:rgba(255,255,255,0.08);transition:0.3s;}
+.step-dot.active{background:var(--accent);box-shadow:0 0 8px rgba(0,212,255,0.5);}
+.step-dot.done{background:rgba(0,212,255,0.35);}
+.lockout-banner{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#f87171;display:none;line-height:1.5;text-align:left;}
 .lockout-banner b{color:#ef4444;}
 .attempts-info{font-size:11px;color:var(--muted);margin-top:6px;}
-input,select{width:100%;padding:12px 14px;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;margin-bottom:12px;transition:0.3s;outline:none;}
-input:focus,select:focus{border-color:rgba(0,255,136,0.4);}
-select option{background:#0d1f35;}
-button{padding:11px 20px;border:none;border-radius:9px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;letter-spacing:1px;cursor:pointer;transition:0.3s;}
-button:hover{transform:translateY(-1px);}
-.btn-login{background:var(--accent);color:#060d1a;width:100%;margin-top:8px;transition:0.3s;}
-.btn-login:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-.btn-green{background:var(--accent);color:#060d1a;width:100%;}
-.btn-approve{background:rgba(0,255,136,0.15);color:var(--accent);border:1px solid rgba(0,255,136,0.3);padding:6px 14px;font-size:12px;}
-.btn-approve:hover{background:rgba(0,255,136,0.25);}
-.btn-edit{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);padding:6px 14px;font-size:12px;}
-.btn-edit:hover{background:rgba(59,130,246,0.25);}
-.btn-delete{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);padding:6px 14px;font-size:12px;}
-.btn-delete:hover{background:rgba(239,68,68,0.25);}
-.btn-cancel{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--muted);}
-.btn-cancel:hover{background:rgba(255,255,255,0.05);transform:none;}
-.btn-save{background:var(--accent);color:#060d1a;}
-.error-login{color:#f87171;font-size:13px;margin-top:10px;min-height:20px;}
-.security-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:20px;}
+.security-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,0.07);border:1px solid rgba(0,212,255,0.18);border-radius:20px;padding:5px 14px;font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:20px;font-family:'Orbitron',monospace;}
 .security-badge span{color:var(--accent);}
-#painel{display:none;padding:30px 20px;max-width:960px;margin:0 auto;}
-.painel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);}
-.painel-header h2{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;letter-spacing:2px;color:var(--accent);}
-.logout-btn{background:transparent;border:1px solid rgba(239,68,68,0.4);color:var(--danger);padding:7px 16px;border-radius:8px;cursor:pointer;font-size:12px;letter-spacing:1px;transition:0.3s;}
-.logout-btn:hover{background:rgba(239,68,68,0.1);}
-.session-info{font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:4px;}
+
+input,select{
+  width:100%;padding:12px 14px;
+  background:rgba(2,8,24,0.85);
+  border:1px solid rgba(0,212,255,0.08);
+  border-radius:10px;color:var(--text);
+  font-size:14px;font-family:'Exo 2',sans-serif;
+  margin-bottom:12px;transition:0.3s;outline:none;
+}
+input:focus,select:focus{border-color:rgba(0,212,255,0.4);background:rgba(2,8,24,0.98);}
+input::placeholder{color:var(--muted);}
+select option{background:#060f22;}
+
+button{padding:11px 20px;border:none;border-radius:9px;font-family:'Orbitron',monospace;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;transition:0.3s;}
+button:hover{transform:translateY(-1px);}
+.btn-login{background:linear-gradient(135deg,var(--accent),#0099cc);color:#020818;width:100%;margin-top:8px;box-shadow:0 0 20px rgba(0,212,255,0.2);}
+.btn-login:hover{box-shadow:0 0 30px rgba(0,212,255,0.35);}
+.btn-login:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-green{background:linear-gradient(135deg,var(--accent),#0099cc);color:#020818;width:100%;box-shadow:0 0 16px rgba(0,212,255,0.2);}
+.btn-approve{background:rgba(0,212,255,0.12);color:var(--accent);border:1px solid rgba(0,212,255,0.3);padding:6px 14px;font-size:11px;}
+.btn-approve:hover{background:rgba(0,212,255,0.22);}
+.btn-edit{background:rgba(124,58,237,0.12);color:#a78bfa;border:1px solid rgba(124,58,237,0.3);padding:6px 14px;font-size:11px;}
+.btn-edit:hover{background:rgba(124,58,237,0.22);}
+.btn-delete{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.3);padding:6px 14px;font-size:11px;}
+.btn-delete:hover{background:rgba(239,68,68,0.22);}
+.btn-cancel{background:transparent;border:1px solid rgba(74,90,122,0.3);color:var(--muted);}
+.btn-cancel:hover{background:rgba(255,255,255,0.04);transform:none;}
+.btn-save{background:linear-gradient(135deg,var(--accent),#0099cc);color:#020818;}
+.error-login{color:#f87171;font-size:13px;margin-top:10px;min-height:20px;}
+
+/* ── PAINEL ── */
+#painel{display:none;position:relative;z-index:1;padding:30px 20px;max-width:980px;margin:0 auto;}
+.painel-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:30px;padding-bottom:16px;
+  border-bottom:1px solid rgba(0,212,255,0.1);
+}
+.painel-logo{display:flex;align-items:center;gap:12px;}
+.painel-logo svg{width:64px;height:64px;}
+.painel-title{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;letter-spacing:3px;color:var(--accent);text-shadow:0 0 14px rgba(0,212,255,0.35);}
+.painel-sub{font-family:'Exo 2',sans-serif;font-size:7px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;opacity:0.6;margin-top:1px;}
+.session-info{font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:4px;font-family:'Exo 2',sans-serif;}
 .session-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:5px;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.section{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px;margin-bottom:24px;}
-.section h3{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:20px;}
+.logout-btn{background:transparent;border:1px solid rgba(239,68,68,0.35);color:var(--danger);padding:7px 16px;border-radius:8px;cursor:pointer;font-size:11px;letter-spacing:1px;font-family:'Orbitron',monospace;transition:0.3s;}
+.logout-btn:hover{background:rgba(239,68,68,0.1);transform:translateY(-1px);}
+
+/* ── SECTIONS ── */
+.section{
+  background:rgba(6,15,34,0.9);
+  border:1px solid rgba(0,212,255,0.09);
+  border-radius:16px;padding:24px;margin-bottom:24px;
+}
+.section h3{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:20px;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 @media(max-width:600px){.grid2{grid-template-columns:1fr;}}
-.user-card,.aula-card{background:rgba(6,13,26,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+
+/* ── CARDS ── */
+.user-card,.aula-card{
+  background:rgba(2,8,24,0.7);
+  border:1px solid rgba(0,212,255,0.07);
+  border-radius:12px;padding:14px 16px;margin-bottom:10px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+  transition:0.2s;
+}
+.user-card:hover,.aula-card:hover{border-color:rgba(0,212,255,0.18);}
 .user-info p,.aula-info p{font-size:13px;margin-bottom:3px;}
 .user-info .email,.aula-info .titulo{color:var(--text);font-weight:500;}
 .user-info .meta,.aula-info .meta{color:var(--muted);font-size:12px;}
-.dur-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;color:var(--accent);}
-.preco-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;color:#fbbf24;}
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;letter-spacing:1px;font-weight:600;}
-.badge.approved{background:rgba(0,255,136,0.15);color:var(--accent);}
-.badge.pending{background:rgba(251,191,36,0.15);color:#fbbf24;}
-.badge.expired{background:rgba(239,68,68,0.15);color:#f87171;}
+.dur-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.18);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:1px;color:var(--accent);}
+.preco-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.18);border-radius:20px;padding:3px 10px;font-size:10px;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:1px;color:#fbbf24;}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;letter-spacing:1px;font-weight:700;font-family:'Orbitron',monospace;}
+.badge.approved{background:rgba(0,212,255,0.12);color:var(--accent);}
+.badge.pending{background:rgba(251,191,36,0.12);color:#fbbf24;}
+.badge.expired{background:rgba(239,68,68,0.12);color:#f87171;}
 .msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none;}
-.msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
+.msg.success{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);display:block;}
 .msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
 .help-text{font-size:12px;color:var(--muted);margin-bottom:12px;margin-top:-6px;line-height:1.5;}
-.bunny-info{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:var(--muted);line-height:1.6;display:none;}
+.bunny-info{background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.18);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:var(--muted);line-height:1.6;display:none;}
 .bunny-info b{color:var(--accent);}
-.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
-.tab{padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:0.3s;}
-.tab.active{background:rgba(0,255,136,0.15);border-color:rgba(0,255,136,0.3);color:var(--accent);}
 .expiry-warning{color:#fbbf24;font-size:11px;}
 .expiry-expired{color:#f87171;font-size:11px;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.tab{padding:8px 16px;border-radius:8px;border:1px solid rgba(0,212,255,0.1);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;transition:0.3s;font-family:'Orbitron',monospace;letter-spacing:1px;}
+.tab:hover{border-color:rgba(0,212,255,0.25);color:var(--text);}
+.tab.active{background:rgba(0,212,255,0.12);border-color:rgba(0,212,255,0.3);color:var(--accent);}
+
+/* ── CHAT ── */
 #chatConversaWrap{display:none;}
-.conversa-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.conversa-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(0,212,255,0.08);}
 #conversaMsgs{display:flex;flex-direction:column;gap:14px;min-height:300px;max-height:500px;overflow-y:auto;padding:12px 4px;margin-bottom:18px;scroll-behavior:smooth;}
 #conversaMsgs::-webkit-scrollbar{width:4px;}
-#conversaMsgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+#conversaMsgs::-webkit-scrollbar-thumb{background:rgba(0,212,255,0.15);border-radius:2px;}
 .msg-bubble-wrap{display:flex;flex-direction:column;max-width:75%;gap:4px;}
 .msg-bubble-wrap.prof{align-self:flex-end;align-items:flex-end;}
 .msg-bubble-wrap.aluno{align-self:flex-start;align-items:flex-start;}
-.msg-sender{font-size:10px;color:var(--muted);padding:0 6px;letter-spacing:0.5px;}
+.msg-sender{font-size:10px;color:var(--muted);padding:0 6px;letter-spacing:0.5px;font-family:'Orbitron',monospace;}
 .msg-bubble{padding:11px 15px;border-radius:16px;font-size:14px;line-height:1.6;color:var(--text);word-break:break-word;white-space:pre-wrap;}
-.msg-bubble.prof{background:rgba(0,255,136,0.13);border:1px solid rgba(0,255,136,0.25);border-bottom-right-radius:4px;}
-.msg-bubble.aluno{background:rgba(59,130,246,0.13);border:1px solid rgba(59,130,246,0.2);border-bottom-left-radius:4px;}
+.msg-bubble.prof{background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.22);border-bottom-right-radius:4px;}
+.msg-bubble.aluno{background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.2);border-bottom-left-radius:4px;}
 .msg-bubble img{max-width:100%;max-height:260px;border-radius:10px;display:block;margin-top:4px;cursor:pointer;object-fit:contain;}
 .msg-bubble audio{width:100%;min-width:220px;margin-top:4px;accent-color:var(--accent);}
 .msg-time{font-size:10px;color:var(--muted);padding:0 6px;}
-.admin-input-area{border-top:1px solid rgba(255,255,255,0.07);padding-top:16px;}
-#adminInput{width:100%;min-height:90px;max-height:200px;background:rgba(6,13,26,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;padding:12px 16px;resize:vertical;outline:none;transition:border-color 0.2s;display:block;margin-bottom:10px;line-height:1.5;}
-#adminInput:focus{border-color:rgba(0,255,136,0.4);}
+.admin-input-area{border-top:1px solid rgba(0,212,255,0.08);padding-top:16px;}
+#adminInput{width:100%;min-height:90px;max-height:200px;background:rgba(2,8,24,0.85);border:1px solid rgba(0,212,255,0.1);border-radius:12px;color:var(--text);font-size:14px;font-family:'Exo 2',sans-serif;padding:12px 16px;resize:vertical;outline:none;transition:border-color 0.2s;display:block;margin-bottom:10px;line-height:1.5;}
+#adminInput:focus{border-color:rgba(0,212,255,0.4);}
 #adminInput::placeholder{color:var(--muted);}
 .input-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .input-actions .right{margin-left:auto;display:flex;gap:8px;}
-.btn-media{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted);border-radius:9px;padding:8px 14px;font-size:13px;cursor:pointer;transition:0.2s;font-family:'Inter',sans-serif;font-weight:500;letter-spacing:0;display:flex;align-items:center;gap:6px;}
-.btn-media:hover{background:rgba(255,255,255,0.1);color:var(--text);transform:translateY(-1px);}
+.btn-media{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);color:var(--muted);border-radius:9px;padding:8px 14px;font-size:12px;cursor:pointer;transition:0.2s;font-family:'Exo 2',sans-serif;font-weight:500;display:flex;align-items:center;gap:6px;}
+.btn-media:hover{background:rgba(0,212,255,0.07);border-color:rgba(0,212,255,0.2);color:var(--text);transform:translateY(-1px);}
 .btn-media.recording{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.4);color:#f87171;animation:blink 1s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.5;}}
-.btn-enviar{background:var(--accent);color:#060d1a;border:none;border-radius:9px;padding:9px 20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:1px;cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:6px;}
-.btn-enviar:hover{transform:translateY(-1px);opacity:0.9;}
-.media-preview{display:none;background:rgba(6,13,26,0.8);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--accent);align-items:center;gap:10px;}
+.btn-enviar{background:linear-gradient(135deg,var(--accent),#0099cc);color:#020818;border:none;border-radius:9px;padding:9px 20px;font-family:'Orbitron',monospace;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:6px;}
+.btn-enviar:hover{transform:translateY(-1px);box-shadow:0 0 16px rgba(0,212,255,0.35);}
+.media-preview{display:none;background:rgba(2,8,24,0.85);border:1px solid rgba(0,212,255,0.2);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--accent);align-items:center;gap:10px;}
 .media-preview.show{display:flex;}
 .media-preview img{max-height:80px;border-radius:8px;}
 .media-preview audio{height:32px;flex:1;}
-.btn-remove-preview{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0;white-space:nowrap;}
-.btn-remove-preview:hover{transform:none;background:rgba(239,68,68,0.25);}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:1000;display:none;justify-content:center;align-items:center;padding:20px;}
+.btn-remove-preview{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'Exo 2',sans-serif;white-space:nowrap;}
+.btn-remove-preview:hover{transform:none;background:rgba(239,68,68,0.22);}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:1000;display:none;justify-content:center;align-items:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal{background:#0d1f35;border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:36px 32px;width:100%;max-width:480px;position:relative;max-height:90vh;overflow-y:auto;}
-.modal h3{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
+.modal{
+  background:rgba(6,15,34,0.98);
+  border:1px solid rgba(0,212,255,0.2);
+  border-radius:20px;padding:36px 32px;
+  width:100%;max-width:480px;position:relative;max-height:90vh;overflow-y:auto;
+  box-shadow:0 0 60px rgba(0,212,255,0.08);
+}
+.modal h3{font-family:'Orbitron',monospace;font-size:17px;font-weight:900;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
 .modal .modal-email{font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:22px;}
-.modal label{display:block;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:5px;}
+.modal label{display:block;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:5px;font-family:'Orbitron',monospace;}
 .modal input,.modal select{margin-bottom:16px;}
 .modal-btns{display:flex;gap:10px;margin-top:6px;}
 .modal-btns button{flex:1;}
 .modal-close{position:absolute;top:16px;right:16px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;}
-.modal-close:hover{color:var(--text);transform:none;}
+.modal-close:hover{color:var(--accent);transform:none;}
 .modal-msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:12px;display:none;}
-.modal-msg.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--accent);display:block;}
+.modal-msg.success{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);display:block;}
 .modal-msg.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;display:block;}
-#imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:none;justify-content:center;align-items:center;cursor:zoom-out;}
+
+/* Orbit animations — todos os SVGs (viewBox 80x80, centro 40 40) */
+.orbit-1{animation:rot 6s linear infinite;transform-origin:40px 40px;}
+.orbit-2{animation:rot-rev 9s linear infinite;transform-origin:40px 40px;}
+.orbit-3{animation:rot 14s linear infinite;transform-origin:40px 40px;}
+.core-pulse{animation:cpulse 2.5s ease-in-out infinite;transform-origin:40px 40px;}
+.q-dot{animation:qdot 2s ease-in-out infinite;}
+.q-dot:nth-child(2){animation-delay:0.4s;}
+.q-dot:nth-child(3){animation-delay:0.8s;}
+@keyframes rot{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes rot-rev{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+@keyframes cpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.88);}}
+@keyframes qdot{0%,100%{opacity:1;}50%{opacity:0.1;}}
+
+#imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;display:none;justify-content:center;align-items:center;cursor:zoom-out;}
 #imgModal.open{display:flex;}
 #imgModal img{max-width:92vw;max-height:90vh;border-radius:12px;object-fit:contain;}
 </style>
 </head>
 <body>
 
+<!-- Starfield -->
+<div class="stars" id="stars"></div>
+
+<!-- STEP 1 -->
 <div class="login-wrap" id="step1Wrap">
   <div class="login-box">
-    <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
+    <div class="login-logo">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="lcg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#00d4ff"/>
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lgb" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="lgf">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="lbl"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <circle cx="40" cy="40" r="34" fill="url(#lgb)"/>
+        <g class="orbit-1">
+          <ellipse cx="40" cy="40" rx="36" ry="12" stroke="#00d4ff" stroke-width="1.2" stroke-opacity="0.55" fill="none"/>
+          <circle cx="76" cy="40" r="3.5" fill="#00d4ff" filter="url(#lgf)" class="q-dot"/>
+        </g>
+        <g class="orbit-2">
+          <ellipse cx="40" cy="40" rx="29" ry="10" stroke="#7c3aed" stroke-width="1.1" stroke-opacity="0.65" fill="none" transform="rotate(60 40 40)"/>
+          <circle cx="40" cy="11" r="3" fill="#a78bfa" filter="url(#lgf)" class="q-dot"/>
+        </g>
+        <g class="orbit-3">
+          <ellipse cx="40" cy="40" rx="22" ry="7" stroke="#00ffaa" stroke-width="0.9" stroke-opacity="0.45" fill="none" transform="rotate(-45 40 40)"/>
+          <circle cx="60" cy="24" r="2.5" fill="#00ffaa" filter="url(#lgf)" class="q-dot"/>
+        </g>
+        <circle cx="40" cy="40" r="14" fill="#00d4ff" fill-opacity="0.06" filter="url(#lbl)"/>
+        <g class="core-pulse">
+          <circle cx="40" cy="40" r="11" fill="url(#lcg)" filter="url(#lgf)"/>
+          <circle cx="40" cy="40" r="6" fill="#ffffff" fill-opacity="0.92"/>
+          <circle cx="37" cy="37" r="2" fill="#ffffff" fill-opacity="0.5"/>
+        </g>
+        <text x="40" y="43.5" font-family="serif" font-size="8" fill="#020818" text-anchor="middle" font-weight="bold">Ψ</text>
+      </svg>
+      <div class="login-brand">Universo Quântico</div>
+      <div class="login-sub">Preparatório Virtual com DIATOMA</div>
+    </div>
     <h2>ADMIN</h2>
     <div class="step-label">VERIFICAÇÃO DE ACESSO</div>
     <div class="step-dots"><div class="step-dot active" id="dot1"></div><div class="step-dot" id="dot2"></div></div>
@@ -143,9 +280,51 @@ button:hover{transform:translateY(-1px);}
   </div>
 </div>
 
+<!-- STEP 2 -->
 <div class="login-wrap" id="step2Wrap" style="display:none;">
   <div class="login-box">
-    <div class="logo">PREPARATÓRIO VIRTUAL COM DELT∆</div>
+    <div class="login-logo">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="lcg2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#00d4ff"/>
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lgb2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="lgf2">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="lbl2"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <circle cx="40" cy="40" r="34" fill="url(#lgb2)"/>
+        <g class="orbit-1">
+          <ellipse cx="40" cy="40" rx="36" ry="12" stroke="#00d4ff" stroke-width="1.2" stroke-opacity="0.55" fill="none"/>
+          <circle cx="76" cy="40" r="3.5" fill="#00d4ff" filter="url(#lgf2)" class="q-dot"/>
+        </g>
+        <g class="orbit-2">
+          <ellipse cx="40" cy="40" rx="29" ry="10" stroke="#7c3aed" stroke-width="1.1" stroke-opacity="0.65" fill="none" transform="rotate(60 40 40)"/>
+          <circle cx="40" cy="11" r="3" fill="#a78bfa" filter="url(#lgf2)" class="q-dot"/>
+        </g>
+        <g class="orbit-3">
+          <ellipse cx="40" cy="40" rx="22" ry="7" stroke="#00ffaa" stroke-width="0.9" stroke-opacity="0.45" fill="none" transform="rotate(-45 40 40)"/>
+          <circle cx="60" cy="24" r="2.5" fill="#00ffaa" filter="url(#lgf2)" class="q-dot"/>
+        </g>
+        <circle cx="40" cy="40" r="14" fill="#00d4ff" fill-opacity="0.06" filter="url(#lbl2)"/>
+        <g class="core-pulse">
+          <circle cx="40" cy="40" r="11" fill="url(#lcg2)" filter="url(#lgf2)"/>
+          <circle cx="40" cy="40" r="6" fill="#ffffff" fill-opacity="0.92"/>
+          <circle cx="37" cy="37" r="2" fill="#ffffff" fill-opacity="0.5"/>
+        </g>
+        <text x="40" y="43.5" font-family="serif" font-size="8" fill="#020818" text-anchor="middle" font-weight="bold">Ψ</text>
+      </svg>
+      <div class="login-brand">Universo Quântico</div>
+      <div class="login-sub">Preparatório Virtual com DIATOMA</div>
+    </div>
     <h2>ADMIN</h2>
     <div class="step-label">VERIFICAÇÃO DE IDENTIDADE</div>
     <div class="step-dots"><div class="step-dot done" id="dot1b"></div><div class="step-dot active" id="dot2b"></div></div>
@@ -154,15 +333,57 @@ button:hover{transform:translateY(-1px);}
     <input type="password" id="firebaseSenha" placeholder="Senha do Firebase" onkeydown="if(event.key==='Enter')verificarCamada2()">
     <button class="btn-login" id="btnStep2" onclick="verificarCamada2()">ENTRAR NO PAINEL →</button>
     <p class="error-login" id="erroStep2"></p>
-    <p style="font-size:11px;color:var(--muted);margin-top:12px;cursor:pointer;" onclick="voltarStep1()">← Voltar</p>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;cursor:pointer;font-family:'Orbitron',monospace;letter-spacing:1px;" onclick="voltarStep1()">← VOLTAR</p>
   </div>
 </div>
 
+<!-- PAINEL -->
 <div id="painel">
   <div class="painel-header">
-    <div>
-      <h2>PAINEL ADMIN</h2>
-      <div class="session-info"><span class="session-dot"></span>Sessão activa · expira em <span id="sessionTimer"></span> &nbsp;·&nbsp; 🔐🔑 2 camadas verificadas</div>
+    <div class="painel-logo">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="pcg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#00d4ff"/>
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="pgb" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="pgf">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="pbl"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <circle cx="40" cy="40" r="34" fill="url(#pgb)"/>
+        <g class="orbit-1">
+          <ellipse cx="40" cy="40" rx="36" ry="12" stroke="#00d4ff" stroke-width="1.2" stroke-opacity="0.55" fill="none"/>
+          <circle cx="76" cy="40" r="3.5" fill="#00d4ff" filter="url(#pgf)" class="q-dot"/>
+        </g>
+        <g class="orbit-2">
+          <ellipse cx="40" cy="40" rx="29" ry="10" stroke="#7c3aed" stroke-width="1.1" stroke-opacity="0.65" fill="none" transform="rotate(60 40 40)"/>
+          <circle cx="40" cy="11" r="3" fill="#a78bfa" filter="url(#pgf)" class="q-dot"/>
+        </g>
+        <g class="orbit-3">
+          <ellipse cx="40" cy="40" rx="22" ry="7" stroke="#00ffaa" stroke-width="0.9" stroke-opacity="0.45" fill="none" transform="rotate(-45 40 40)"/>
+          <circle cx="60" cy="24" r="2.5" fill="#00ffaa" filter="url(#pgf)" class="q-dot"/>
+        </g>
+        <circle cx="40" cy="40" r="14" fill="#00d4ff" fill-opacity="0.06" filter="url(#pbl)"/>
+        <g class="core-pulse">
+          <circle cx="40" cy="40" r="11" fill="url(#pcg)" filter="url(#pgf)"/>
+          <circle cx="40" cy="40" r="6" fill="#ffffff" fill-opacity="0.92"/>
+          <circle cx="37" cy="37" r="2" fill="#ffffff" fill-opacity="0.5"/>
+        </g>
+        <text x="40" y="43.5" font-family="serif" font-size="8" fill="#020818" text-anchor="middle" font-weight="bold">Ψ</text>
+      </svg>
+      <div>
+        <div class="painel-title">PAINEL ADMIN</div>
+        <div class="painel-sub">Preparatório Virtual com DIATOMA</div>
+        <div class="session-info"><span class="session-dot"></span>Sessão activa · expira em <span id="sessionTimer"></span> &nbsp;·&nbsp; 🔐🔑 2 camadas verificadas</div>
+      </div>
     </div>
     <button class="logout-btn" onclick="sair()">SAIR</button>
   </div>
@@ -217,9 +438,9 @@ button:hover{transform:translateY(-1px);}
     </div>
     <div class="section" id="chatConversaWrap">
       <div class="conversa-header">
-        <button class="btn-cancel" style="padding:6px 14px;font-size:12px;" onclick="fecharConversa()">← Voltar</button>
+        <button class="btn-cancel" style="padding:6px 14px;font-size:11px;font-family:'Orbitron',monospace;letter-spacing:1px;" onclick="fecharConversa()">← VOLTAR</button>
         <div>
-          <div style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;" id="conversaEmail"></div>
+          <div style="font-family:'Orbitron',monospace;font-size:13px;font-weight:700;letter-spacing:1px;" id="conversaEmail"></div>
           <div style="font-size:11px;color:var(--muted);" id="conversaInfo"></div>
         </div>
       </div>
@@ -253,7 +474,6 @@ button:hover{transform:translateY(-1px);}
     <h3>EDITAR UTILIZADOR</h3>
     <p class="modal-email" id="modalEmail"></p>
     <input type="hidden" id="modalUid">
-
     <label>Tipo de Curso</label>
     <select id="modalTipo" onchange="atualizarModalTipo()">
       <option value="">Seleciona o tipo de curso</option>
@@ -265,24 +485,16 @@ button:hover{transform:translateY(-1px);}
       <option value="primeiros">🩺 Primeiros Socorros</option>
       <option value="minsa">🏥 Preparatório MINSA</option>
     </select>
-
     <div id="modalUniWrap">
       <label>Universidade</label>
-      <select id="modalUni" onchange="atualizarModalCursos()">
-        <option value="">Seleciona a universidade</option>
-      </select>
+      <select id="modalUni" onchange="atualizarModalCursos()"><option value="">Seleciona a universidade</option></select>
     </div>
-
     <div id="modalCursoWrap">
       <label>Curso</label>
-      <select id="modalCurso">
-        <option value="">Seleciona o curso</option>
-      </select>
+      <select id="modalCurso"><option value="">Seleciona o curso</option></select>
     </div>
-
     <label>Data de Expiração</label>
     <input type="date" id="modalExpiry">
-
     <div class="modal-btns">
       <button class="btn-cancel" onclick="fecharModal()">CANCELAR</button>
       <button class="btn-save" onclick="guardarEdicao()">GUARDAR</button>
@@ -294,6 +506,16 @@ button:hover{transform:translateY(-1px);}
 <div id="imgModal" onclick="this.classList.remove('open')">
   <img id="imgModalSrc" src="" alt="">
 </div>
+
+<script>
+  const starsEl=document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=Math.random()*2+0.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--o:${Math.random()*0.6+0.1};--d:${Math.random()*3+2}s;animation-delay:${Math.random()*4}s;`;
+    starsEl.appendChild(s);
+  }
+</script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -313,113 +535,23 @@ const DIAS_DEFAULT=30*24*60*60*1000;
 const UNIVERSIDADES=["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC","OUTRA"];
 const NOMES_UNI={UAN:"Universidade Agostinho Neto",UMN:"Universidade Mandume Ya Ndemufayo",UON:"Universidade 11 de Novembro",UKB:"Universidade Katyavala Buila",URNM:"Universidade Rainha Njinga Mbande",UJES:"Universidade José Eduardo Dos Santos",ISTM:"Instituto Superior Técnico Militar",UPRA:"Universidade Privada de Angola",UNIPIAGET:"Universidade Jean Piaget",UNIKIV:"Universidade Kimpa Vita",UCC:"Universidade Cuito Cuanavale",OUTRA:"Outra Universidade"};
 const COURSES_BY_UNI={UAN:["Medicina Geral","Ciências de Enfermagem","Ciências Farmacêuticas","Análises Clínicas e Saúde Pública"],UMN:["Medicina Geral","Enfermagem","Análises Clínicas e Laboratório"],UON:["Medicina Geral","Enfermagem","Análises Clínicas"],UKB:["Medicina Geral"],URNM:["Medicina Geral","Ciências Farmacêuticas","Ciências de Enfermagem","Análises Clínicas e Toxicológicas"],UJES:["Medicina Geral","Electromedicina","Laboratório Clínico","Enfermagem"],ISTM:["Medicina Geral","Enfermagem"],UPRA:["Medicina Geral","Enfermagem","Fisioterapia","Odontologia"],UNIPIAGET:["Medicina Geral","Medicina Dentária","Enfermagem","Ciências Farmacêuticas","Fisioterapia","Análises Clínicas e Saúde Pública","Enfermagem e Obstetrícia","Radiologia e Imagiologia"],UNIKIV:["Enfermagem","Análises Clínicas","Agronomia"],UCC:["Enfermagem"],OUTRA:["Medicina Geral","Medicina Dentária","Enfermagem","Análises Clínicas","Farmácia","Nutrição","Cardiopneumologia","Fisioterapia"]};
-
-// ── CURSOS POR TIPO
-const COURSES_BY_TIPO={
-  ensino_medio:["Curso Preparatório Ensino Médio"],
-  mat_basica:["Curso de Matemática Básica"],
-  fis_basica:["Curso de Física Básica"],
-  medicamentos:["Cálculos de Medicamentos e Gotejamento"],
-  primeiros:["Curso de Primeiros Socorros"],
-  minsa:["Preparatório MINSA — Técnico de Enfermagem"]
-};
-
-const COURSE_TO_AREA={"Medicina Geral":"medicina geral","Medicina Dentária":"medicina dentária","Ciências de Enfermagem":"enfermagem","Enfermagem":"enfermagem","Enfermagem e Obstetrícia":"enfermagem","Ciências Farmacêuticas":"farmacia","Farmácia":"farmacia","Análises Clínicas e Saúde Pública":"analises clinicas","Análises Clínicas e Laboratório":"analises clinicas","Análises Clínicas":"analises clinicas","Análises Clínicas e Toxicológicas":"analises clinicas","Fisioterapia":"fisioterapia","Odontologia":"medicina dentária","Electromedicina":"analises clinicas","Laboratório Clínico":"analises clinicas","Radiologia e Imagiologia":"analises clinicas","Nutrição":"nutrição e dietética","Cardiopneumologia":"cardiopneumologia","Agronomia":"analises clinicas","Matemática":"ensino_medio","Biologia":"ensino_medio","Química":"ensino_medio","Física":"fis_basica","Língua Portuguesa":"ensino_medio","Matemática Básica":"mat_basica","Curso de Matemática Básica":"mat_basica","Física Básica":"fis_basica","Curso de Física Básica":"fis_basica","Cálculos de Medicamentos e Gotejamento":"medicamentos","Primeiros Socorros":"primeiros","Curso de Primeiros Socorros":"primeiros","Preparatório MINSA — Técnico de Enfermagem":"minsa","Técnico de Enfermagem":"minsa","Curso Preparatório Ensino Médio":"ensino_medio"};
-
+const COURSES_BY_TIPO={ensino_medio:["Curso Preparatório Ensino Médio"],mat_basica:["Curso de Matemática Básica"],fis_basica:["Curso de Física Básica"],medicamentos:["Cálculos de Medicamentos e Gotejamento"],primeiros:["Curso de Primeiros Socorros"],minsa:["Preparatório MINSA — Técnico de Enfermagem"]};
+const COURSE_TO_AREA={"Medicina Geral":"medicina geral","Medicina Dentária":"medicina dentária","Ciências de Enfermagem":"enfermagem","Enfermagem":"enfermagem","Enfermagem e Obstetrícia":"enfermagem","Ciências Farmacêuticas":"farmacia","Farmácia":"farmacia","Análises Clínicas e Saúde Pública":"analises clinicas","Análises Clínicas e Laboratório":"analises clinicas","Análises Clínicas":"analises clinicas","Análises Clínicas e Toxicológicas":"analises clinicas","Fisioterapia":"fisioterapia","Odontologia":"medicina dentária","Electromedicina":"analises clinicas","Laboratório Clínico":"analises clinicas","Radiologia e Imagiologia":"analises clinicas","Nutrição":"nutrição e dietética","Cardiopneumologia":"cardiopneumologia","Agronomia":"analises clinicas","Curso Preparatório Ensino Médio":"ensino_medio","Curso de Matemática Básica":"mat_basica","Curso de Física Básica":"fis_basica","Cálculos de Medicamentos e Gotejamento":"medicamentos","Curso de Primeiros Socorros":"primeiros","Preparatório MINSA — Técnico de Enfermagem":"minsa"};
 const DISCIPLINAS_UNI={UAN:["Biologia","Química","Língua Portuguesa","Matemática"],UMN:["Biologia","Química","Língua Portuguesa","Matemática"],UON:["Biologia","Química","Língua Portuguesa","Física"],UKB:["Biologia","Química","Língua Portuguesa","Física"],URNM:["Biologia","Química","Língua Portuguesa","Matemática","Física"],UJES:["Biologia","Química","Língua Portuguesa","Física"],ISTM:["Biologia","Química","Matemática","Física"],UPRA:["Biologia","Química","Língua Portuguesa"],UNIPIAGET:["Biologia","Química","Língua Portuguesa","Matemática","Física"],UNIKIV:["Biologia","Química","Matemática","Língua Portuguesa"],UCC:["Biologia","Química","Língua Portuguesa","Matemática"],OUTRA:["Biologia","Química","Matemática","Língua Portuguesa","Física"]};
 const NOMES_SECCAO={video_aulas:"Vídeo Aulas",materiais:"Materiais de Apoio",cronograma:"Cronograma",provas:"Provas Passadas",resolucao:"Resolução de Provas"};
 
 let chatAtualUid=null,unsubConversa=null,mediaParaEnviar=null,mediaRecorder=null,audioChunks=[],gravando=false;
 
-// ── MODAL EDITAR ──────────────────────────────────────────
 const modalUniSel=document.getElementById("modalUni");
 UNIVERSIDADES.forEach(u=>{modalUniSel.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`;});
 
-window.atualizarModalTipo=function(){
-  const tipo=document.getElementById("modalTipo").value;
-  const uniWrap=document.getElementById("modalUniWrap");
-  const cursoSel=document.getElementById("modalCurso");
-  const uniSel=document.getElementById("modalUni");
-  cursoSel.innerHTML=`<option value="">Seleciona o curso</option>`;
-  uniSel.value="";
-  if(tipo==="universitario"){
-    uniWrap.style.display="block";
-  } else {
-    uniWrap.style.display="none";
-    const cursos=COURSES_BY_TIPO[tipo]||[];
-    cursos.forEach(c=>cursoSel.innerHTML+=`<option value="${c}">${c}</option>`);
-  }
-}
-
-window.atualizarModalCursos=function(){
-  const uni=document.getElementById("modalUni").value;
-  const sel=document.getElementById("modalCurso");
-  sel.innerHTML=`<option value="">Seleciona o curso</option>`;
-  if(!uni)return;
-  (COURSES_BY_UNI[uni]||[]).forEach(c=>sel.innerHTML+=`<option value="${c}">${c}</option>`);
-}
-
-window.abrirModal=async function(docId){
-  editingDocId=docId;
-  const snap=await getDoc(doc(db,"users",docId));if(!snap.exists())return;
-  const d=snap.data();
-  document.getElementById("modalUid").value=d.uid||"";
-  document.getElementById("modalEmail").innerText=d.email||"";
-  document.getElementById("modalMsg").className="modal-msg";
-
-  const tipo=d.tipo||"universitario";
-  document.getElementById("modalTipo").value=tipo;
-  atualizarModalTipo();
-
-  if(tipo==="universitario"){
-    document.getElementById("modalUni").value=d.uni||"";
-    atualizarModalCursos();
-    document.getElementById("modalCurso").value=d.curso||"";
-  } else {
-    // Preencher cursos do tipo e tentar encontrar o curso guardado
-    const cursos=COURSES_BY_TIPO[tipo]||[];
-    const cursoSel=document.getElementById("modalCurso");
-    cursoSel.innerHTML=`<option value="">Seleciona o curso</option>`;
-    cursos.forEach(c=>cursoSel.innerHTML+=`<option value="${c}">${c}</option>`);
-
-    // Tentar definir o valor guardado; se não encontrar, seleccionar o primeiro
-    const cursoGuardado=d.curso||"";
-    if(cursoGuardado && cursos.includes(cursoGuardado)){
-      cursoSel.value=cursoGuardado;
-    } else if(cursos.length>0){
-      // Seleccionar o primeiro por defeito e mostrar ao admin
-      cursoSel.value=cursos[0];
-    }
-  }
-
-  const exp=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);
-  document.getElementById("modalExpiry").value=exp?new Date(exp).toISOString().split("T")[0]:"";
-  document.getElementById("modalOverlay").classList.add("open");
-}
-
+window.atualizarModalTipo=function(){const tipo=document.getElementById("modalTipo").value;const uniWrap=document.getElementById("modalUniWrap");const cursoSel=document.getElementById("modalCurso");const uniSel=document.getElementById("modalUni");cursoSel.innerHTML=`<option value="">Seleciona o curso</option>`;uniSel.value="";if(tipo==="universitario"){uniWrap.style.display="block";}else{uniWrap.style.display="none";const cursos=COURSES_BY_TIPO[tipo]||[];cursos.forEach(c=>cursoSel.innerHTML+=`<option value="${c}">${c}</option>`);}}
+window.atualizarModalCursos=function(){const uni=document.getElementById("modalUni").value;const sel=document.getElementById("modalCurso");sel.innerHTML=`<option value="">Seleciona o curso</option>`;if(!uni)return;(COURSES_BY_UNI[uni]||[]).forEach(c=>sel.innerHTML+=`<option value="${c}">${c}</option>`);}
+window.abrirModal=async function(docId){editingDocId=docId;const snap=await getDoc(doc(db,"users",docId));if(!snap.exists())return;const d=snap.data();document.getElementById("modalUid").value=d.uid||"";document.getElementById("modalEmail").innerText=d.email||"";document.getElementById("modalMsg").className="modal-msg";const tipo=d.tipo||"universitario";document.getElementById("modalTipo").value=tipo;atualizarModalTipo();if(tipo==="universitario"){document.getElementById("modalUni").value=d.uni||"";atualizarModalCursos();document.getElementById("modalCurso").value=d.curso||"";}else{const cursos=COURSES_BY_TIPO[tipo]||[];const cursoSel=document.getElementById("modalCurso");cursoSel.innerHTML=`<option value="">Seleciona o curso</option>`;cursos.forEach(c=>cursoSel.innerHTML+=`<option value="${c}">${c}</option>`);const cg=d.curso||"";if(cg&&cursos.includes(cg)){cursoSel.value=cg;}else if(cursos.length>0){cursoSel.value=cursos[0];}}const exp=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);document.getElementById("modalExpiry").value=exp?new Date(exp).toISOString().split("T")[0]:"";document.getElementById("modalOverlay").classList.add("open");}
 window.fecharModal=function(){document.getElementById("modalOverlay").classList.remove("open");editingDocId=null;}
-
-window.guardarEdicao=async function(){
-  const msgEl=document.getElementById("modalMsg");msgEl.className="modal-msg";
-  const tipo=document.getElementById("modalTipo").value;
-  const uni=document.getElementById("modalUni").value;
-  const curso=document.getElementById("modalCurso").value;
-  const expiry=document.getElementById("modalExpiry").value;
-  if(!tipo){msgEl.className="modal-msg error";msgEl.innerText="Seleciona o tipo de curso.";return;}
-  if(tipo==="universitario"&&!uni){msgEl.className="modal-msg error";msgEl.innerText="Seleciona a universidade.";return;}
-  if(!curso){msgEl.className="modal-msg error";msgEl.innerText="Seleciona o curso.";return;}
-  const updates={tipo,uni:tipo==="universitario"?uni:"",curso,area:COURSE_TO_AREA[curso]||tipo};
-  if(expiry)updates.expiryDate=new Date(expiry).getTime();
-  try{
-    await updateDoc(doc(db,"users",editingDocId),updates);
-    msgEl.className="modal-msg success";msgEl.innerText="✅ Dados actualizados com sucesso!";
-    setTimeout(()=>{fecharModal();carregarUsers();},1200);
-  }catch(e){msgEl.className="modal-msg error";msgEl.innerText="Erro: "+e.message;}
-}
-
+window.guardarEdicao=async function(){const msgEl=document.getElementById("modalMsg");msgEl.className="modal-msg";const tipo=document.getElementById("modalTipo").value;const uni=document.getElementById("modalUni").value;const curso=document.getElementById("modalCurso").value;const expiry=document.getElementById("modalExpiry").value;if(!tipo){msgEl.className="modal-msg error";msgEl.innerText="Seleciona o tipo de curso.";return;}if(tipo==="universitario"&&!uni){msgEl.className="modal-msg error";msgEl.innerText="Seleciona a universidade.";return;}if(!curso){msgEl.className="modal-msg error";msgEl.innerText="Seleciona o curso.";return;}const updates={tipo,uni:tipo==="universitario"?uni:"",curso,area:COURSE_TO_AREA[curso]||tipo};if(expiry)updates.expiryDate=new Date(expiry).getTime();try{await updateDoc(doc(db,"users",editingDocId),updates);msgEl.className="modal-msg success";msgEl.innerText="✅ Dados actualizados com sucesso!";setTimeout(()=>{fecharModal();carregarUsers();},1200);}catch(e){msgEl.className="modal-msg error";msgEl.innerText="Erro: "+e.message;}}
 document.getElementById("modalOverlay").addEventListener("click",function(e){if(e.target===this)fecharModal();});
 
-// ── CHAT MÍDIA ────────────────────────────────────────────
 window.selecionarFoto=function(event){const file=event.target.files[0];if(!file)return;if(file.size>800*1024){alert("⚠️ Imagem muito grande. Máximo 800KB.");event.target.value="";return;}const reader=new FileReader();reader.onload=e=>{mediaParaEnviar={tipo:'imagem',base64:e.target.result,nome:file.name};mostrarPreview('imagem',e.target.result,file.name);};reader.readAsDataURL(file);event.target.value="";}
 window.selecionarAudio=function(event){const file=event.target.files[0];if(!file)return;if(file.size>500*1024){alert("⚠️ Ficheiro de áudio muito grande. Máximo 500KB.");event.target.value="";return;}const reader=new FileReader();reader.onload=e=>{mediaParaEnviar={tipo:'audio',base64:e.target.result,nome:file.name};mostrarPreview('audio',e.target.result,file.name);};reader.readAsDataURL(file);event.target.value="";}
 window.toggleGravarAudio=async function(){const btn=document.getElementById("btnGravarAudio");if(!gravando){try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});audioChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);mediaRecorder.onstop=()=>{const blob=new Blob(audioChunks,{type:'audio/webm'});if(blob.size>500*1024){alert("⚠️ Gravação muito longa.");return;}const reader=new FileReader();reader.onload=e=>{mediaParaEnviar={tipo:'audio',base64:e.target.result,nome:'gravacao.webm'};mostrarPreview('audio',e.target.result,'Gravação de voz');};reader.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop());};mediaRecorder.start();gravando=true;btn.classList.add('recording');btn.innerHTML='⏹️ Parar';}catch(e){alert("Não foi possível aceder ao microfone.");}}else{mediaRecorder.stop();gravando=false;btn.classList.remove('recording');btn.innerHTML='🎙️ Áudio';}}
@@ -434,7 +566,6 @@ window.fecharConversa=function(){if(unsubConversa){unsubConversa();unsubConversa
 window.enviarRespostaAdmin=async function(){if(!chatAtualUid)return;const texto=document.getElementById("adminInput").value.trim();const temMedia=!!mediaParaEnviar;if(!texto&&!temMedia)return;document.getElementById("adminInput").value="";const dadosMsg={sender:"prof",ts:serverTimestamp(),lidoAdmin:true,lidoAluno:false};const dadosChat={ultimaTs:serverTimestamp(),naoLidoAluno:true};if(temMedia){dadosMsg.tipo=mediaParaEnviar.tipo;dadosMsg.base64=mediaParaEnviar.base64;dadosMsg.texto=texto||"";dadosChat.ultimaMsg=mediaParaEnviar.tipo==='imagem'?"📷 Imagem":"🎵 Áudio";removerMidia();}else{dadosMsg.tipo="texto";dadosMsg.texto=texto;dadosChat.ultimaMsg=texto.length>50?texto.slice(0,50)+"…":texto;}await setDoc(doc(db,"chat",chatAtualUid),dadosChat,{merge:true});await addDoc(collection(db,"chat",chatAtualUid,"mensagens"),dadosMsg);}
 function iniciarBadgeChat(){onSnapshot(collection(db,"chat"),snap=>{const total=snap.docs.filter(d=>d.data().naoLidoAdmin).length;const badge=document.getElementById("chatBadgeTab");if(total>0){badge.style.display="inline";badge.innerText=total;}else{badge.style.display="none";}});}
 
-// ── SEGURANÇA ─────────────────────────────────────────────
 async function sha256(text){const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(text));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");}
 function gerarToken(){const a=new Uint8Array(32);crypto.getRandomValues(a);return Array.from(a).map(b=>b.toString(16).padStart(2,"0")).join("");}
 function sessaoValida(){try{const s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||"null");if(!s?.token||!s?.expiry)return false;if(Date.now()>s.expiry){sessionStorage.removeItem(SESSION_KEY);return false;}return true;}catch{return false;}}
@@ -467,7 +598,7 @@ window.adicionarAula=async function(){const tipoCurso=document.getElementById("t
 async function carregarAulas(){const div=document.getElementById("listaAulas");const snap=await getDocs(collection(db,"aulas"));if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum conteúdo publicado ainda.</p>";return;}div.innerHTML="";const ic={video:"🎥",bunny:"🐰",pdf:"📄",imagem:"🖼"};const TIPO_LABELS={universitario:"Univ.",ensino_medio:"Ens.Médio",mat_basica:"Mat.Básica",fis_basica:"Fís.Básica",medicamentos:"Medicamentos",primeiros:"Primeiros Socorros",minsa:"MINSA"};snap.forEach(d=>{const data=d.data();const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";let sub="—";if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📁"} ${data.titulo}</p><p class="meta">[${tipoLabel}] ${sec} › ${sub} · ${data.tipo==="bunny"?"Bunny 🔒":data.tipo}</p></div><button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button></div>`;});}
 window.eliminarAula=async function(id){if(!confirm("Tens a certeza?"))return;await deleteDoc(doc(db,"aulas",id));carregarAulas();}
 async function eliminarUserCompleto(uid,docId){await deleteDoc(doc(db,"users",docId));try{await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({idToken:uid})});}catch(e){}try{await addDoc(collection(db,"deleted_users_auth"),{uid,deletedAt:Date.now()});}catch(e){}}
-async function carregarUsers(){const div=document.getElementById("users");const snap=await getDocs(collection(db,"users"));if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>";return;}div.innerHTML="";const agora=Date.now();snap.forEach(u=>{const d=u.data();const uniLabel=d.uni?`${d.uni}${NOMES_UNI[d.uni]?' — '+NOMES_UNI[d.uni]:''}` :"—";const duracaoLabel=d.duracao?(DUR_LABELS[d.duracao]||d.duracao+" dias"):null;const precoLabel=d.preco?parseInt(d.preco).toLocaleString("pt-AO")+" KZ":null;let expiryTs=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);let expiryHtml="";let statusBadge=d.approved?`<span class="badge approved">APROVADO</span>`:`<span class="badge pending">PENDENTE</span>`;if(d.approved&&expiryTs){const dias=Math.ceil((expiryTs-agora)/(1000*60*60*24));const ds=new Date(expiryTs).toLocaleDateString('pt-PT');if(expiryTs<agora){statusBadge=`<span class="badge expired">EXPIRADO</span>`;expiryHtml=`<span class="expiry-expired">⚠️ Expirou em ${ds}</span>`;}else if(dias<=7){expiryHtml=`<span class="expiry-warning">⏳ Expira em ${dias} dia${dias!==1?'s':''} (${ds})</span>`;}else{expiryHtml=`<span style="font-size:11px;color:var(--muted);">⏳ Expira: ${ds}</span>`;}}const durTagHtml=duracaoLabel?`<span class="dur-tag">📅 ${duracaoLabel}</span>`:"";const precoTagHtml=precoLabel?`<span class="preco-tag">💰 ${precoLabel}</span>`:"";div.innerHTML+=`<div class="user-card" id="card-${u.id}"><div class="user-info"><p class="email">${d.email}</p><p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">${statusBadge}${expiryHtml}</div>${(durTagHtml||precoTagHtml)?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>`:""}</div><div class="user-actions">${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""} ${d.approved?`<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>`:""}<button class="btn-edit" onclick="abrirModal('${u.id}')">✏️ Editar</button><button class="btn-delete" onclick="removerUser('${u.id}','${d.email}')">🗑 Remover</button></div></div>`;});}
+async function carregarUsers(){const div=document.getElementById("users");const snap=await getDocs(collection(db,"users"));if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>";return;}div.innerHTML="";const agora=Date.now();snap.forEach(u=>{const d=u.data();const uniLabel=d.uni?`${d.uni}${NOMES_UNI[d.uni]?' — '+NOMES_UNI[d.uni]:''}` :"—";const duracaoLabel=d.duracao?(DUR_LABELS[d.duracao]||d.duracao+" dias"):null;const precoLabel=d.preco?parseInt(d.preco).toLocaleString("pt-AO")+" KZ":null;let expiryTs=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);let expiryHtml="";let statusBadge=d.approved?`<span class="badge approved">APROVADO</span>`:`<span class="badge pending">PENDENTE</span>`;if(d.approved&&expiryTs){const dias=Math.ceil((expiryTs-agora)/(1000*60*60*24));const ds=new Date(expiryTs).toLocaleDateString('pt-PT');if(expiryTs<agora){statusBadge=`<span class="badge expired">EXPIRADO</span>`;expiryHtml=`<span class="expiry-expired">⚠️ Expirou em ${ds}</span>`;}else if(dias<=7){expiryHtml=`<span class="expiry-warning">⏳ Expira em ${dias} dia${dias!==1?'s':''} (${ds})</span>`;}else{expiryHtml=`<span style="font-size:11px;color:var(--muted);">⏳ Expira: ${ds}</span>`;}}const durTagHtml=duracaoLabel?`<span class="dur-tag">📅 ${duracaoLabel}</span>`:"";const precoTagHtml=precoLabel?`<span class="preco-tag">💰 ${precoLabel}</span>`:"";div.innerHTML+=`<div class="user-card" id="card-${u.id}"><div class="user-info"><p class="email">${d.email}</p><p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">${statusBadge}${expiryHtml}</div>${(durTagHtml||precoTagHtml)?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>`:""}</div><div class="user-actions" style="display:flex;gap:6px;flex-wrap:wrap;">${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""} ${d.approved?`<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>`:""}<button class="btn-edit" onclick="abrirModal('${u.id}')">✏️ Editar</button><button class="btn-delete" onclick="removerUser('${u.id}','${d.email}')">🗑 Remover</button></div></div>`;});}
 async function verificarExpirados(){const snap=await getDocs(collection(db,"users"));const agora=Date.now();for(const u of snap.docs){const d=u.data();if(!d.approved)continue;const exp=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);if(exp&&agora>=exp){await deleteDoc(doc(db,"users",u.id));try{await addDoc(collection(db,"deleted_users_auth"),{uid:d.uid,email:d.email,deletedAt:agora});}catch(e){}}}carregarUsers();}
 window.aprovar=async function(id){const snap=await getDoc(doc(db,"users",id));if(!snap.exists())return;const d=snap.data();const approvedAt=Date.now();const duracaoMs=DUR_MS[d.duracao]||DIAS_DEFAULT;const expiryDate=approvedAt+duracaoMs;await updateDoc(doc(db,"users",id),{approved:true,approvedAt,expiryDate});carregarUsers();}
 window.revogar=async function(id){if(!confirm("Revogar acesso?"))return;await updateDoc(doc(db,"users",id),{approved:false});carregarUsers();}
