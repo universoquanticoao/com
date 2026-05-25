@@ -10,12 +10,10 @@
 :root{--bg:#020818;--surface:#0a1628;--accent:#00d4ff;--accent2:#7c3aed;--accent3:#00ffaa;--text:#e2e8f0;--muted:#64748b;}
 body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-/* ── STARFIELD ── */
 .stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0;}
 .star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite;}
 @keyframes twinkle{0%,100%{opacity:var(--o);}50%{opacity:0.05;}}
 
-/* ── MENU ── */
 .menu{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:rgba(2,8,24,0.85);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,212,255,0.1);}
 .logo-nav{display:flex;align-items:center;gap:14px;}
 .logo-nav-svg{width:38px;height:38px;}
@@ -24,7 +22,6 @@ body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);overf
 .menu a{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;letter-spacing:2px;color:var(--muted);text-decoration:none;padding:8px 16px;border:1px solid rgba(100,116,139,0.3);border-radius:6px;transition:0.3s;}
 .menu a:hover{color:var(--accent);border-color:var(--accent);}
 
-/* ── HEADER ── */
 .header{position:relative;z-index:1;text-align:center;padding:70px 20px 50px;}
 .orbit-1{animation:rotate 6s linear infinite;transform-origin:90px 90px;}
 .orbit-2{animation:rotate-reverse 9s linear infinite;transform-origin:90px 90px;}
@@ -46,7 +43,7 @@ body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);overf
 .subtitle-diatoma{display:block;font-size:10px;letter-spacing:8px;color:rgba(0,212,255,0.55);font-family:'Orbitron',monospace;font-weight:700;margin-top:2px;}
 .section-title{font-family:'Rajdhani',sans-serif;font-size:13px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;text-align:center;margin-bottom:30px;}
 
-/* ── WELCOME CARDS ── */
+/* WELCOME CARDS */
 #viewWelcome{position:relative;z-index:1;}
 .welcome-cards{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;padding:0 20px 80px;max-width:760px;margin:0 auto;}
 .welcome-card{flex:1;min-width:260px;max-width:340px;background:var(--surface);border-radius:18px;padding:36px 32px;cursor:pointer;transition:0.35s;position:relative;overflow:hidden;text-align:center;border:1px solid rgba(255,255,255,0.06);}
@@ -136,36 +133,10 @@ body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);overf
 .iban-row{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:8px;}
 .iban-row span{color:var(--text);font-weight:500;}
 
-/* ── COMPROVATIVO UPLOAD ── */
-.comprov-section{margin-top:24px;}
-.comprov-title{font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
-.comprov-instrucao{font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:8px;padding:10px 14px;text-align:left;}
-.comprov-instrucao b{color:var(--accent);}
-
-/* Área de upload */
-.upload-area{border:2px dashed rgba(0,212,255,0.2);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:0.3s;background:rgba(0,212,255,0.02);margin-bottom:14px;position:relative;}
-.upload-area:hover{border-color:rgba(0,212,255,0.5);background:rgba(0,212,255,0.05);}
-.upload-area.has-file{border-color:var(--accent3);background:rgba(0,255,170,0.04);border-style:solid;}
-.upload-icon{font-size:28px;margin-bottom:8px;display:block;}
-.upload-text{font-family:'Rajdhani',sans-serif;font-size:13px;letter-spacing:1px;color:var(--muted);}
-.upload-text b{color:var(--accent);}
-.upload-formats{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:1px;}
-.upload-preview{margin-top:10px;display:none;}
-.upload-preview img{max-width:100%;max-height:180px;border-radius:8px;object-fit:contain;}
-.upload-preview .pdf-preview{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px;color:#f87171;}
-.upload-file-info{margin-top:10px;background:rgba(0,255,170,0.08);border:1px solid rgba(0,255,170,0.25);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--accent3);display:none;align-items:center;gap:8px;justify-content:space-between;}
-.upload-file-info.show{display:flex;}
-.btn-remover-file{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:'Exo 2',sans-serif;white-space:nowrap;}
-.btn-remover-file:hover{background:rgba(239,68,68,0.25);}
-#inputComprovativo{display:none;}
-
-/* Botão CRIAR CONTA — bloqueado até anexar comprovativo */
+/* BOTÃO CONTINUAR */
 .proceed-btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#020818;padding:14px 32px;border-radius:10px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;letter-spacing:2px;text-decoration:none;transition:0.3s;border:none;cursor:pointer;margin-top:16px;width:100%;justify-content:center;}
 .proceed-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,255,0.3);}
-.proceed-btn.locked{background:rgba(0,212,255,0.15);color:rgba(0,212,255,0.35);cursor:not-allowed;pointer-events:none;transform:none;box-shadow:none;}
-.proceed-btn .lock-icon{font-size:14px;}
 .proceed-nota{font-size:11px;color:var(--muted);margin-top:8px;text-align:center;letter-spacing:0.5px;}
-.proceed-nota.ok{color:var(--accent3);}
 
 /* BADGES */
 .selected-info{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
@@ -338,330 +309,156 @@ body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);overf
       <div class="iban-row">IBAN: <span>AO06 0040 0000 5302 5246 1013 5</span></div>
       <div class="iban-row">Proprietário: <span>ERNESTO JORGE DIATOMA</span></div>
       <div class="iban-divider"></div>
-
-      <!-- SECÇÃO COMPROVATIVO -->
-      <div class="comprov-section">
-        <div class="comprov-title">Comprovativo de Pagamento</div>
-        <div class="comprov-instrucao">
-          <b>Como proceder:</b><br>
-          1. Faz o pagamento pelo IBAN acima<br>
-          2. Anexa o comprovativo (foto ou PDF)<br>
-          3. Clica em <b>Criar Conta</b> — o comprovativo será enviado automaticamente
-        </div>
-
-        <!-- Upload area -->
-        <div class="upload-area" id="uploadArea" onclick="document.getElementById('inputComprovativo').click()">
-          <span class="upload-icon" id="uploadIcon">📎</span>
-          <div class="upload-text" id="uploadText">Toca para <b>anexar o comprovativo</b></div>
-          <div class="upload-formats">Formatos aceites: JPG, PNG, PDF · Máx. 4MB</div>
-          <input type="file" id="inputComprovativo" accept="image/*,.pdf" onchange="anexarComprovativo(event)">
-        </div>
-
-        <!-- Info do ficheiro anexado -->
-        <div class="upload-file-info" id="fileInfo">
-          <span id="fileInfoText">📄 ficheiro.pdf</span>
-          <button class="btn-remover-file" onclick="removerComprovativo()">✕ Remover</button>
-        </div>
-
-        <div class="iban-divider"></div>
-
-        <!-- Botão CRIAR CONTA — bloqueado até anexar -->
-        <a id="proceedBtn" href="#" class="proceed-btn locked" onclick="return verificarEnvio(event)">
-          <span class="lock-icon">🔒</span> CRIAR CONTA &amp; CONTINUAR →
-        </a>
-        <div class="proceed-nota" id="proceedNota">Anexa o comprovativo para desbloquear</div>
-      </div>
+      <!-- Botão directo — sem comprovativo aqui -->
+      <a id="proceedBtn" class="proceed-btn" href="#">
+        CRIAR CONTA &amp; CONTINUAR →
+      </a>
+      <div class="proceed-nota">Vai anexar o comprovativo no próximo passo</div>
     </div>
   </div>
 </div>
 
 <script>
-// ── STARFIELD ─────────────────────────────────────────────
-const starsEl = document.getElementById('stars');
-for(let i = 0; i < 130; i++){
-  const s = document.createElement('div');
-  s.className = 'star';
-  const size = Math.random() * 2 + 0.4;
-  s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--o:${(Math.random()*0.6+0.1).toFixed(2)};--d:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s;`;
+// STARFIELD
+const starsEl=document.getElementById('stars');
+for(let i=0;i<130;i++){
+  const s=document.createElement('div');s.className='star';
+  const size=Math.random()*2+0.4;
+  s.style.cssText=`width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--o:${(Math.random()*0.6+0.1).toFixed(2)};--d:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s;`;
   starsEl.appendChild(s);
 }
 
-// ── DATA ──────────────────────────────────────────────────
-const TIPOS = [
-  { id:"universitario", icon:"🎓", name:"Curso Preparatório Universitário",          tag:"Preparação para o Ensino Superior", hasUni:true  },
-  { id:"ensino_medio",  icon:"📚", name:"Curso Preparatório Ensino Médio",            tag:"Preparação para o Ensino Médio",   hasUni:false },
-  { id:"mat_basica",    icon:"📐", name:"Curso de Matemática Básica",                 tag:"Fundamentos de Matemática",        hasUni:false },
-  { id:"fis_basica",    icon:"⚡", name:"Curso de Física Básica",                     tag:"Fundamentos de Física",            hasUni:false },
-  { id:"medicamentos",  icon:"💊", name:"Cálculos de Medicamentos e Gotejamento",     tag:"Enfermagem & Saúde",               hasUni:false },
-  { id:"primeiros",     icon:"🩺", name:"Curso de Primeiros Socorros",                tag:"Emergência & Saúde",               hasUni:false },
-  { id:"minsa",         icon:"🏥", name:"Preparatório MINSA — Técnico de Enfermagem", tag:"Concurso MINSA",                   hasUni:false }
+const TIPOS=[
+  {id:"universitario",icon:"🎓",name:"Curso Preparatório Universitário",tag:"Preparação para o Ensino Superior",hasUni:true},
+  {id:"ensino_medio",icon:"📚",name:"Curso Preparatório Ensino Médio",tag:"Preparação para o Ensino Médio",hasUni:false},
+  {id:"mat_basica",icon:"📐",name:"Curso de Matemática Básica",tag:"Fundamentos de Matemática",hasUni:false},
+  {id:"fis_basica",icon:"⚡",name:"Curso de Física Básica",tag:"Fundamentos de Física",hasUni:false},
+  {id:"medicamentos",icon:"💊",name:"Cálculos de Medicamentos e Gotejamento",tag:"Enfermagem & Saúde",hasUni:false},
+  {id:"primeiros",icon:"🩺",name:"Curso de Primeiros Socorros",tag:"Emergência & Saúde",hasUni:false},
+  {id:"minsa",icon:"🏥",name:"Preparatório MINSA — Técnico de Enfermagem",tag:"Concurso MINSA",hasUni:false}
+];
+const UNIVERSITIES=[
+  {id:"UAN",name:"Universidade Agostinho Neto"},{id:"UMN",name:"Universidade Mandume Ya Ndemufayo"},
+  {id:"UON",name:"Universidade 11 de Novembro"},{id:"UKB",name:"Universidade Katyavala Buila"},
+  {id:"URNM",name:"Universidade Rainha Njinga Mbande"},{id:"UJES",name:"Universidade José Eduardo Dos Santos"},
+  {id:"ISTM",name:"Instituto Superior Técnico Militar"},{id:"UPRA",name:"Universidade Privada de Angola"},
+  {id:"UNIPIAGET",name:"Universidade Jean Piaget"},{id:"UNIKIV",name:"Universidade Kimpa Vita"},
+  {id:"UCC",name:"Universidade Cuito Cuanavale"},{id:"OUTRA",name:"Outra Universidade"}
+];
+const COURSES={UAN:["Medicina Geral","Ciências de Enfermagem","Ciências Farmacêuticas","Análises Clínicas e Saúde Pública"],UMN:["Medicina Geral","Enfermagem","Análises Clínicas e Laboratório"],UON:["Medicina Geral","Enfermagem","Análises Clínicas"],UKB:["Medicina Geral"],URNM:["Medicina Geral","Ciências Farmacêuticas","Ciências de Enfermagem","Análises Clínicas e Toxicológicas"],UJES:["Medicina Geral","Electromedicina","Laboratório Clínico","Enfermagem"],ISTM:["Medicina Geral","Enfermagem"],UPRA:["Medicina Geral","Enfermagem","Fisioterapia","Odontologia"],UNIPIAGET:["Medicina Geral","Medicina Dentária","Enfermagem","Ciências Farmacêuticas","Fisioterapia","Análises Clínicas e Saúde Pública","Enfermagem e Obstetrícia","Radiologia e Imagiologia"],UNIKIV:["Enfermagem","Análises Clínicas","Agronomia"],UCC:["Enfermagem"],OUTRA:["Medicina Geral","Medicina Dentária","Enfermagem","Análises Clínicas","Farmácia","Nutrição","Cardiopneumologia","Fisioterapia"]};
+const COURSE_TO_AREA={"Medicina Geral":"medicina geral","Medicina Dentária":"medicina dentária","Ciências de Enfermagem":"enfermagem","Enfermagem":"enfermagem","Enfermagem e Obstetrícia":"enfermagem","Ciências Farmacêuticas":"farmacia","Farmácia":"farmacia","Análises Clínicas e Saúde Pública":"analises clinicas","Análises Clínicas e Laboratório":"analises clinicas","Análises Clínicas":"analises clinicas","Análises Clínicas e Toxicológicas":"analises clinicas","Fisioterapia":"fisioterapia","Odontologia":"medicina dentária","Electromedicina":"analises clinicas","Laboratório Clínico":"analises clinicas","Radiologia e Imagiologia":"analises clinicas","Nutrição":"nutrição e dietética","Cardiopneumologia":"cardiopneumologia","Agronomia":"analises clinicas"};
+const DURATIONS=[
+  {id:"30",label:"1 MÊS",days:"30 dias",price:"10.000 KZ",priceNum:10000,icon:"📅"},
+  {id:"90",label:"3 MESES",days:"90 dias",price:"20.000 KZ",priceNum:20000,icon:"📆",popular:true},
+  {id:"180",label:"6 MESES",days:"180 dias",price:"30.000 KZ",priceNum:30000,icon:"🗓"},
+  {id:"365",label:"1 ANO",days:"365 dias",price:"60.000 KZ",priceNum:60000,icon:"🏆"}
 ];
 
-const UNIVERSITIES = [
-  { id:"UAN",       name:"Universidade Agostinho Neto" },
-  { id:"UMN",       name:"Universidade Mandume Ya Ndemufayo" },
-  { id:"UON",       name:"Universidade 11 de Novembro" },
-  { id:"UKB",       name:"Universidade Katyavala Buila" },
-  { id:"URNM",      name:"Universidade Rainha Njinga Mbande" },
-  { id:"UJES",      name:"Universidade José Eduardo Dos Santos" },
-  { id:"ISTM",      name:"Instituto Superior Técnico Militar" },
-  { id:"UPRA",      name:"Universidade Privada de Angola" },
-  { id:"UNIPIAGET", name:"Universidade Jean Piaget" },
-  { id:"UNIKIV",    name:"Universidade Kimpa Vita" },
-  { id:"UCC",       name:"Universidade Cuito Cuanavale" },
-  { id:"OUTRA",     name:"Outra Universidade" }
-];
+let selTipo=null,selUni=null,selCurso=null,selDur=null;
 
-const COURSES = {
-  UAN:["Medicina Geral","Ciências de Enfermagem","Ciências Farmacêuticas","Análises Clínicas e Saúde Pública"],
-  UMN:["Medicina Geral","Enfermagem","Análises Clínicas e Laboratório"],
-  UON:["Medicina Geral","Enfermagem","Análises Clínicas"],
-  UKB:["Medicina Geral"],
-  URNM:["Medicina Geral","Ciências Farmacêuticas","Ciências de Enfermagem","Análises Clínicas e Toxicológicas"],
-  UJES:["Medicina Geral","Electromedicina","Laboratório Clínico","Enfermagem"],
-  ISTM:["Medicina Geral","Enfermagem"],
-  UPRA:["Medicina Geral","Enfermagem","Fisioterapia","Odontologia"],
-  UNIPIAGET:["Medicina Geral","Medicina Dentária","Enfermagem","Ciências Farmacêuticas","Fisioterapia","Análises Clínicas e Saúde Pública","Enfermagem e Obstetrícia","Radiologia e Imagiologia"],
-  UNIKIV:["Enfermagem","Análises Clínicas","Agronomia"],
-  UCC:["Enfermagem"],
-  OUTRA:["Medicina Geral","Medicina Dentária","Enfermagem","Análises Clínicas","Farmácia","Nutrição","Cardiopneumologia","Fisioterapia"]
-};
-
-const COURSE_TO_AREA = {
-  "Medicina Geral":"medicina geral","Medicina Dentária":"medicina dentária",
-  "Ciências de Enfermagem":"enfermagem","Enfermagem":"enfermagem","Enfermagem e Obstetrícia":"enfermagem",
-  "Ciências Farmacêuticas":"farmacia","Farmácia":"farmacia",
-  "Análises Clínicas e Saúde Pública":"analises clinicas","Análises Clínicas e Laboratório":"analises clinicas",
-  "Análises Clínicas":"analises clinicas","Análises Clínicas e Toxicológicas":"analises clinicas",
-  "Fisioterapia":"fisioterapia","Odontologia":"medicina dentária","Electromedicina":"analises clinicas",
-  "Laboratório Clínico":"analises clinicas","Radiologia e Imagiologia":"analises clinicas",
-  "Nutrição":"nutrição e dietética","Cardiopneumologia":"cardiopneumologia","Agronomia":"analises clinicas"
-};
-
-const DURATIONS = [
-  { id:"30",  label:"1 MÊS",   days:"30 dias",  price:"10.000 KZ", priceNum:10000, icon:"📅" },
-  { id:"90",  label:"3 MESES", days:"90 dias",  price:"20.000 KZ", priceNum:20000, icon:"📆", popular:true },
-  { id:"180", label:"6 MESES", days:"180 dias", price:"30.000 KZ", priceNum:30000, icon:"🗓" },
-  { id:"365", label:"1 ANO",   days:"365 dias", price:"60.000 KZ", priceNum:60000, icon:"🏆" }
-];
-
-let selTipo=null, selUni=null, selCurso=null, selDur=null;
-let comprovativoAnexado = false;
-let comprovativoBase64  = null;
-let comprovativoNome    = "";
-let comprovativoTipo    = "";
-let proceedHref         = "#";
-
-// ── STEP INDICATOR ────────────────────────────────────────
 function buildSteps(hasUni){
-  const ind = document.getElementById("stepIndicator");
-  ind.innerHTML = "";
-  const steps = hasUni
-    ? [{n:1,label:"Curso"},{n:2,label:"Univ."},{n:3,label:"Área"},{n:4,label:"Duração"}]
-    : [{n:1,label:"Curso"},{n:2,label:"Duração"}];
-  steps.forEach((s,i) => {
-    ind.innerHTML += `<div class="step" id="step${s.n}"><div class="step-num">${s.n}</div><div class="step-label">${s.label}</div></div>`;
-    if(i < steps.length-1) ind.innerHTML += `<div class="step-line" id="line${s.n}"></div>`;
+  const ind=document.getElementById("stepIndicator");ind.innerHTML="";
+  const steps=hasUni?[{n:1,label:"Curso"},{n:2,label:"Univ."},{n:3,label:"Área"},{n:4,label:"Duração"}]:[{n:1,label:"Curso"},{n:2,label:"Duração"}];
+  steps.forEach((s,i)=>{
+    ind.innerHTML+=`<div class="step" id="step${s.n}"><div class="step-num">${s.n}</div><div class="step-label">${s.label}</div></div>`;
+    if(i<steps.length-1)ind.innerHTML+=`<div class="step-line" id="line${s.n}"></div>`;
   });
 }
-
 function setStep(viewId){
-  const hasUni = selTipo && selTipo.hasUni;
-  const map = hasUni
-    ? {viewTipo:1,viewUni:2,viewCurso:3,viewDuracao:4}
-    : {viewTipo:1,viewDuracao:2};
-  const n = map[viewId] || 1;
-  const total = hasUni ? 4 : 2;
-  ["viewWelcome","viewTipo","viewUni","viewCurso","viewDuracao"].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.classList.toggle("active", id === viewId);
+  const hasUni=selTipo&&selTipo.hasUni;
+  const map=hasUni?{viewTipo:1,viewUni:2,viewCurso:3,viewDuracao:4}:{viewTipo:1,viewDuracao:2};
+  const n=map[viewId]||1,total=hasUni?4:2;
+  ["viewWelcome","viewTipo","viewUni","viewCurso","viewDuracao"].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.classList.toggle("active",id===viewId);
   });
-  const ind = document.getElementById("stepIndicator");
-  if(viewId === "viewWelcome"){
-    ind.classList.add("hidden");
-  } else {
+  const ind=document.getElementById("stepIndicator");
+  if(viewId==="viewWelcome"){ind.classList.add("hidden");}
+  else{
     ind.classList.remove("hidden");
-    for(let i = 1; i <= total; i++){
-      const el = document.getElementById("step"+i);
-      if(!el) continue;
+    for(let i=1;i<=total;i++){
+      const el=document.getElementById("step"+i);if(!el)continue;
       el.classList.remove("active","done");
-      if(i < n) el.classList.add("done");
-      else if(i === n) el.classList.add("active");
-      const line = document.getElementById("line"+i);
-      if(line) line.classList.toggle("done", i < n);
+      if(i<n)el.classList.add("done");else if(i===n)el.classList.add("active");
+      const line=document.getElementById("line"+i);
+      if(line)line.classList.toggle("done",i<n);
     }
   }
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-// ── BUILD GRIDS ───────────────────────────────────────────
-const tipoGrid = document.getElementById("tipoGrid");
-TIPOS.forEach((t,i) => {
-  const card = document.createElement("div");
-  card.className = "tipo-card";
-  card.innerHTML = `<div class="tipo-num">${String(i+1).padStart(2,"0")}</div><div class="tipo-body"><div class="tipo-icon">${t.icon}</div><div class="tipo-name">${t.name}</div><div class="tipo-tag">${t.tag}</div></div>`;
-  card.onclick = () => selectTipo(t);
-  tipoGrid.appendChild(card);
+// BUILD GRIDS
+const tipoGrid=document.getElementById("tipoGrid");
+TIPOS.forEach((t,i)=>{
+  const card=document.createElement("div");card.className="tipo-card";
+  card.innerHTML=`<div class="tipo-num">${String(i+1).padStart(2,"0")}</div><div class="tipo-body"><div class="tipo-icon">${t.icon}</div><div class="tipo-name">${t.name}</div><div class="tipo-tag">${t.tag}</div></div>`;
+  card.onclick=()=>selectTipo(t);tipoGrid.appendChild(card);
+});
+const uniGrid=document.getElementById("uniGrid");
+UNIVERSITIES.forEach((uni,i)=>{
+  const card=document.createElement("div");card.className="uni-card";
+  card.innerHTML=`<div class="uni-num">${String(i+1).padStart(2,"0")}</div><div class="uni-code">${uni.id}</div><div class="uni-name">${uni.name}</div>`;
+  card.onclick=()=>selectUni(uni);uniGrid.appendChild(card);
+});
+const durationGrid=document.getElementById("durationGrid");
+DURATIONS.forEach(dur=>{
+  const card=document.createElement("div");card.className="duration-card";card.id="dur-"+dur.id;
+  card.innerHTML=`${dur.popular?'<div class="dur-badge-popular">MAIS POPULAR</div>':''}<span class="dur-icon">${dur.icon}</span><div class="dur-label">${dur.label}</div><div class="dur-days">${dur.days}</div><div class="dur-price">${dur.price}</div><div class="dur-pricetag">pagamento único</div>`;
+  card.onclick=()=>selectDuration(dur);durationGrid.appendChild(card);
 });
 
-const uniGrid = document.getElementById("uniGrid");
-UNIVERSITIES.forEach((uni,i) => {
-  const card = document.createElement("div");
-  card.className = "uni-card";
-  card.innerHTML = `<div class="uni-num">${String(i+1).padStart(2,"0")}</div><div class="uni-code">${uni.id}</div><div class="uni-name">${uni.name}</div>`;
-  card.onclick = () => selectUni(uni);
-  uniGrid.appendChild(card);
-});
-
-const durationGrid = document.getElementById("durationGrid");
-DURATIONS.forEach(dur => {
-  const card = document.createElement("div");
-  card.className = "duration-card";
-  card.id = "dur-"+dur.id;
-  card.innerHTML = `${dur.popular?'<div class="dur-badge-popular">MAIS POPULAR</div>':''}<span class="dur-icon">${dur.icon}</span><div class="dur-label">${dur.label}</div><div class="dur-days">${dur.days}</div><div class="dur-price">${dur.price}</div><div class="dur-pricetag">pagamento único</div>`;
-  card.onclick = () => selectDuration(dur);
-  durationGrid.appendChild(card);
-});
-
-// ── NAVEGAÇÃO ─────────────────────────────────────────────
-function goToWelcome(){
-  selTipo=selUni=selCurso=selDur=null;
-  resetComprovativo();
-  document.getElementById("ibanBox").style.display="none";
-  document.querySelectorAll(".duration-card").forEach(c=>c.classList.remove("selected"));
-  buildSteps(false);
-  setStep("viewWelcome");
-}
-function goToFluxo(){ buildSteps(false); setStep("viewTipo"); }
-function goToLogin(){ window.location.href = "login.html"; }
+// NAVEGAÇÃO
+function goToWelcome(){selTipo=selUni=selCurso=selDur=null;document.getElementById("ibanBox").style.display="none";document.querySelectorAll(".duration-card").forEach(c=>c.classList.remove("selected"));buildSteps(false);setStep("viewWelcome");}
+function goToFluxo(){buildSteps(false);setStep("viewTipo");}
+function goToLogin(){window.location.href="login.html";}
 
 function selectTipo(t){
-  selTipo=t; selUni=selCurso=selDur=null;
-  resetComprovativo();
+  selTipo=t;selUni=selCurso=selDur=null;
   document.getElementById("ibanBox").style.display="none";
   document.querySelectorAll(".duration-card").forEach(c=>c.classList.remove("selected"));
   buildSteps(t.hasUni);
-  if(t.hasUni){
-    document.getElementById("badgeTipo1").innerText = t.name;
-    setStep("viewUni");
-  } else {
-    document.getElementById("selectedInfoDur").innerHTML = `<span class="sel-badge tipo">${t.name}</span>`;
-    setStep("viewDuracao");
-  }
+  if(t.hasUni){document.getElementById("badgeTipo1").innerText=t.name;setStep("viewUni");}
+  else{document.getElementById("selectedInfoDur").innerHTML=`<span class="sel-badge tipo">${t.name}</span>`;setStep("viewDuracao");}
 }
-
 function selectUni(uni){
-  selUni=uni; selCurso=null;
-  document.getElementById("badgeTipo2").innerText = selTipo.name;
-  document.getElementById("badgeUni2").innerText  = uni.id+" — "+uni.name;
-  const courseList = document.getElementById("courseList");
-  courseList.innerHTML = "";
-  COURSES[uni.id].forEach(course => {
-    const card = document.createElement("div");
-    card.className = "course-card";
-    card.innerHTML = `<span>${course}</span><span class="course-arrow">›</span>`;
-    card.onclick = () => selectCurso(course);
-    courseList.appendChild(card);
+  selUni=uni;selCurso=null;
+  document.getElementById("badgeTipo2").innerText=selTipo.name;
+  document.getElementById("badgeUni2").innerText=uni.id+" — "+uni.name;
+  const courseList=document.getElementById("courseList");courseList.innerHTML="";
+  COURSES[uni.id].forEach(course=>{
+    const card=document.createElement("div");card.className="course-card";
+    card.innerHTML=`<span>${course}</span><span class="course-arrow">›</span>`;
+    card.onclick=()=>selectCurso(course);courseList.appendChild(card);
   });
   setStep("viewCurso");
 }
-
 function selectCurso(course){
-  selCurso=course; selDur=null;
-  resetComprovativo();
+  selCurso=course;selDur=null;
   document.getElementById("ibanBox").style.display="none";
   document.querySelectorAll(".duration-card").forEach(c=>c.classList.remove("selected"));
-  document.getElementById("selectedInfoDur").innerHTML =
-    `<span class="sel-badge tipo">${selTipo.name}</span><span class="sel-badge uni">${selUni.id}</span><span class="sel-badge curso">${course}</span>`;
+  document.getElementById("selectedInfoDur").innerHTML=`<span class="sel-badge tipo">${selTipo.name}</span><span class="sel-badge uni">${selUni.id}</span><span class="sel-badge curso">${course}</span>`;
   setStep("viewDuracao");
 }
-
 function selectDuration(dur){
-  selDur = dur;
-  resetComprovativo();
+  selDur=dur;
   document.querySelectorAll(".duration-card").forEach(c=>c.classList.remove("selected"));
   document.getElementById("dur-"+dur.id).classList.add("selected");
-  document.getElementById("ibanPrice").innerText = dur.price;
-  document.getElementById("ibanDur").innerText   = dur.label+" · "+dur.days;
-
-  const area  = selCurso ? (COURSE_TO_AREA[selCurso]||"geral") : selTipo.id;
-  const uni   = selUni   ? selUni.id : "";
-  const curso = selCurso ? selCurso  : selTipo.name;
-  const params = new URLSearchParams({tipo:selTipo.id,uni,curso,area,duracao:dur.id,preco:dur.priceNum});
-  proceedHref = `login.html?${params.toString()}`;
-
-  document.getElementById("ibanBox").style.display = "block";
+  document.getElementById("ibanPrice").innerText=dur.price;
+  document.getElementById("ibanDur").innerText=dur.label+" · "+dur.days;
+  const area=selCurso?(COURSE_TO_AREA[selCurso]||"geral"):selTipo.id;
+  const uni=selUni?selUni.id:"";
+  const curso=selCurso?selCurso:selTipo.name;
+  const params=new URLSearchParams({tipo:selTipo.id,uni,curso,area,duracao:dur.id,preco:dur.priceNum});
+  document.getElementById("proceedBtn").href=`login.html?${params.toString()}`;
+  document.getElementById("ibanBox").style.display="block";
   setTimeout(()=>document.getElementById("ibanBox").scrollIntoView({behavior:"smooth",block:"nearest"}),100);
 }
-
-function goToTipo(){ selUni=selCurso=null; setStep("viewTipo"); }
-function goToUni(){  selUni=selCurso=null; setStep("viewUni");  }
+function goToTipo(){selUni=selCurso=null;setStep("viewTipo");}
+function goToUni(){selUni=selCurso=null;setStep("viewUni");}
 function goBackFromDuracao(){
   selDur=null;
-  resetComprovativo();
   document.getElementById("ibanBox").style.display="none";
   document.querySelectorAll(".duration-card").forEach(c=>c.classList.remove("selected"));
-  if(selTipo && selTipo.hasUni) setStep("viewCurso");
-  else setStep("viewTipo");
-}
-
-// ── COMPROVATIVO ──────────────────────────────────────────
-function resetComprovativo(){
-  comprovativoAnexado = false;
-  comprovativoBase64  = null;
-  comprovativoNome    = "";
-  comprovativoTipo    = "";
-  document.getElementById("inputComprovativo").value = "";
-  document.getElementById("uploadArea").classList.remove("has-file");
-  document.getElementById("uploadIcon").innerText = "📎";
-  document.getElementById("uploadText").innerHTML = 'Toca para <b>anexar o comprovativo</b>';
-  document.getElementById("fileInfo").classList.remove("show");
-  const pb = document.getElementById("proceedBtn");
-  pb.classList.add("locked");
-  pb.innerHTML = '<span class="lock-icon">🔒</span> CRIAR CONTA &amp; CONTINUAR →';
-  pb.href = "#";
-  document.getElementById("proceedNota").className = "proceed-nota";
-  document.getElementById("proceedNota").innerText = "Anexa o comprovativo para desbloquear";
-}
-
-function anexarComprovativo(event){
-  const file = event.target.files[0];
-  if(!file) return;
-  const isPdf   = file.type === "application/pdf";
-  const isImage = file.type.startsWith("image/");
-  if(!isPdf && !isImage){ alert("⚠️ Formato não suportado. Usa JPG, PNG ou PDF."); event.target.value=""; return; }
-  if(file.size > 4 * 1024 * 1024){ alert("⚠️ Ficheiro muito grande. Máximo 4MB."); event.target.value=""; return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    comprovativoBase64  = e.target.result;
-    comprovativoNome    = file.name;
-    comprovativoTipo    = file.type;
-    comprovativoAnexado = true;
-    document.getElementById("uploadArea").classList.add("has-file");
-    document.getElementById("uploadIcon").innerText = isPdf ? "📄" : "🖼️";
-    document.getElementById("uploadText").innerHTML = `<b style="color:var(--accent3)">${file.name}</b>`;
-    document.getElementById("fileInfoText").innerText = (isPdf?"📄 ":"🖼️ ")+file.name;
-    document.getElementById("fileInfo").classList.add("show");
-    // Desbloquear CRIAR CONTA
-    const pb = document.getElementById("proceedBtn");
-    pb.classList.remove("locked");
-    pb.href = proceedHref;
-    pb.innerHTML = '✅ CRIAR CONTA &amp; CONTINUAR →';
-    document.getElementById("proceedNota").className = "proceed-nota ok";
-    document.getElementById("proceedNota").innerText = "✓ Comprovativo pronto — podes criar a tua conta!";
-  };
-  reader.readAsDataURL(file);
-}
-
-function removerComprovativo(){ resetComprovativo(); }
-
-function verificarEnvio(e){
-  if(!comprovativoAnexado){ e.preventDefault(); alert("⚠️ Anexa o comprovativo antes de criar a conta."); return false; }
-  // Guardar no sessionStorage — o login.html lê e guarda no Firestore no momento do registo
-  sessionStorage.setItem("comprovativo_b64",  comprovativoBase64);
-  sessionStorage.setItem("comprovativo_nome", comprovativoNome);
-  sessionStorage.setItem("comprovativo_tipo", comprovativoTipo);
-  return true;
+  if(selTipo&&selTipo.hasUni)setStep("viewCurso");else setStep("viewTipo");
 }
 
 buildSteps(false);
