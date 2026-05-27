@@ -85,9 +85,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .pdf-wrap{width:100%;height:500px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,212,255,0.08);}
 .pdf-wrap iframe{width:100%;height:100%;border:none;}
 
-/* PDF base64 */
-.pdf-b64-wrap{width:100%;height:520px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,212,255,0.1);}
-.pdf-b64-wrap iframe{width:100%;height:100%;border:none;}
+/* PDF base64 via PDF.js */
+.pdf-b64-wrap{width:100%;border-radius:10px;overflow:hidden;border:1px solid rgba(0,212,255,0.1);background:rgba(0,0,0,0.2);}
+.pdf-page-canvas{width:100%;display:block;margin-bottom:4px;}
+.pdf-loading{text-align:center;padding:30px;color:var(--muted);font-size:13px;font-family:'Orbitron',monospace;letter-spacing:1px;}
+.pdf-page-num{text-align:center;font-size:11px;color:var(--muted);padding:4px 0 8px;letter-spacing:1px;}
 
 /* Imagem base64 */
 .img-b64-wrap{border-radius:10px;overflow:hidden;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.08);cursor:zoom-in;}
@@ -159,7 +161,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 #imgModalChat{position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:2000;display:none;justify-content:center;align-items:center;cursor:zoom-out;}
 #imgModalChat.open{display:flex;}
 #imgModalChat img{max-width:92vw;max-height:90vh;border-radius:12px;object-fit:contain;}
-@media(max-width:600px){.section-grid{grid-template-columns:1fr 1fr;}.disc-grid{grid-template-columns:1fr 1fr;}.pdf-b64-wrap{height:380px;}}
+@media(max-width:600px){.section-grid{grid-template-columns:1fr 1fr;}.disc-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -270,6 +272,50 @@ for(let i=0;i<120;i++){
   const sz=Math.random()*2+0.5;
   s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--o:${Math.random()*0.6+0.1};--d:${Math.random()*3+2}s;animation-delay:${Math.random()*4}s;`;
   starsEl.appendChild(s);
+}
+
+// PDF.js
+const PDFJS_CDN='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+let pdfjsLib=null;
+async function carregarPdfJs(){
+  if(pdfjsLib)return pdfjsLib;
+  return new Promise((resolve,reject)=>{
+    const s=document.createElement('script');s.src=PDFJS_CDN;
+    s.onload=()=>{
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      pdfjsLib=window.pdfjsLib;resolve(pdfjsLib);
+    };
+    s.onerror=reject;document.head.appendChild(s);
+  });
+}
+async function renderPdfB64(base64,wrap){
+  try{
+    const lib=await carregarPdfJs();
+    // Converter base64 para Uint8Array
+    const b64=base64.split(',')[1]||base64;
+    const bin=atob(b64);
+    const arr=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
+    const pdf=await lib.getDocument({data:arr}).promise;
+    wrap.innerHTML='';
+    for(let p=1;p<=pdf.numPages;p++){
+      const page=await pdf.getPage(p);
+      const viewport=page.getViewport({scale:1.5});
+      const canvas=document.createElement('canvas');
+      canvas.className='pdf-page-canvas';
+      canvas.width=viewport.width;canvas.height=viewport.height;
+      const ctx=canvas.getContext('2d');
+      await page.render({canvasContext:ctx,viewport}).promise;
+      wrap.appendChild(canvas);
+      if(pdf.numPages>1){
+        const lbl=document.createElement('div');
+        lbl.className='pdf-page-num';lbl.innerText=`Página ${p} de ${pdf.numPages}`;
+        wrap.appendChild(lbl);
+      }
+    }
+  }catch(e){
+    wrap.innerHTML=`<div class="pdf-loading">⚠️ Erro ao carregar PDF. Usa o botão Download.</div>`;
+  }
 }
 
 // Download base64
@@ -424,18 +470,17 @@ async function mostrarConteudo(s,sub,fromUni){
       const nomeEsc=nome.replace(/'/g,"\\'");
       if(data.tipo==="pdf_b64"){
         icone="📄";
-        downloadBtn=`<button class="btn-download" onclick="downloadBase64('${data.base64.substring(0,30)}...','${nomeEsc}');downloadBase64Completo(this,'${nomeEsc}')">⬇️ Download</button>`;
-        // guardar base64 em atributo data para evitar problemas com aspas no onclick
-        conteudo=`<div class="pdf-b64-wrap"><iframe src="${data.base64}"></iframe></div>`;
-        card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">${icone}</span><span class="c-title">${data.titulo}</span></div></div>${conteudo}`;
-        // Adicionar botão download separado com base64 guardado no elemento
+        card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">${icone}</span><span class="c-title">${data.titulo}</span></div></div><div class="pdf-b64-wrap" id="pdfwrap-${Math.random().toString(36).slice(2)}"><div class="pdf-loading">A carregar PDF...</div></div>`;
         const dlBtn=document.createElement("button");
         dlBtn.className="btn-download";dlBtn.innerText="⬇️ Download";
         dlBtn.style.marginBottom="10px";
         dlBtn.onclick=()=>downloadBase64(data.base64,nome);
-        const header=card.querySelector(".c-header");
-        header.appendChild(dlBtn);
-        lista.appendChild(card);return;
+        card.querySelector(".c-header").appendChild(dlBtn);
+        lista.appendChild(card);
+        // Renderizar PDF com PDF.js após adicionar ao DOM
+        const wrap=card.querySelector(".pdf-b64-wrap");
+        renderPdfB64(data.base64,wrap);
+        return;
       }else if(data.tipo==="imagem_b64"){
         icone="🖼️";
         conteudo=`<div class="img-b64-wrap" onclick="abrirImgLightbox(this.dataset.src)" ><img src="${data.base64}" alt="${data.titulo}"></div>`;
