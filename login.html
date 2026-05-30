@@ -225,7 +225,7 @@ window.anexarComprovativo = function(event){
   const isPdf   = file.type === "application/pdf";
   const isImage = file.type.startsWith("image/");
   if(!isPdf && !isImage){ alert("⚠️ Formato não suportado. Usa JPG, PNG ou PDF."); event.target.value=""; return; }
-  if(file.size > 4*1024*1024){ alert("⚠️ Ficheiro muito grande. Máximo 4MB."); event.target.value=""; return; }
+  if(file.size > 700*1024*1024){ alert("⚠️ Ficheiro muito grande. Máximo 700KB."); event.target.value=""; return; }
   const reader = new FileReader();
   reader.onload = e => {
     comprovB64  = e.target.result;
