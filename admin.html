@@ -257,7 +257,6 @@ button:hover{transform:translateY(-1px);}
     <button class="logout-btn" onclick="sair()">SAIR</button>
   </div>
 
-  <!-- SECÇÃO 1: Conteúdo por link -->
   <div class="section">
     <h3>Adicionar Conteúdo (Link)</h3>
     <select id="tipoCurso" onchange="atualizarCampos()">
@@ -290,9 +289,8 @@ button:hover{transform:translateY(-1px);}
     <div class="msg" id="msgAula"></div>
   </div>
 
-  <!-- SECÇÃO 2: Material em PDF ou Foto (base64) -->
   <div class="section">
-    <h3>Adicionar Material (PDF, Video,Foto, Slide) — Upload Directo</h3>
+    <h3>Adicionar Material (PDF, Foto, Slide) — Upload Directo</h3>
     <p class="help-text">Faz upload directo do ficheiro. Os alunos podem visualizar e descarregar. Sem link visível.</p>
     <select id="bTipoCurso" onchange="bAtualizarCampos()">
       <option value="">Seleciona o tipo de curso</option>
@@ -428,8 +426,11 @@ const SENHA_HASH="e12afa1c4ac73ca1954164f1e40498336c4cd8b2d761af0158bb8d239c1049
 const MAX_TENT=5,LOCKOUT_MS=5*60*1000,DELAY_BASE=1000,SESSION_DUR=60*60*1000;
 const SESSION_KEY="delta_admin_session",LOCKOUT_KEY="delta_admin_lockout",ATTEMPTS_KEY="delta_admin_attempts";
 const ADMIN_EMAIL="universoquantico.ao@gmail.com";
+const WORKER_URL="https://brevo-email.universoquantico-ao.workers.dev/";
+const SITE_URL="https://universoquanticoao.github.io/com/login.html";
 const DUR_MS={"30":30*24*60*60*1000,"90":90*24*60*60*1000,"180":180*24*60*60*1000,"365":365*24*60*60*1000};
 const DUR_LABELS={"30":"1 Mês (30 dias)","90":"3 Meses (90 dias)","180":"6 Meses (180 dias)","365":"1 Ano (365 dias)"};
+const DUR_LABEL_EMAIL={"30":"1 Mês","90":"3 Meses","180":"6 Meses","365":"1 Ano"};
 const DIAS_DEFAULT=30*24*60*60*1000;
 const UNIVERSIDADES=["UAN","UMN","UON","UKB","URNM","UJES","ISTM","UPRA","UNIPIAGET","UNIKIV","UCC","OUTRA"];
 const NOMES_UNI={UAN:"Universidade Agostinho Neto",UMN:"Universidade Mandume Ya Ndemufayo",UON:"Universidade 11 de Novembro",UKB:"Universidade Katyavala Buila",URNM:"Universidade Rainha Njinga Mbande",UJES:"Universidade José Eduardo Dos Santos",ISTM:"Instituto Superior Técnico Militar",UPRA:"Universidade Privada de Angola",UNIPIAGET:"Universidade Jean Piaget",UNIKIV:"Universidade Kimpa Vita",UCC:"Universidade Cuito Cuanavale",OUTRA:"Outra Universidade"};
@@ -446,6 +447,22 @@ let bFicheiroB64=null,bFicheiroNome="",bFicheiroTipo="";
 
 const modalUniSel=document.getElementById("modalUni");
 UNIVERSIDADES.forEach(u=>{modalUniSel.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`;});
+
+// ── FUNÇÃO DE EMAIL VIA WORKER ──
+async function enviarEmail(para, assunto, htmlContent){
+  try{
+    await fetch(WORKER_URL,{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify({
+        sender:{name:"Universo Quântico — DIATOMA",email:"universoquantico.ao@gmail.com"},
+        to:[{email:para}],
+        subject:assunto,
+        htmlContent
+      })
+    });
+  }catch(e){console.error("Erro ao enviar email:",e);}
+}
 
 // ── MODAL EDITAR ──
 window.atualizarModalTipo=function(){const tipo=document.getElementById("modalTipo").value;const uniWrap=document.getElementById("modalUniWrap");const cursoSel=document.getElementById("modalCurso");const uniSel=document.getElementById("modalUni");cursoSel.innerHTML=`<option value="">Seleciona o curso</option>`;uniSel.value="";if(tipo==="universitario"){uniWrap.style.display="block";}else{uniWrap.style.display="none";const cursos=COURSES_BY_TIPO[tipo]||[];cursos.forEach(c=>cursoSel.innerHTML+=`<option value="${c}">${c}</option>`);}}
@@ -471,93 +488,12 @@ window.enviarRespostaAdmin=async function(){if(!chatAtualUid)return;const texto=
 function iniciarBadgeChat(){onSnapshot(collection(db,"chat"),snap=>{const total=snap.docs.filter(d=>d.data().naoLidoAdmin).length;const badge=document.getElementById("chatBadgeTab");if(total>0){badge.style.display="inline";badge.innerText=total;}else{badge.style.display="none";}});}
 
 // ── UPLOAD BASE64 ──
-window.bAnexarFicheiro=function(event){
-  const file=event.target.files[0];if(!file)return;
-  const isPdf=file.type==="application/pdf";
-  const isImage=file.type.startsWith("image/");
-  if(!isPdf&&!isImage){alert("⚠️ Formato não suportado. Usa JPG, VIDEO, PNG ou PDF.");event.target.value="";return;}
-  const reader=new FileReader();
-  reader.onload=e=>{
-    bFicheiroB64=e.target.result;bFicheiroNome=file.name;bFicheiroTipo=isPdf?"pdf_b64":"imagem_b64";
-    document.getElementById("bUploadArea").classList.add("has-file");
-    document.getElementById("bUploadIcon").innerText=isPdf?"📄":"🖼️";
-    document.getElementById("bUploadText").innerHTML=`<b style="color:var(--accent3)">${file.name}</b>`;
-    document.getElementById("bFileInfoText").innerText=(isPdf?"📄 ":"🖼️ ")+file.name+" · "+Math.round(file.size/1024)+"KB";
-    document.getElementById("bFileInfo").classList.add("show");
-  };
-  reader.readAsDataURL(file);event.target.value="";
-};
-window.bRemoverFicheiro=function(){
-  bFicheiroB64=null;bFicheiroNome="";bFicheiroTipo="";
-  document.getElementById("bInputFicheiro").value="";
-  document.getElementById("bUploadArea").classList.remove("has-file");
-  document.getElementById("bUploadIcon").innerText="📎";
-  document.getElementById("bUploadText").innerText="Clica para seleccionar ficheiro";
-  document.getElementById("bFileInfo").classList.remove("show");
-};
-window.bAtualizarCampos=function(){
-  const tipo=document.getElementById("bTipoCurso").value;
-  const seccaoEl=document.getElementById("bSeccao");
-  const sub1=document.getElementById("bSub1");const sub2=document.getElementById("bSub2");
-  seccaoEl.innerHTML=`<option value="">— Seleciona a secção —</option>`;
-  sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;
-  sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";
-  if(!tipo)return;
-  (SECCOES_POR_TIPO[tipo]||[]).forEach(s=>seccaoEl.innerHTML+=`<option value="${s.v}">${s.l}</option>`);
-};
-window.bAtualizarSeccao=function(){
-  const tipo=document.getElementById("bTipoCurso").value;
-  const seccao=document.getElementById("bSeccao").value;
-  const sub1=document.getElementById("bSub1");const sub2=document.getElementById("bSub2");
-  sub1.innerHTML="";sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";
-  if(!seccao){sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;return;}
-  const seccaoObj=(SECCOES_POR_TIPO[tipo]||[]).find(s=>s.v===seccao);
-  if(!seccaoObj){sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;return;}
-  if(seccaoObj.hasUni&&tipo==="universitario"){
-    sub1.innerHTML=`<option value="">Seleciona universidade</option>`;
-    UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);
-    if(seccaoObj.hasDis)sub2.style.display="block";
-  }else if(seccaoObj.hasDis){
-    sub1.innerHTML=`<option value="">Seleciona disciplina</option>`;
-    (DISC_POR_TIPO[tipo]||[]).forEach(d=>sub1.innerHTML+=`<option value="${d}">${d}</option>`);
-  }else{
-    sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;
-  }
-};
-window.bAtualizarSub2=function(){
-  const tipo=document.getElementById("bTipoCurso").value;if(tipo!=="universitario")return;
-  const uni=document.getElementById("bSub1").value;
-  const sub2=document.getElementById("bSub2");
-  sub2.innerHTML=`<option value="">Seleciona disciplina</option>`;
-  if(!uni)return;
-  (DISCIPLINAS_UNI[uni]||[]).forEach(d=>sub2.innerHTML+=`<option value="${d}">${d}</option>`);
-};
-window.adicionarMaterialB64=async function(){
-  const msgEl=document.getElementById("msgMatB64");msgEl.className="msg";
-  const tipoCurso=document.getElementById("bTipoCurso").value;
-  const seccao=document.getElementById("bSeccao").value;
-  const sub1=document.getElementById("bSub1").value;
-  const sub2=document.getElementById("bSub2").value;
-  const titulo=document.getElementById("bTitulo").value.trim();
-  if(!tipoCurso||!seccao||!titulo){msgEl.className="msg error";msgEl.innerText="Preenche todos os campos.";return;}
-  if(!bFicheiroB64){msgEl.className="msg error";msgEl.innerText="⚠️ Selecciona um ficheiro.";return;}
-  const seccaoObj=(SECCOES_POR_TIPO[tipoCurso]||[]).find(s=>s.v===seccao);
-  let sub=tipoCurso;
-  if(seccaoObj){
-    if(seccaoObj.hasUni&&tipoCurso==="universitario"){
-      if(seccaoObj.hasDis){if(!sub1||!sub2){msgEl.className="msg error";msgEl.innerText="Seleciona universidade e disciplina.";return;}sub=`${tipoCurso}|${sub1}|${sub2}`;}
-      else{if(!sub1){msgEl.className="msg error";msgEl.innerText="Seleciona a universidade.";return;}sub=sub1;}
-    }else if(seccaoObj.hasDis){
-      if(!sub1){msgEl.className="msg error";msgEl.innerText="Seleciona a disciplina.";return;}
-      sub=`${tipoCurso}|${sub1}`;
-    }
-  }
-  try{
-    await addDoc(collection(db,"materiais_b64"),{tipo_curso:tipoCurso,seccao,sub,titulo,tipo:bFicheiroTipo,nome:bFicheiroNome,base64:bFicheiroB64,createdAt:Date.now()});
-    msgEl.className="msg success";msgEl.innerText="✅ Material adicionado com sucesso!";
-    document.getElementById("bTitulo").value="";bRemoverFicheiro();carregarAulas();
-  }catch(e){msgEl.className="msg error";msgEl.innerText="Erro: "+e.message;}
-};
+window.bAnexarFicheiro=function(event){const file=event.target.files[0];if(!file)return;const isPdf=file.type==="application/pdf";const isImage=file.type.startsWith("image/");if(!isPdf&&!isImage){alert("⚠️ Formato não suportado. Usa JPG, PNG ou PDF.");event.target.value="";return;}const reader=new FileReader();reader.onload=e=>{bFicheiroB64=e.target.result;bFicheiroNome=file.name;bFicheiroTipo=isPdf?"pdf_b64":"imagem_b64";document.getElementById("bUploadArea").classList.add("has-file");document.getElementById("bUploadIcon").innerText=isPdf?"📄":"🖼️";document.getElementById("bUploadText").innerHTML=`<b style="color:var(--accent3)">${file.name}</b>`;document.getElementById("bFileInfoText").innerText=(isPdf?"📄 ":"🖼️ ")+file.name+" · "+Math.round(file.size/1024)+"KB";document.getElementById("bFileInfo").classList.add("show");};reader.readAsDataURL(file);event.target.value="";}
+window.bRemoverFicheiro=function(){bFicheiroB64=null;bFicheiroNome="";bFicheiroTipo="";document.getElementById("bInputFicheiro").value="";document.getElementById("bUploadArea").classList.remove("has-file");document.getElementById("bUploadIcon").innerText="📎";document.getElementById("bUploadText").innerText="Clica para seleccionar ficheiro";document.getElementById("bFileInfo").classList.remove("show");}
+window.bAtualizarCampos=function(){const tipo=document.getElementById("bTipoCurso").value;const seccaoEl=document.getElementById("bSeccao");const sub1=document.getElementById("bSub1");const sub2=document.getElementById("bSub2");seccaoEl.innerHTML=`<option value="">— Seleciona a secção —</option>`;sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";if(!tipo)return;(SECCOES_POR_TIPO[tipo]||[]).forEach(s=>seccaoEl.innerHTML+=`<option value="${s.v}">${s.l}</option>`);}
+window.bAtualizarSeccao=function(){const tipo=document.getElementById("bTipoCurso").value;const seccao=document.getElementById("bSeccao").value;const sub1=document.getElementById("bSub1");const sub2=document.getElementById("bSub2");sub1.innerHTML="";sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";if(!seccao){sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;return;}const seccaoObj=(SECCOES_POR_TIPO[tipo]||[]).find(s=>s.v===seccao);if(!seccaoObj){sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;return;}if(seccaoObj.hasUni&&tipo==="universitario"){sub1.innerHTML=`<option value="">Seleciona universidade</option>`;UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);if(seccaoObj.hasDis)sub2.style.display="block";}else if(seccaoObj.hasDis){sub1.innerHTML=`<option value="">Seleciona disciplina</option>`;(DISC_POR_TIPO[tipo]||[]).forEach(d=>sub1.innerHTML+=`<option value="${d}">${d}</option>`);}else{sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;}}
+window.bAtualizarSub2=function(){const tipo=document.getElementById("bTipoCurso").value;if(tipo!=="universitario")return;const uni=document.getElementById("bSub1").value;const sub2=document.getElementById("bSub2");sub2.innerHTML=`<option value="">Seleciona disciplina</option>`;if(!uni)return;(DISCIPLINAS_UNI[uni]||[]).forEach(d=>sub2.innerHTML+=`<option value="${d}">${d}</option>`);}
+window.adicionarMaterialB64=async function(){const msgEl=document.getElementById("msgMatB64");msgEl.className="msg";const tipoCurso=document.getElementById("bTipoCurso").value;const seccao=document.getElementById("bSeccao").value;const sub1=document.getElementById("bSub1").value;const sub2=document.getElementById("bSub2").value;const titulo=document.getElementById("bTitulo").value.trim();if(!tipoCurso||!seccao||!titulo){msgEl.className="msg error";msgEl.innerText="Preenche todos os campos.";return;}if(!bFicheiroB64){msgEl.className="msg error";msgEl.innerText="⚠️ Selecciona um ficheiro.";return;}const seccaoObj=(SECCOES_POR_TIPO[tipoCurso]||[]).find(s=>s.v===seccao);let sub=tipoCurso;if(seccaoObj){if(seccaoObj.hasUni&&tipoCurso==="universitario"){if(seccaoObj.hasDis){if(!sub1||!sub2){msgEl.className="msg error";msgEl.innerText="Seleciona universidade e disciplina.";return;}sub=`${tipoCurso}|${sub1}|${sub2}`;}else{if(!sub1){msgEl.className="msg error";msgEl.innerText="Seleciona a universidade.";return;}sub=sub1;}}else if(seccaoObj.hasDis){if(!sub1){msgEl.className="msg error";msgEl.innerText="Seleciona a disciplina.";return;}sub=`${tipoCurso}|${sub1}`;}}try{await addDoc(collection(db,"materiais_b64"),{tipo_curso:tipoCurso,seccao,sub,titulo,tipo:bFicheiroTipo,nome:bFicheiroNome,base64:bFicheiroB64,createdAt:Date.now()});msgEl.className="msg success";msgEl.innerText="✅ Material adicionado com sucesso!";document.getElementById("bTitulo").value="";bRemoverFicheiro();carregarAulas();}catch(e){msgEl.className="msg error";msgEl.innerText="Erro: "+e.message;}}
 
 // ── AUTENTICAÇÃO ──
 async function sha256(text){const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(text));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");}
@@ -583,82 +519,131 @@ document.addEventListener("visibilitychange",()=>{if(!document.hidden&&document.
 window.mostrarTab=function(tab,event){document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));event.target.classList.add("active");document.getElementById("tabAulas").style.display=tab==="aulas"?"block":"none";document.getElementById("tabUsers").style.display=tab==="users"?"block":"none";document.getElementById("tabChat").style.display=tab==="chat"?"block":"none";if(tab==="chat")carregarChats();}
 
 // ── CONTEÚDO LINKS ──
-// Converter link Google Drive para embed de vídeo
-function converterGdriveVideo(url){
-  // Extrair ID do ficheiro do Google Drive
-  const m=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)||url.match(/id=([a-zA-Z0-9_-]+)/);
-  if(m)return`https://drive.google.com/file/d/${m[1]}/preview`;
-  return url;
-}
-// Converter link Google Drive para embed de PDF
-function converterGdrivePdf(url){
-  const m=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)||url.match(/id=([a-zA-Z0-9_-]+)/);
-  if(m)return`https://drive.google.com/file/d/${m[1]}/preview`;
-  return url;
-}
-
+function converterGdriveVideo(url){const m=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)||url.match(/id=([a-zA-Z0-9_-]+)/);if(m)return`https://drive.google.com/file/d/${m[1]}/preview`;return url;}
+function converterGdrivePdf(url){const m=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)||url.match(/id=([a-zA-Z0-9_-]+)/);if(m)return`https://drive.google.com/file/d/${m[1]}/preview`;return url;}
 window.atualizarCampos=function(){const tipoCurso=document.getElementById("tipoCurso").value;const seccaoEl=document.getElementById("seccao");const sub1=document.getElementById("sub1");const sub2=document.getElementById("sub2");seccaoEl.innerHTML=`<option value="">— Seleciona a secção —</option>`;sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";if(!tipoCurso)return;const seccoes=SECCOES_POR_TIPO[tipoCurso]||[];seccoes.forEach(s=>seccaoEl.innerHTML+=`<option value="${s.v}">${s.l}</option>`);}
 window.atualizarSeccao=function(){const tipoCurso=document.getElementById("tipoCurso").value;const seccao=document.getElementById("seccao").value;const sub1=document.getElementById("sub1");const sub2=document.getElementById("sub2");const tipo=document.getElementById("tipo");const help=document.getElementById("urlHelp");sub1.innerHTML="";sub2.innerHTML=`<option value="">— Seleciona primeiro —</option>`;sub2.style.display="none";if(!seccao){sub1.innerHTML=`<option value="">— Seleciona secção primeiro —</option>`;return;}const seccoes=SECCOES_POR_TIPO[tipoCurso]||[];const seccaoObj=seccoes.find(s=>s.v===seccao);if(!seccaoObj)return;if(seccaoObj.hasUni&&tipoCurso==="universitario"){sub1.innerHTML=`<option value="">Seleciona universidade</option>`;UNIVERSIDADES.forEach(u=>sub1.innerHTML+=`<option value="${u}">${u} — ${NOMES_UNI[u]||u}</option>`);if(seccaoObj.hasDis)sub2.style.display="block";tipo.value=seccao==="video_aulas"?"bunny":"pdf";}else if(seccaoObj.hasDis&&tipoCurso==="ensino_medio"){sub1.innerHTML=`<option value="">Seleciona disciplina</option>`;(DISC_POR_TIPO[tipoCurso]||[]).forEach(d=>sub1.innerHTML+=`<option value="${d}">${d}</option>`);tipo.value=seccao==="video_aulas"?"bunny":"pdf";}else{sub1.innerHTML=`<option value="">— Sem subcategoria —</option>`;tipo.value=seccao==="video_aulas"?"bunny":"pdf";}if(seccao==="materiais"||seccao==="provas"||seccao==="cronograma"){tipo.value="pdf";help.innerText="💡 Google Drive PDF: cola o link do ficheiro";}else{help.innerText="";}atualizarTipo();}
 window.atualizarSub2=function(){const tipoCurso=document.getElementById("tipoCurso").value;if(tipoCurso!=="universitario")return;const seccao=document.getElementById("seccao").value;if(seccao!=="video_aulas"&&seccao!=="materiais")return;const uni=document.getElementById("sub1").value;const sub2=document.getElementById("sub2");sub2.innerHTML=`<option value="">Seleciona disciplina</option>`;if(!uni)return;(DISCIPLINAS_UNI[uni]||[]).forEach(d=>sub2.innerHTML+=`<option value="${d}">${d}</option>`);}
-window.atualizarTipo=function(){
-  const tipo=document.getElementById("tipo").value;
-  const bi=document.getElementById("bunnyInfo");
-  const uh=document.getElementById("urlHelp");
-  const ui=document.getElementById("url");
-  bi.style.display="none";
-  if(tipo==="bunny"){
-    bi.style.display="block";
-    bi.innerHTML=`<b>🐰 Bunny Stream:</b> Cola o link embed do src do iframe.<br>Exemplo: <b>https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID</b>`;
-    uh.innerText="🐰 Vídeo protegido — sem download, sem link visível";
-    ui.placeholder="https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID";
-  }else if(tipo==="gdrive_video"){
-    bi.style.display="block";
-    bi.innerHTML=`<b>📹 Google Drive Vídeo:</b> Cola o link do ficheiro de vídeo.<br>Ex: <b>https://drive.google.com/file/d/ID/view</b><br>O vídeo só é visível para quem tu partilhares no Drive.`;
-    uh.innerText="📹 Vídeo restrito — sem download, sem link visível";
-    ui.placeholder="https://drive.google.com/file/d/ID/view";
-  }else if(tipo==="video"){
-    uh.innerText="🎥 YouTube — sem download, sem link visível";
-    ui.placeholder="https://youtu.be/...";
-  }else if(tipo==="pdf"){
-    uh.innerText="📄 Google Drive PDF — cola o link do ficheiro";
-    ui.placeholder="https://drive.google.com/file/d/.../view";
-  }else{
-    uh.innerText="";
-    ui.placeholder="Cole o link aqui";
-  }
-}
-function formatarURL(url,tipo){
-  if(tipo==="bunny")return url;
-  if(tipo==="gdrive_video")return converterGdriveVideo(url);
-  if(tipo==="pdf")return converterGdrivePdf(url);
-  if(tipo==="video"){
-    if(url.includes("list=")&&!url.includes("embed")){const m=url.match(/list=([^&]+)/);if(m)return`https://www.youtube-nocookie.com/embed/videoseries?list=${m[1]}`;}
-    const m=url.match(/(?:youtu\.be\/|v=|embed\/)([a-zA-Z0-9_-]{11})/);
-    if(m)return`https://www.youtube-nocookie.com/embed/${m[1]}`;
-  }
-  return url;
-}
+window.atualizarTipo=function(){const tipo=document.getElementById("tipo").value;const bi=document.getElementById("bunnyInfo");const uh=document.getElementById("urlHelp");const ui=document.getElementById("url");bi.style.display="none";if(tipo==="bunny"){bi.style.display="block";bi.innerHTML=`<b>🐰 Bunny Stream:</b> Cola o link embed do src do iframe.<br>Exemplo: <b>https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID</b>`;uh.innerText="🐰 Vídeo protegido — sem download, sem link visível";ui.placeholder="https://iframe.mediadelivery.net/embed/XXXXX/VIDEO-ID";}else if(tipo==="gdrive_video"){bi.style.display="block";bi.innerHTML=`<b>📹 Google Drive Vídeo:</b> Cola o link do ficheiro de vídeo.<br>Ex: <b>https://drive.google.com/file/d/ID/view</b>`;uh.innerText="📹 Vídeo restrito — sem download, sem link visível";ui.placeholder="https://drive.google.com/file/d/ID/view";}else if(tipo==="video"){uh.innerText="🎥 YouTube — sem download, sem link visível";ui.placeholder="https://youtu.be/...";}else if(tipo==="pdf"){uh.innerText="📄 Google Drive PDF — cola o link do ficheiro";ui.placeholder="https://drive.google.com/file/d/.../view";}else{uh.innerText="";ui.placeholder="Cole o link aqui";}}
+function formatarURL(url,tipo){if(tipo==="bunny")return url;if(tipo==="gdrive_video")return converterGdriveVideo(url);if(tipo==="pdf")return converterGdrivePdf(url);if(tipo==="video"){if(url.includes("list=")&&!url.includes("embed")){const m=url.match(/list=([^&]+)/);if(m)return`https://www.youtube-nocookie.com/embed/videoseries?list=${m[1]}`;}const m=url.match(/(?:youtu\.be\/|v=|embed\/)([a-zA-Z0-9_-]{11})/);if(m)return`https://www.youtube-nocookie.com/embed/${m[1]}`;}return url;}
 window.adicionarAula=async function(){const tipoCurso=document.getElementById("tipoCurso").value;const seccao=document.getElementById("seccao").value;const sub1=document.getElementById("sub1").value;const sub2=document.getElementById("sub2").value;const titulo=document.getElementById("titulo").value.trim();const tipo=document.getElementById("tipo").value;const urlRaw=document.getElementById("url").value.trim();const msg=document.getElementById("msgAula");msg.className="msg";if(!tipoCurso||!seccao||!titulo||!urlRaw){msg.className="msg error";msg.innerText="Preenche todos os campos obrigatórios.";return;}if(tipo==="bunny"&&!urlRaw.includes("mediadelivery.net")){msg.className="msg error";msg.innerText="⚠️ Link inválido para Bunny Stream.";return;}let sub=null;const seccoes=SECCOES_POR_TIPO[tipoCurso]||[];const seccaoObj=seccoes.find(s=>s.v===seccao);if(seccaoObj&&seccaoObj.hasUni&&tipoCurso==="universitario"){if(seccaoObj.hasDis){if(!sub1||!sub2){msg.className="msg error";msg.innerText="Seleciona a universidade e a disciplina.";return;}sub=`${tipoCurso}|${sub1}|${sub2}`;}else{if(!sub1){msg.className="msg error";msg.innerText="Seleciona a universidade.";return;}sub=sub1;}}else if(seccaoObj&&seccaoObj.hasDis){if(!sub1){msg.className="msg error";msg.innerText="Seleciona a disciplina.";return;}sub=`${tipoCurso}|${sub1}`;}else{sub=tipoCurso;}try{await addDoc(collection(db,"aulas"),{tipo_curso:tipoCurso,seccao,sub,titulo,tipo,url:formatarURL(urlRaw,tipo),createdAt:Date.now()});msg.className="msg success";msg.innerText="✅ Conteúdo adicionado com sucesso!";document.getElementById("titulo").value="";document.getElementById("url").value="";carregarAulas();}catch(e){msg.className="msg error";msg.innerText="Erro: "+e.message;}}
 
 // ── CARREGAR CONTEÚDOS ──
 async function carregarAulas(){
   const div=document.getElementById("listaAulas");
   div.innerHTML="<p style='color:var(--muted);font-size:13px;'>A carregar...</p>";
-  const [snapAulas,snapMat]=await Promise.all([getDocs(collection(db,"aulas")),getDocs(collection(db,"materiais_b64"))]);
+  const [snapAulas,snapMat,snapVis]=await Promise.all([
+    getDocs(collection(db,"aulas")),
+    getDocs(collection(db,"materiais_b64")),
+    getDocs(collection(db,"visualizacoes"))
+  ]);
+
+  // Agrupar visualizações por conteudoId
+  const visMap={};
+  const visDetalhes={};
+  snapVis.forEach(d=>{
+    const v=d.data();
+    const cId=v.conteudoId||"";
+    if(!visMap[cId])visMap[cId]=0;
+    visMap[cId]++;
+    if(!visDetalhes[cId])visDetalhes[cId]=[];
+    visDetalhes[cId].push({email:v.email||"—",ts:v.ts?new Date(v.ts.toDate()).toLocaleDateString("pt-PT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):""});
+  });
+
   if(snapAulas.empty&&snapMat.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum conteúdo publicado ainda.</p>";return;}
   div.innerHTML="";
   const ic={video:"🎥",bunny:"🐰",gdrive_video:"📹",pdf:"📄",imagem:"🖼",pdf_b64:"📄",imagem_b64:"🖼️"};
   const TIPO_LABELS={universitario:"Univ.",ensino_medio:"Ens.Médio",mat_basica:"Mat.Básica",fis_basica:"Fís.Básica",medicamentos:"Medicamentos",primeiros:"Primeiros Socorros",minsa:"MINSA"};
-  snapAulas.forEach(d=>{const data=d.data();const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";let sub="—";if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}const tipoTag=data.tipo==="bunny"?"Bunny 🔒":data.tipo==="gdrive_video"?"Drive 📹":data.tipo;div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📁"} ${data.titulo}</p><p class="meta">[${tipoLabel}] ${sec} › ${sub} · ${tipoTag}</p></div><button class="btn-delete" onclick="eliminarAula('${d.id}')">Eliminar</button></div>`;});
-  snapMat.forEach(d=>{const data=d.data();const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";let sub="—";if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}const kb=data.base64?Math.round(data.base64.length*0.75/1024)+"KB":"?";div.innerHTML+=`<div class="aula-card"><div class="aula-info"><p class="titulo">${ic[data.tipo]||"📄"} ${data.titulo} <span style="font-size:10px;color:var(--accent3);">[upload · ${kb}]</span></p><p class="meta">[${tipoLabel}] ${sec} › ${sub} · ${data.nome||""}</p></div><button class="btn-delete" onclick="eliminarMatB64('${d.id}')">Eliminar</button></div>`;});
+
+  function criarCardConteudo(id,titulo,tipo,tipoLabel,sec,sub,extra,cId){
+    const total=visMap[cId]||0;
+    const detalhes=visDetalhes[cId]||[];
+    const visId=`vis-${id}`;
+    const html=`<div class="aula-card" style="flex-direction:column;align-items:flex-start;">
+      <div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:8px;">
+        <div class="aula-info">
+          <p class="titulo">${ic[tipo]||"📁"} ${titulo}${extra||""}</p>
+          <p class="meta">[${tipoLabel}] ${sec} › ${sub}</p>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <span style="font-size:12px;color:var(--accent3);cursor:pointer;background:rgba(0,255,170,0.08);border:1px solid rgba(0,255,170,0.2);border-radius:20px;padding:3px 10px;" onclick="toggleVis('${visId}')">👁 ${total} visualizaç${total===1?'ão':'ões'}</span>
+          <button class="btn-delete" onclick="eliminar_${id.startsWith('m')?'MatB64':'Aula'}('${id}')">Eliminar</button>
+        </div>
+      </div>
+      <div id="${visId}" style="display:none;width:100%;margin-top:10px;background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;font-size:12px;color:var(--muted);max-height:200px;overflow-y:auto;">
+        ${detalhes.length===0?'<p>Nenhuma visualização ainda.</p>':detalhes.map(v=>`<p style="margin-bottom:4px;">📧 ${v.email} · ${v.ts}</p>`).join('')}
+      </div>
+    </div>`;
+    return html;
+  }
+
+  snapAulas.forEach(d=>{
+    const data=d.data();
+    const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";
+    const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";
+    let sub="—";if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}
+    const tipoTag=data.tipo==="bunny"?"Bunny 🔒":data.tipo==="gdrive_video"?"Drive 📹":data.tipo;
+    const cId=data.url||data.titulo;
+    const card=document.createElement("div");
+    card.innerHTML=criarCardConteudo(`a${d.id}`,data.titulo,data.tipo,tipoLabel,sec,`${sub} · ${tipoTag}`,"",cId);
+    // Fix botão eliminar
+    card.querySelector(".btn-delete").onclick=()=>eliminarAula(d.id);
+    div.appendChild(card);
+  });
+
+  snapMat.forEach(d=>{
+    const data=d.data();
+    const sec=NOMES_SECCAO[data.seccao]||data.seccao||"—";
+    const tipoLabel=TIPO_LABELS[data.tipo_curso]||data.tipo_curso||"—";
+    let sub="—";if(data.sub){const partes=data.sub.split("|");sub=partes.length>1?partes.slice(1).join(" › "):partes[0];}
+    const kb=data.base64?Math.round(data.base64.length*0.75/1024)+"KB":"?";
+    const cId=data.nome||data.titulo;
+    const card=document.createElement("div");
+    card.innerHTML=criarCardConteudo(`m${d.id}`,data.titulo,data.tipo,tipoLabel,sec,sub,` <span style="font-size:10px;color:var(--accent3);">[upload · ${kb}]</span>`,cId);
+    card.querySelector(".btn-delete").onclick=()=>eliminarMatB64(d.id);
+    div.appendChild(card);
+  });
 }
+window.toggleVis=function(id){const el=document.getElementById(id);if(el)el.style.display=el.style.display==="none"?"block":"none";}
 window.eliminarAula=async function(id){if(!confirm("Tens a certeza?"))return;await deleteDoc(doc(db,"aulas",id));carregarAulas();}
 window.eliminarMatB64=async function(id){if(!confirm("Eliminar este material?"))return;await deleteDoc(doc(db,"materiais_b64",id));carregarAulas();}
 
 // ── UTILIZADORES ──
-async function eliminarUserCompleto(uid,docId){await deleteDoc(doc(db,"users",docId));try{await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyBBADytEHr9NzwFdGmd-zq26t88Vnl65js`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({idToken:uid})});}catch(e){}try{await addDoc(collection(db,"deleted_users_auth"),{uid,deletedAt:Date.now()});}catch(e){}}
+async function eliminarUserCompleto(uid,docId){await deleteDoc(doc(db,"users",docId));try{await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyBIubOTJKhDxbe6zmP-AXrrXyyrC9UY4Xg`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({idToken:uid})});}catch(e){}try{await addDoc(collection(db,"deleted_users_auth"),{uid,deletedAt:Date.now()});}catch(e){}}
+
 async function carregarUsers(){const div=document.getElementById("users");const snap=await getDocs(collection(db,"users"));if(snap.empty){div.innerHTML="<p style='color:var(--muted);font-size:13px;'>Nenhum utilizador registado ainda.</p>";return;}div.innerHTML="";const agora=Date.now();snap.forEach(u=>{const d=u.data();const uniLabel=d.uni?`${d.uni}${NOMES_UNI[d.uni]?' — '+NOMES_UNI[d.uni]:''}`:"—";const duracaoLabel=d.duracao?(DUR_LABELS[d.duracao]||d.duracao+" dias"):null;const precoLabel=d.preco?parseInt(d.preco).toLocaleString("pt-AO")+" KZ":null;let expiryTs=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);let expiryHtml="";let statusBadge=d.approved?`<span class="badge approved">APROVADO</span>`:`<span class="badge pending">PENDENTE</span>`;if(d.approved&&expiryTs){const dias=Math.ceil((expiryTs-agora)/(1000*60*60*24));const ds=new Date(expiryTs).toLocaleDateString('pt-PT');if(expiryTs<agora){statusBadge=`<span class="badge expired">EXPIRADO</span>`;expiryHtml=`<span class="expiry-expired">⚠️ Expirou em ${ds}</span>`;}else if(dias<=7){expiryHtml=`<span class="expiry-warning">⏳ Expira em ${dias} dia${dias!==1?'s':''} (${ds})</span>`;}else{expiryHtml=`<span style="font-size:11px;color:var(--muted);">⏳ Expira: ${ds}</span>`;}}const durTagHtml=duracaoLabel?`<span class="dur-tag">📅 ${duracaoLabel}</span>`:"";const precoTagHtml=precoLabel?`<span class="preco-tag">💰 ${precoLabel}</span>`:"";div.innerHTML+=`<div class="user-card" id="card-${u.id}"><div class="user-info"><p class="email">${d.email}</p><p class="meta">${d.curso||d.area||"—"} · ${uniLabel}</p><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">${statusBadge}${expiryHtml}</div>${(durTagHtml||precoTagHtml)?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">${durTagHtml}${precoTagHtml}</div>`:""}</div><div class="user-actions" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">${d.temComprovativo?`<button class="btn-edit" onclick="verComprovativo('${u.id}')">🧾 Comprovativo</button>`:''} ${!d.approved?`<button class="btn-approve" onclick="aprovar('${u.id}')">✓ Aprovar</button>`:""} ${d.approved?`<button class="btn-delete" onclick="revogar('${u.id}')">✗ Revogar</button>`:""}<button class="btn-edit" onclick="abrirModal('${u.id}')">✏️ Editar</button><button class="btn-delete" onclick="removerUser('${u.id}','${d.email}')">🗑 Remover</button></div></div>`;});}
-async function verificarExpirados(){const snap=await getDocs(collection(db,"users"));const agora=Date.now();for(const u of snap.docs){const d=u.data();if(!d.approved)continue;const exp=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);if(exp&&agora>=exp){await deleteDoc(doc(db,"users",u.id));try{await addDoc(collection(db,"deleted_users_auth"),{uid:d.uid,email:d.email,deletedAt:agora});}catch(e){}}}carregarUsers();}
+
+async function verificarExpirados(){
+  const snap=await getDocs(collection(db,"users"));
+  const agora=Date.now();
+  for(const u of snap.docs){
+    const d=u.data();
+    if(!d.approved)continue;
+    const exp=d.expiryDate||(d.approvedAt?d.approvedAt+(DUR_MS[d.duracao]||DIAS_DEFAULT):null);
+    if(exp&&agora>=exp){
+      // Enviar email de expiração ANTES de apagar
+      await enviarEmail(
+        d.email,
+        "⚠️ O teu acesso expirou — Universo Quântico",
+        `<div style="font-family:Arial,sans-serif;background:#020818;color:#e2e8f0;padding:40px 20px;max-width:560px;margin:0 auto;border-radius:16px;border:1px solid rgba(239,68,68,0.3);">
+          <h1 style="font-family:monospace;color:#00d4ff;letter-spacing:3px;font-size:22px;margin-bottom:8px;">UNIVERSO QUÂNTICO</h1>
+          <p style="color:#64748b;font-size:12px;letter-spacing:2px;margin-bottom:28px;">Preparatório Virtual com DIATOMA</p>
+          <h2 style="color:#f87171;font-size:18px;margin-bottom:16px;">⚠️ Acesso Expirado</h2>
+          <p style="font-size:15px;line-height:1.7;margin-bottom:20px;">Olá,<br><br>O teu acesso ao <b>Universo Quântico</b> expirou em <b>${new Date(exp).toLocaleDateString("pt-PT")}</b>.</p>
+          <div style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:16px 20px;margin-bottom:24px;">
+            ${d.uni?`<p style="margin:4px 0;font-size:14px;">🎓 Universidade: <b>${d.uni}</b></p>`:""}
+            ${d.curso?`<p style="margin:4px 0;font-size:14px;">📚 Curso: <b>${d.curso}</b></p>`:""}
+          </div>
+          <p style="font-size:15px;line-height:1.7;margin-bottom:24px;">Caso queiras ter acesso novamente ao <b>Universo Quântico</b>, cria novamente a tua conta no site e envia o comprovativo de pagamento. A tua conta será aprovada em breve.</p>
+          <p style="margin-top:28px;font-size:12px;color:#64748b;">Equipa Universo Quântico — DIATOMA 🚀</p>
+        </div>`
+      );
+      await deleteDoc(doc(db,"users",u.id));
+      try{await addDoc(collection(db,"deleted_users_auth"),{uid:d.uid,email:d.email,deletedAt:agora});}catch(e){}
+    }
+  }
+  carregarUsers();
+}
 
 window.aprovar=async function(id){
   const snap=await getDoc(doc(db,"users",id));if(!snap.exists())return;
@@ -667,24 +652,29 @@ window.aprovar=async function(id){
   const duracaoMs=DUR_MS[d.duracao]||DIAS_DEFAULT;
   const expiryDate=approvedAt+duracaoMs;
   await updateDoc(doc(db,"users",id),{approved:true,approvedAt,expiryDate});
-  // Email automático via Brevo
-  const DUR_LABEL_EMAIL={"30":"1 Mês","90":"3 Meses","180":"6 Meses","365":"1 Ano"};
   const duracaoLabel=DUR_LABEL_EMAIL[d.duracao]||d.duracao+" dias";
   const dataExpiry=new Date(expiryDate).toLocaleDateString("pt-PT");
-  try{
-    await fetch("https://brevo-email.universoquantico-ao.workers.dev/",{
-      method:"POST",
-      headers:{"content-type":"application/json"},
-      body:JSON.stringify({
-        sender:{name:"Universo Quântico — DIATOMA",email:"universoquantico.ao@gmail.com"},
-        to:[{email:d.email}],
-        subject:"✅ A tua conta foi aprovada — Universo Quântico",
-        htmlContent:`<div style="font-family:Arial,sans-serif;background:#020818;color:#e2e8f0;padding:40px 20px;max-width:560px;margin:0 auto;border-radius:16px;border:1px solid rgba(0,212,255,0.2);"><h1 style="font-family:monospace;color:#00d4ff;letter-spacing:3px;font-size:22px;margin-bottom:8px;">UNIVERSO QUÂNTICO</h1><p style="color:#64748b;font-size:12px;letter-spacing:2px;margin-bottom:28px;">Preparatório Virtual com DIATOMA</p><h2 style="color:#00ffaa;font-size:18px;margin-bottom:16px;">✅ Conta Aprovada!</h2><p style="font-size:15px;line-height:1.7;margin-bottom:20px;">Olá,<br><br>A tua conta no <b>Universo Quântico</b> foi <b style="color:#00ffaa;">aprovada</b> com sucesso! Já podes aceder às tuas aulas.</p><div style="background:rgba(0,212,255,0.07);border:1px solid rgba(0,212,255,0.2);border-radius:10px;padding:16px 20px;margin-bottom:24px;">${d.uni?`<p style="margin:4px 0;font-size:14px;">🎓 Universidade: <b>${d.uni}</b></p>`:""} ${d.curso?`<p style="margin:4px 0;font-size:14px;">📚 Curso: <b>${d.curso}</b></p>`:""}<p style="margin:4px 0;font-size:14px;">📅 Duração: <b>${duracaoLabel}</b></p><p style="margin:4px 0;font-size:14px;">⏳ Válido até: <b style="color:#00d4ff;">${dataExpiry}</b></p></div><a href="https://universoquanticoao.github.io/com/login.html" style="display:inline-block;background:#00d4ff;color:#020818;padding:14px 32px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;letter-spacing:1px;">ACEDER ÀS AULAS →</a><p style="margin-top:28px;font-size:12px;color:#64748b;">Sehttps://brevo-email.universoquantico-ao.workers.dev/ tiveres dúvidas, envia uma mensagem pelo chat dentro da plataforma.<br><br>Bons estudos! 🚀</p></div>`
-      })
-    });
-  }catch(e){console.error("Erro ao enviar email:",e);}
+  await enviarEmail(
+    d.email,
+    "✅ A tua conta foi aprovada — Universo Quântico",
+    `<div style="font-family:Arial,sans-serif;background:#020818;color:#e2e8f0;padding:40px 20px;max-width:560px;margin:0 auto;border-radius:16px;border:1px solid rgba(0,212,255,0.2);">
+      <h1 style="font-family:monospace;color:#00d4ff;letter-spacing:3px;font-size:22px;margin-bottom:8px;">UNIVERSO QUÂNTICO</h1>
+      <p style="color:#64748b;font-size:12px;letter-spacing:2px;margin-bottom:28px;">Preparatório Virtual com DIATOMA</p>
+      <h2 style="color:#00ffaa;font-size:18px;margin-bottom:16px;">✅ Conta Aprovada!</h2>
+      <p style="font-size:15px;line-height:1.7;margin-bottom:20px;">Olá,<br><br>A tua conta no <b>Universo Quântico</b> foi <b style="color:#00ffaa;">aprovada</b> com sucesso! Já podes aceder às tuas aulas.</p>
+      <div style="background:rgba(0,212,255,0.07);border:1px solid rgba(0,212,255,0.2);border-radius:10px;padding:16px 20px;margin-bottom:24px;">
+        ${d.uni?`<p style="margin:4px 0;font-size:14px;">🎓 Universidade: <b>${d.uni}</b></p>`:""}
+        ${d.curso?`<p style="margin:4px 0;font-size:14px;">📚 Curso: <b>${d.curso}</b></p>`:""}
+        <p style="margin:4px 0;font-size:14px;">📅 Duração: <b>${duracaoLabel}</b></p>
+        <p style="margin:4px 0;font-size:14px;">⏳ Válido até: <b style="color:#00d4ff;">${dataExpiry}</b></p>
+      </div>
+      <a href="${SITE_URL}" style="display:inline-block;background:#00d4ff;color:#020818;padding:14px 32px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;letter-spacing:1px;">ACEDER ÀS AULAS →</a>
+      <p style="margin-top:28px;font-size:12px;color:#64748b;">Se tiveres dúvidas, envia uma mensagem pelo chat dentro da plataforma.<br><br>Bons estudos! 🚀</p>
+    </div>`
+  );
   carregarUsers();
 }
+
 window.revogar=async function(id){if(!confirm("Revogar acesso?"))return;await updateDoc(doc(db,"users",id),{approved:false});carregarUsers();}
 window.removerUser=async function(docId,email){if(!confirm(`Remover permanentemente ${email}?`))return;const snap=await getDoc(doc(db,"users",docId));const uid=snap.exists()?snap.data().uid:null;await eliminarUserCompleto(uid||docId,docId);carregarUsers();}
 let editingDocId=null;
