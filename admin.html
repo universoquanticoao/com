@@ -535,7 +535,7 @@ async function carregarAulas(){
   const [snapAulas,snapMat,snapVis]=await Promise.all([
     getDocs(collection(db,"aulas")),
     getDocs(collection(db,"materiais_b64")),
-    getDocs(collection(db,"visualizacoes"))
+    getDocs(collection(db,"visualizacoes")).catch(()=>({forEach:()=>{},empty:true}))
   ]);
 
   // Agrupar visualizações por conteudoId
