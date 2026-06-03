@@ -680,7 +680,92 @@ window.removerUser=async function(docId,email){if(!confirm(`Remover permanenteme
 let editingDocId=null;
 
 // ── COMPROVATIVO ──
-window.verComprovativo=async function(docId){const snap=await getDoc(doc(db,"comprovativosDocs",docId));if(!snap.exists()||!snap.data().base64){alert("Sem comprovativo.");return;}const d=snap.data();const isPdf=d.tipo==="application/pdf";const existing=document.getElementById("comprovModal");if(existing)existing.remove();const ext=isPdf?"pdf":(d.tipo==="image/png"?"png":"jpg");const nomeDownload=d.nome||`comprovativo_${docId}.${ext}`;let hiddenStore=document.getElementById("comprovB64Store");if(!hiddenStore){hiddenStore=document.createElement("div");hiddenStore.id="comprovB64Store";hiddenStore.style.display="none";document.body.appendChild(hiddenStore);}hiddenStore.setAttribute("data-b64",d.base64);hiddenStore.setAttribute("data-nome",nomeDownload);hiddenStore.setAttribute("data-tipo",d.tipo||"image/jpeg");const overlay=document.createElement("div");overlay.id="comprovModal";overlay.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:3000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px;overflow-y:auto;";overlay.innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%;max-width:700px;"><button onclick="downloadComprovativo()" style="background:linear-gradient(135deg,#00d4ff,#0099cc);color:#020818;border:none;border-radius:10px;padding:12px 24px;font-family:'Orbitron',monospace;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;flex:1;">⬇️ DESCARREGAR</button><button onclick="document.getElementById('comprovModal').remove()" style="background:rgba(255,255,255,0.05);color:#e2e8f0;border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 24px;font-family:'Orbitron',monospace;font-size:13px;cursor:pointer;flex:1;">✕ FECHAR</button></div>${isPdf?`<iframe src="${d.base64}" style="width:min(700px,95vw);height:75vh;border:none;border-radius:12px;background:#fff;"></iframe>`:`<img src="${d.base64}" style="max-width:min(700px,95vw);max-height:75vh;border-radius:12px;object-fit:contain;" onclick="event.stopPropagation()">`}`;overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.remove();});document.body.appendChild(overlay);}
+window.verComprovativo=async function(docId){
+  const snap=await getDoc(doc(db,"comprovativosDocs",docId));
+  if(!snap.exists()||!snap.data().base64){alert("Sem comprovativo.");return;}
+  const d=snap.data();
+  const isPdf=d.tipo==="application/pdf";
+  const ext=isPdf?"pdf":(d.tipo==="image/png"?"png":"jpg");
+  const nomeDownload=d.nome||`comprovativo_${docId}.${ext}`;
+
+  // Guardar para download
+  let hiddenStore=document.getElementById("comprovB64Store");
+  if(!hiddenStore){hiddenStore=document.createElement("div");hiddenStore.id="comprovB64Store";hiddenStore.style.display="none";document.body.appendChild(hiddenStore);}
+  hiddenStore.setAttribute("data-b64",d.base64);
+  hiddenStore.setAttribute("data-nome",nomeDownload);
+  hiddenStore.setAttribute("data-tipo",d.tipo||"image/jpeg");
+
+  const existing=document.getElementById("comprovModal");
+  if(existing)existing.remove();
+
+  const overlay=document.createElement("div");
+  overlay.id="comprovModal";
+  overlay.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:3000;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px;overflow-y:auto;";
+
+  const btns=`<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%;max-width:700px;position:sticky;top:0;z-index:1;padding:8px 0;">
+    <button onclick="downloadComprovativo()" style="background:linear-gradient(135deg,#00d4ff,#0099cc);color:#020818;border:none;border-radius:10px;padding:12px 24px;font-family:'Orbitron',monospace;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;flex:1;">⬇️ DESCARREGAR</button>
+    <button onclick="document.getElementById('comprovModal').remove()" style="background:rgba(255,255,255,0.05);color:#e2e8f0;border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 24px;font-family:'Orbitron',monospace;font-size:13px;cursor:pointer;flex:1;">✕ FECHAR</button>
+  </div>`;
+
+  const conteudoDiv=document.createElement("div");
+  conteudoDiv.id="comprovConteudo";
+  conteudoDiv.style.cssText="width:min(700px,95vw);display:flex;flex-direction:column;gap:12px;";
+
+  overlay.innerHTML=btns;
+  overlay.appendChild(conteudoDiv);
+  overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.remove();});
+  document.body.appendChild(overlay);
+
+  if(!isPdf){
+    // Imagem — mostrar directamente
+    const img=document.createElement("img");
+    img.src=d.base64;
+    img.style.cssText="width:100%;border-radius:12px;object-fit:contain;";
+    conteudoDiv.appendChild(img);
+  } else {
+    // PDF — renderizar páginas com PDF.js
+    conteudoDiv.innerHTML=`<p style="color:#64748b;font-size:13px;text-align:center;">A carregar PDF...</p>`;
+    try{
+      // Carregar PDF.js se ainda não estiver carregado
+      if(!window.pdfjsLib){
+        await new Promise((res,rej)=>{
+          const s=document.createElement("script");
+          s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+          s.onload=res;s.onerror=rej;
+          document.head.appendChild(s);
+        });
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      }
+      // Converter base64 para Uint8Array
+      const base64Data=d.base64.split(",")[1];
+      const raw=atob(base64Data);
+      const arr=new Uint8Array(raw.length);
+      for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);
+      const pdf=await pdfjsLib.getDocument({data:arr}).promise;
+      conteudoDiv.innerHTML="";
+      for(let p=1;p<=pdf.numPages;p++){
+        const page=await pdf.getPage(p);
+        const scale=2; // alta resolução
+        const vp=page.getViewport({scale});
+        const canvas=document.createElement("canvas");
+        canvas.width=vp.width;
+        canvas.height=vp.height;
+        canvas.style.cssText="width:100%;border-radius:10px;display:block;background:#fff;";
+        if(pdf.numPages>1){
+          const lbl=document.createElement("p");
+          lbl.style.cssText="color:#64748b;font-size:11px;text-align:center;margin:0;";
+          lbl.innerText=`Página ${p} de ${pdf.numPages}`;
+          conteudoDiv.appendChild(lbl);
+        }
+        conteudoDiv.appendChild(canvas);
+        await page.render({canvasContext:canvas.getContext("2d"),viewport:vp}).promise;
+      }
+    }catch(err){
+      conteudoDiv.innerHTML=`<p style="color:#f87171;font-size:13px;text-align:center;">Erro ao carregar PDF. Usa o botão Descarregar.</p>`;
+      console.error(err);
+    }
+  }
+}
 window.downloadComprovativo=async function(){const store=document.getElementById("comprovB64Store");if(!store)return;const base64=store.getAttribute("data-b64");const nome=store.getAttribute("data-nome");if(!base64)return;const res=await fetch(base64);const blob=await res.blob();const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=nome;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}
 window.verificarExpirados=verificarExpirados;
 window.carregarUsers=carregarUsers;
