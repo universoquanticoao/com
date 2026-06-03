@@ -72,12 +72,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .c-title{font-family:'Orbitron',monospace;font-size:14px;font-weight:600;letter-spacing:1px;}
 .btn-download{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);border-radius:8px;padding:6px 14px;font-size:12px;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:1px;cursor:pointer;transition:0.3s;white-space:nowrap;}
 .btn-download:hover{background:rgba(0,212,255,0.2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,212,255,0.2);}
-.video-player-wrap{position:relative;width:100%;background:#000;border-radius:10px;overflow:hidden;user-select:none;}
-.video-player-wrap iframe{width:100%;aspect-ratio:16/9;display:block;border:none;pointer-events:auto;}
-.vp-controls{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(2,8,24,0.92);border-top:1px solid rgba(0,212,255,0.1);}
-.vp-title{flex:1;font-family:'Orbitron',monospace;font-size:11px;letter-spacing:1px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.vp-fullscreen-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);font-size:13px;cursor:pointer;padding:5px 12px;border-radius:6px;transition:0.2s;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:1px;white-space:nowrap;}
-.vp-fullscreen-btn:hover{background:rgba(0,212,255,0.2);}
+.video-iframe{width:100%;aspect-ratio:16/9;display:block;border:none;border-radius:10px;overflow:hidden;}
 .pdf-b64-wrap{width:100%;border-radius:10px;overflow:hidden;border:1px solid rgba(0,212,255,0.1);background:rgba(0,0,0,0.2);}
 .pdf-page-canvas{width:100%;display:block;margin-bottom:4px;}
 .pdf-loading{text-align:center;padding:30px;color:var(--muted);font-size:13px;font-family:'Orbitron',monospace;letter-spacing:1px;}
@@ -277,29 +272,6 @@ window.downloadBase64=function(base64,nome){
 };
 
 window.abrirImgLightbox=function(src){document.getElementById('imgLightboxSrc').src=src;document.getElementById('imgLightbox').classList.add('open');};
-
-// ── PLAYER DE VÍDEO PERSONALIZADO ──
-function criarPlayerVideo(url,tipo,titulo){
-  const wrap=document.createElement('div');wrap.className='video-player-wrap';
-  const iframe=document.createElement('iframe');
-  iframe.style.cssText='width:100%;aspect-ratio:16/9;display:block;border:none;';
-  iframe.allowFullscreen=true;iframe.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';iframe.loading='lazy';
-  if(tipo==='bunny'){iframe.src=url.split('?')[0]+'?autoplay=false&preload=false&muted=false';}
-  else if(tipo==='video'){iframe.src=url.includes('?')?url+'&rel=0&modestbranding=1':url+'?rel=0&modestbranding=1';}
-  else if(tipo==='gdrive_video'){iframe.src=url;}
-  wrap.appendChild(iframe);
-  const controls=document.createElement('div');controls.className='vp-controls';
-  const titleEl=document.createElement('div');titleEl.className='vp-title';titleEl.innerText=titulo;
-  const fsBtn=document.createElement('button');fsBtn.className='vp-fullscreen-btn';fsBtn.innerHTML='⛶ Ecrã inteiro';
-  fsBtn.onclick=()=>{
-    if(iframe.requestFullscreen)iframe.requestFullscreen();
-    else if(iframe.webkitRequestFullscreen)iframe.webkitRequestFullscreen();
-    else if(iframe.mozRequestFullScreen)iframe.mozRequestFullScreen();
-    else{wrap.style.position='fixed';wrap.style.inset='0';wrap.style.zIndex='9999';wrap.style.borderRadius='0';iframe.style.height='100vh';fsBtn.innerHTML='✕ Fechar';fsBtn.onclick=()=>{wrap.style.position='';wrap.style.inset='';wrap.style.zIndex='';wrap.style.borderRadius='10px';iframe.style.height='';fsBtn.innerHTML='⛶ Ecrã inteiro';fsBtn.onclick=null;};}
-  };
-  controls.appendChild(titleEl);controls.appendChild(fsBtn);wrap.appendChild(controls);
-  return wrap;
-}
 </script>
 
 <script type="module">
@@ -442,9 +414,10 @@ async function mostrarConteudo(s,sub,fromUni){
     } else {
       const isVideo=TIPOS_VIDEO.includes(data.tipo);
       if(isVideo){
-        card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">🎥</span><span class="c-title">${data.titulo}</span></div></div>`;
-        const player=criarPlayerVideo(data.url,data.tipo,data.titulo);
-        card.appendChild(player);
+        let src=data.url;
+        if(data.tipo==='bunny')src=data.url.split('?')[0]+'?autoplay=false&preload=false&muted=false';
+        else if(data.tipo==='video')src=data.url.includes('?')?data.url+'&rel=0&modestbranding=1':data.url+'?rel=0&modestbranding=1';
+        card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">🎥</span><span class="c-title">${data.titulo}</span></div></div><iframe class="video-iframe" src="${src}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture; fullscreen" loading="lazy"></iframe>`;
         registarVis(cId,data.titulo,data.tipo);
       }else if(data.tipo==="pdf"){
         card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">📄</span><span class="c-title">${data.titulo}</span></div></div><div class="pdf-wrap"><iframe src="${data.url}" allowfullscreen></iframe></div>`;
