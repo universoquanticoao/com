@@ -395,13 +395,28 @@ async function mostrarConteudo(s,sub,fromUni){
     if(data._fonte==='b64'){
       const nome=data.nome||data.titulo+(data.tipo==='pdf_b64'?'.pdf':'.jpg');
       if(data.tipo==="pdf_b64"){
-        card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">📄</span><span class="c-title">${data.titulo}</span></div></div><div class="pdf-b64-wrap"><div class="pdf-loading">A carregar PDF...</div></div>`;
-        const dlBtn=document.createElement("button");dlBtn.className="btn-download";dlBtn.innerText="⬇️ Download";dlBtn.onclick=()=>downloadBase64(data.base64,nome);
-        card.querySelector(".c-header").appendChild(dlBtn);
-        lista.appendChild(card);
-        renderPdfB64(data.base64,card.querySelector(".pdf-b64-wrap"));
-        registarVis(cId,data.titulo,'pdf_b64');
-        return;
+        card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">📄</span><span class="c-title">${data.titulo}</span></div></div><div class="pdf-b64-wrap" style="display:none;"></div><button class="btn-download btn-ver-pdf" style="width:100%;margin-top:4px;padding:12px;justify-content:center;">👁️ Ver PDF</button>`;
+const dlBtn=document.createElement("button");dlBtn.className="btn-download";dlBtn.innerText="⬇️ Download";dlBtn.onclick=()=>downloadBase64(data.base64,nome);
+card.querySelector(".c-header").appendChild(dlBtn);
+const wrap=card.querySelector(".pdf-b64-wrap");
+const btnVer=card.querySelector(".btn-ver-pdf");
+let carregado=false;
+btnVer.onclick=()=>{
+  if(!carregado){
+    carregado=true;
+    btnVer.innerText="⏳ A carregar...";
+    btnVer.disabled=true;
+    wrap.style.display="block";
+    wrap.innerHTML=`<div class="pdf-loading">A carregar PDF...</div>`;
+    renderPdfB64(data.base64,wrap).then(()=>{btnVer.style.display="none";}).catch(()=>{btnVer.innerText="⚠️ Erro — tenta novamente";btnVer.disabled=false;});
+  } else {
+    wrap.style.display=wrap.style.display==="none"?"block":"none";
+    btnVer.innerText=wrap.style.display==="none"?"👁️ Ver PDF":"🔼 Fechar PDF";
+  }
+};
+lista.appendChild(card);
+registarVis(cId,data.titulo,'pdf_b64');
+return;
       }else if(data.tipo==="imagem_b64"){
         card.innerHTML=`<div class="c-header"><div class="c-header-left"><span class="c-icon">🖼️</span><span class="c-title">${data.titulo}</span></div></div><div class="img-b64-wrap"><img src="${data.base64}" alt="${data.titulo}"></div>`;
         const imgWrap=card.querySelector(".img-b64-wrap");imgWrap.onclick=()=>abrirImgLightbox(data.base64);
